@@ -1,6 +1,6 @@
-document.getElementById("profile-icon").addEventListener("click", function () {
-  window.location.href = "login.html";
-});
+// document.getElementById("profile-icon").addEventListener("click", function () {
+//   window.location.href = "login.html";
+// });
 
 //الاخفاء  من اول ميحمل
 AOS.init();
@@ -155,62 +155,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   });
-  //zoom image
-  const img = document.querySelector("#product-image");
-  const lens = document.querySelector(".zoom-lens");
-  const container = document.querySelector(".content-products .images");
 
-  function moveLens(event) {
-    let x, y;
+});
 
-    if (event.touches) {
-      let touch = event.touches[0];
-      x = touch.clientX;
-      y = touch.clientY;
-    } else {
-      x = event.clientX;
-      y = event.clientY;
+  document.addEventListener("DOMContentLoaded", function () {
+    const img = document.querySelector("#product-image");
+    const lens = document.querySelector(".zoom-lens");
+    const container = document.querySelector(".content-products .images");
+
+    if (!img || !lens || !container) {
+        console.error("❌ بعض العناصر غير موجودة في الصفحة، تأكد من HTML.");
+        return;
     }
 
-    let rect = img.getBoundingClientRect();
-    let offsetX = x - rect.left;
-    let offsetY = y - rect.top;
+    function moveLens(event) {
+        let x, y;
+        if (event.touches) {
+            let touch = event.touches[0];
+            x = touch.clientX;
+            y = touch.clientY;
+        } else {
+            x = event.clientX;
+            y = event.clientY;
+        }
 
-    let percentX = (offsetX / rect.width) * 100;
-    let percentY = (offsetY / rect.height) * 100;
+        let rect = img.getBoundingClientRect();
+        let offsetX = x - rect.left;
+        let offsetY = y - rect.top;
 
-    lens.style.left = `${offsetX - lens.offsetWidth / 2}px`;
-    lens.style.top = `${offsetY - lens.offsetHeight / 2}px`;
-    lens.style.backgroundImage = `url('${img.src}')`;
-    lens.style.backgroundPosition = `${percentX}% ${percentY}%`;
-    lens.style.display = "block";
-  }
+        let percentX = (offsetX / rect.width) * 100;
+        let percentY = (offsetY / rect.height) * 100;
 
-  function hideLens() {
-    lens.style.display = "none";
-  }
-
-  container.addEventListener("touchmove", moveLens);
-  container.addEventListener("mousemove", moveLens);
-  container.addEventListener("touchend", hideLens);
-  container.addEventListener("mouseleave", hideLens);
-
-  // counter functionality
-  const decrementBtn = document.getElementById("decrement");
-  const incrementBtn = document.getElementById("increment");
-  const counterValue = document.getElementById("counterValue");
-
-  decrementBtn.addEventListener("click", function () {
-    let value = parseInt(counterValue.value, 10);
-    if (value > parseInt(counterValue.min, 10)) {
-      counterValue.value = value - 1;
+        lens.style.left = `${offsetX - lens.offsetWidth / 2}px`;
+        lens.style.top = `${offsetY - lens.offsetHeight / 2}px`;
+        lens.style.backgroundImage = `url('${img.src}')`;
+        lens.style.backgroundPosition = `${percentX}% ${percentY}%`;
+        lens.style.display = "block";
     }
-  });
 
-  incrementBtn.addEventListener("click", function () {
-    let value = parseInt(counterValue.value, 10);
-    counterValue.value = value + 1;
-  });
+    function hideLens() {
+        lens.style.display = "none";
+    }
+
+    // إضافة الأحداث فقط إذا كان `container` موجودًا
+    container.addEventListener("touchmove", moveLens);
+    container.addEventListener("mousemove", moveLens);
+    container.addEventListener("touchend", hideLens);
+    container.addEventListener("mouseleave", hideLens);
 });
 
 
@@ -1843,9 +1834,7 @@ const pages = {
     },
   ],
 };
-
-
-
+// export { pages };
 
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
@@ -1867,6 +1856,20 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("product-price").textContent = product.price;
       document.getElementById("product-sku").textContent = product.ProductCode;
       document.getElementById("description").textContent = product.longDescription;
+
+      // تحديث الزر "Add to Cart" مع الـ data-id الخاص بالمنتج
+      const addToCartButton = document.querySelector(".shopping-cart");
+      if (addToCartButton) {
+        addToCartButton.setAttribute("data-id", product.ProductCode); // تعيين الـ ProductCode الصحيح للـ Cart
+      }
+
+      // تحديث الزر "Add to Wishlist" مع الـ data-product-id الخاص بالمنتج
+      const addToWishlistButton = document.querySelector(".wishlist-button");
+      if (addToWishlistButton) {
+        addToWishlistButton.setAttribute("data-product-id", product.ProductCode); // تعيين الـ ProductCode للـ Wishlist
+      }
+
+
 
       // تحديث الفئة (Category) مع الرابط
       const categoryElement = document.querySelector(".tags p:nth-child(2) a");
@@ -1980,53 +1983,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
-// document.addEventListener("DOMContentLoaded", function () {
-//   const cartPopup = document.getElementById("cart-popup");
-//   const closePopup = document.querySelector(".close-popup");
-//   const continueShopping = document.getElementById("continue-shopping");
-//   const cartItemsCount = document.getElementById("cart-items-count");
-//   const addToCartButtons = document.querySelector("shopping-cart");
 
-//   let cart = [];
-
-//   // استرجاع السلة من LocalStorage عند تحميل الصفحة
-//   if (localStorage.getItem("cart")) {
-//       cart = JSON.parse(localStorage.getItem("cart"));
-//   }
-
-//   addToCartButtons.forEach(button => {
-//       button.addEventListener("click", function () {
-//           let productId = this.getAttribute("data-id");
-//           let productName = this.getAttribute("data-name");
-//           let productPrice = parseFloat(this.getAttribute("data-price"));
-
-//           let product = {
-//               id: productId,
-//               name: productName,
-//               price: productPrice
-//           };
-
-//           cart.push(product);
-//           localStorage.setItem("cart", JSON.stringify(cart));
-
-//           // تحديث عدد المنتجات في النافذة
-//           let totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
-//           cartItemsCount.innerHTML = `${cart.length} ITEMS IN THE CART ($${totalPrice.toFixed(2)})`;
-
-//           // إظهار النافذة
-//           cartPopup.style.display = "block";
-//       });
-//   });
-
-//   // إغلاق النافذة
-//   closePopup.addEventListener("click", function () {
-//       cartPopup.style.display = "none";
-//   });
-
-//   continueShopping.addEventListener("click", function () {
-//       cartPopup.style.display = "none";
-//   });
-// });
 
 let currentPage = 1;
 const itemsPerPage = 6;
@@ -2056,6 +2013,7 @@ function nextPage() {
     updatePagination();
   }
 }
+
 
 function updatePagination() {
   const paginationNumbers = document.getElementById("pagination-numbers");
@@ -2115,6 +2073,21 @@ function renderPage() {
   changePage(currentPage);
 }
 
+// ===============================
+
+// main.js
+document.querySelectorAll('.add-to-cart-button').forEach(button => {
+  button.addEventListener('click', (event) => {
+      addProductToCart(event);  // استدعاء دالة من ملف products.js
+  });
+});
+
+document.querySelectorAll('.add-to-wishlist-button').forEach(button => {
+  button.addEventListener('click', (event) => {
+      addProductToWishlist(event);  // استدعاء دالة من ملف products.js
+  });
+});
+// =================================
 function changePage(page) {
   const container = document.getElementById("product-container");
   container.innerHTML = ""; // مسح المحتوى الحالي
@@ -2131,11 +2104,13 @@ function changePage(page) {
           <h2>${product.title}</h2>
           <span>${product.price}</span>
         </div>
-        <div class="event">
-          <a href="#"
-            ><i class="fas fa-cart-plus" data-text="Add To Cart"></i
-          ></a>
-          <a href="#"><i class="fas fa-heart" data-text="WatchList"></i></a>
+        <div class="event" data-product-id="${product.ProductCode}">
+            <a onclick="addProductToCart(event)">
+                <i class="fas fa-cart-plus" data-text="Add To Cart"></i>
+            </a>
+            <a onclick="addProductToWishlist(event)" data-product-id="${product.ProductCode}">
+                <i class="fas fa-heart" data-text="WatchList"></i>
+            </a>
         </div>
         ${
           product.discount
@@ -2146,6 +2121,16 @@ function changePage(page) {
     container.appendChild(productDiv);
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    renderPage();
+    updatePagination();
+    changePage(1);
+  });
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   // استخراج الفئة من رابط الصفحة
   const urlParams = new URLSearchParams(window.location.search);
@@ -2183,10 +2168,14 @@ function displayProducts(products) {
             <h2>${product.title}</h2>
             <span>${product.price}</span>
           </div>
-          <div class="event">
-            <a href="#"><i class="fas fa-cart-plus" data-text="Add To Cart"></i></a>
-            <a href="#"><i class="fas fa-heart" data-text="WatchList"></i></a>
-          </div>
+          <div class="event" data-product-id="${product.ProductCode}">
+            <a onclick="addProductToCart(event)">
+                <i class="fas fa-cart-plus" data-text="Add To Cart"></i>
+            </a>
+            <a onclick="addProductToWishlist(event)" data-product-id="${product.ProductCode}">
+                <i class="fas fa-heart" data-text="WatchList"></i>
+            </a>
+        </div>
           ${
             product.discount
               ? `<div class="discount">-${product.discount}</div>`
@@ -2198,9 +2187,8 @@ function displayProducts(products) {
   });
 }
 // تحميل الصفحة الأولى عند فتح الموقع
-changePage(1);
-renderPage();
-updatePagination();
+
+
 
 function filterProductsByGenderCategoryAndSubcategory(gender = "all", category = "all", subCategory = "all") {
   const productContainer = document.getElementById("product-container");
@@ -2252,9 +2240,13 @@ function filterProductsByGenderCategoryAndSubcategory(gender = "all", category =
           <h2>${product.title}</h2>
           <span>${product.price}</span>
         </div>
-        <div class="event">
-          <a href="#"><i class="fas fa-cart-plus" data-text="Add To Cart"></i></a>
-          <a href="#"><i class="fas fa-heart" data-text="WatchList"></i></a>
+        <div class="event" data-product-id="${product.ProductCode}">
+            <a onclick="addProductToCart(event)">
+                <i class="fas fa-cart-plus" data-text="Add To Cart"></i>
+            </a>
+            <a onclick="addProductToWishlist(event)" data-product-id="${product.ProductCode}">
+                <i class="fas fa-heart" data-text="WatchList"></i>
+            </a>
         </div>
         ${product.discount ? `<div class="discount">-${product.discount}%</div>` : ""}
       </div>
@@ -2285,48 +2277,4 @@ document.querySelectorAll(".toggle").forEach((toggle) => {
     toggle.textContent = target.classList.contains("open") ? "-" : "+";
   });
 });
-
-// function showAllProducts() {
-//   const productContainer = document.getElementById("product-container");
-//   const paginationContainer = document.querySelector(".pagination-container");
-
-//   productContainer.innerHTML = ""; // مسح المنتجات الحالية
-
-//   if (paginationContainer) {
-//     paginationContainer.style.display = "none";
-//   }
-
-//   // جمع جميع المنتجات من جميع الصفحات
-//   const allProducts = Object.values(pages).flat();
-
-//   // عرض جميع المنتجات بدون تصفية
-//   allProducts.forEach((product) => {
-//     const productElement = `
-//         <div class="image">
-//         <a href="details.html?id=${product.ProductCode}">
-//           <img src="${product.img}" alt="${product.alt}" />
-//         </a>
-//         <div class="content">
-//           <a href="products.html?category=${encodeURIComponent(product.category)}">
-//             ${product.category}
-//           </a>
-//           <h2>${product.title}</h2>
-//           <span>${product.price}</span>
-//         </div>
-//         <div class="event">
-//           <a href="#"><i class="fas fa-cart-plus" data-text="Add To Cart"></i></a>
-//           <a href="#"><i class="fas fa-heart" data-text="WatchList"></i></a>
-//         </div>
-//         ${
-//           product.discount
-//             ? `<div class="discount">-${product.discount}</div>`
-//             : ""
-//         }
-//       </div>
-//     `;
-//     productContainer.innerHTML += productElement;
-//   });
-// }
-
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

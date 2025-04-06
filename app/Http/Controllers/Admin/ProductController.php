@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products= Product::latest('id')->paginate(10);
+       $products= Product::all();
        return view('dashboard.products.index',compact('products'));
     }
 
@@ -98,14 +98,22 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-      File::delete( public_path('images/'.$product->image->path));
-      foreach($product->gallery as $img){
-        File::delete( public_path('images/'.$img->path));
-      }
-      $product->delete();
-      return redirect()
-      ->route('admin.Products.index')
-      ->with('msg','Product deleted successfully')
-      ->with('type','danger');
+
+        if ($product->image) {
+            File::delete(public_path('images/' . $product->image->path));
+        }
+
+        if ($product->gallery) {
+            foreach ($product->gallery as $img) {
+                File::delete(public_path('images/' . $img->path));
+            }
+        }
+
+        $product->delete();
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('msg', 'Product deleted successfully')
+            ->with('type', 'danger');
     }
 }

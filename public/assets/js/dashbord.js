@@ -1,4 +1,16 @@
 window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('file-upload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('profile-image').src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    });
+window.addEventListener('DOMContentLoaded', () => {
     const sideMenu = document.querySelector("aside");
     const menuBtn = document.getElementById("menu-btn");
     const closeBtn = document.getElementById("closeBtn2");
@@ -44,6 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // ======= Password visibility toggle =======
     const passwordAccess = (loginPass, loginEye) => {
         const input = document.getElementById(loginPass);
@@ -75,12 +88,12 @@ window.addEventListener('DOMContentLoaded', () => {
 //     document.querySelector('table tbody').appendChild(tr);
 // });
 const orders = [{
-  
+
     category: "Accessories",
     title: "Elegant leather watch",
     price: "$120.00",
     ProductCode: "Acc-M-053",
- 
+
   },
   {
 
@@ -88,37 +101,37 @@ const orders = [{
     title: "Grey sports tracksuit ",
     price: "$150.00",
     ProductCode: "Clot-M-054",
-    
+
   },
   {
-    
+
     category: "HandBag",
     title: "Large size luxury leather bag",
     price: "$65.00",
     ProductCode: "Hand-M-055",
-     
+
   },
   {
     category: "Accessories",
     title: "Elegant ring",
     price: "$25.00",
     ProductCode: "Acc-M-056",
-     
+
   },
   {
-     
+
     category: "MakeUp",
     title: "Colorful eyeshadow palette",
     price: "$40.00",
     ProductCode: "Make-W-057",
   },
   {
- 
+
     category: "Shoes",
     title: "Comfortable low heel shoe",
     price: "$75.00",
     ProductCode: "Sho-W-058",
-  
+
   }];
 
   document.querySelectorAll(".menu-item").forEach((item) => {
@@ -165,5 +178,5 @@ const orders = [{
 
 
 
-  
- 
+
+

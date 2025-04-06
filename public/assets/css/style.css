@@ -12,7 +12,7 @@
     --color-primary: var(--main-color);
   --color-danger: var(--little-par);
   --color-success: #41f1b6;
-  --color-warning: #000000;
+  --color-warning: var(--little-use-color);
   --color-info-dark: #7d8da1;
   --color-info-light: #dce1ed;
   --color-dark: #363949;
@@ -40,6 +40,15 @@
     --border-form: 1px solid rgba(255, 255, 255, 0.516);
   --color-warning:#ffffff;
 
+  }
+  .input-box input:-webkit-autofill,
+  .input-box input:-webkit-autofill:hover,
+  .input-box input:-webkit-autofill:focus,
+  .input-box input:-webkit-autofill:active {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: var(--little-par);
+      transition: background-color 5000s ease-in-out 0s;
+      box-shadow: inset 0 0 20px 20px transparent;
   }
   table {
     width: 100%;
@@ -547,6 +556,9 @@ a {
   .dashboard main .recent-orders table:hover {
     box-shadow: none;
   }
+  .dashboard main .recent-orders table tr td:first-child{
+    color: var(--header-color);
+  }
   .dashboard main table tbody td {
     height: 2.8rem;
     border-bottom: 1px solid var(--color-light);
@@ -974,15 +986,35 @@ a {
   .admin-profile h1 {
     font-size: 2.8rem;
     text-align: start;
-    margin-bottom: 20px;
+    margin-top: 18px;
   }
 
   .admin-profile .profile-img {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+    cursor: pointer;
+    position: relative;
+    transition: all .5s ;
 
+  }
+  .custom-file-upload {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--main-color);
+    border-radius: 50%;
+    padding: 9px;
+    cursor: pointer;
+    z-index: 2;
+    display: none;
+}
+
+.custom-file-upload:hover {
+    background-color: var(--little-par);
+
+}
   .admin-profile .profile-img img {
     border-radius: 50%;
     width: 100%;
@@ -990,7 +1022,20 @@ a {
     border: 3px solid var(--color-light);
     margin: 10px;
     padding: 4px;
+    object-fit: cover;
+    position: relative;
+    transition: all .5s ;
+
   }
+
+  .profile-img:hover .custom-file-upload
+  {
+    display: flex;
+
+  }
+
+
+
 
   .admin-profile .form,
   .addProduct .form {
@@ -1687,17 +1732,25 @@ a {
     cursor: pointer;
     z-index: 10;
   }
-  .admin-login .login__forgot {
-    display: block;
-    width: max-content;
-    margin: 1rem 6rem 0 auto;
+  .remember a{
+    color: hsl(220, 15%, 66%);
+
+  }
+  .remember{
+    display: flex
+    ;
+    gap: 60px;
+    align-items: center;
+    justify-content: space-between;
     font-size: 18px;
     font-weight: 600;
-    color: hsl(220, 15%, 66%);;
+    color: hsl(220, 15%, 66%);
     transition: color .4s;
-  }
+    margin-top: 10px;
+}
 
-  .admin-login .login__forgot:hover {
+  .admin-login .remember:hover ,
+  .remember a:hover {
     color:#4481eb;
   }
 
@@ -2020,3 +2073,4 @@ a {
   }
 
   /* End copyright */
+

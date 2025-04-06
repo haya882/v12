@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <!--Render All Element Normally-->
-    <link rel="stylesheet" href="CSS/normalize.css" />
-    <!-- Webfont library -->
-    <link rel="stylesheet" href="CSS/all.min.css" />
-    <!-- Google font link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Concert+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <title>{{ config('app.name') }}</title>
+    <link rel="stylesheet" href="{{ asset('web/css/style.css') }}?v={{ time() }}">
 
-    <!-- Font Awesome link -->
-    <script
-      src="https://kit.fontawesome.com/c1a12a9bed.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Bootstrap link -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+    <!--Render All Element Normally-->
+    <link rel="stylesheet" href="{{asset('web/CSS/normalize.css')}}" />
+    <!-- Webfont library -->
+    <link rel="stylesheet" href="{{asset('web/CSS/all.min.css') }} " />
+   <!-- Google font link -->
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+     href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Concert+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+     rel="stylesheet"
+   />
+   <script
+     src="https://kit.fontawesome.com/c1a12a9bed.js"
+     crossorigin="anonymous"
+   ></script>
+   <!-- Bootstrap link -->
+   <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+     rel="stylesheet"
+   />
+
  <script>
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -37,25 +36,25 @@ document.addEventListener("DOMContentLoaded", function () {
   let loginLink = document.querySelector('.login-link');
   let registerLink = document.querySelector('.register-link');
   let close = document.querySelector('.close-icon');
-  
+
 
   registerLink.onclick = () => {
     modal.classList.add('active');
   };
 
- 
+
   loginLink.onclick = () => {
     modal.classList.remove('active');
   };
 
   close.onclick = () => {
-    modal.classList.remove('active');  
-    history.back();  
+    modal.classList.remove('active');
+    history.back();
   };
 });
 
- 
- 
+
+
 
 
  </script>
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <body>
  <!-- Start Login -->
   <div class="login-page">
-  <span class="close-icon">&times;</span>  
+  <span class="close-icon">&times;</span>
  <div class="modal-overlay">
   <span class="bg-animate"></span>
   <span class="bg-animate2"></span>
@@ -96,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <h2 class="animation" style="--i:0; --j:20;">Welcome Back!</h2>
         <p class="animation" style="--i:1; --j:21;"> We're glad to see you again. Please enter your login details to access your account and enjoy our services.</p>
     </div>
- 
+
     <div class="form-box register">
       <h2 class="animation "  style="--i:17;--j:0;">Sign Up</h2>
       <form action="#">
@@ -130,14 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
     <div class="info-text register">
       <h2 class="animation" style="--i:17; --j:0;">Welcome to Our Community!</h2>
-      <p class="animation"  style="--i:18; --j:1;">  Join us now and enjoy a unique experience. Register your account to get the latest tips, 
+      <p class="animation"  style="--i:18; --j:1;">  Join us now and enjoy a unique experience. Register your account to get the latest tips,
         products</p>
   </div>
   </div>
 </div>
- 
+
 
   <!-- End Login -->
-<script src="js/main.js"></script>
+  <script src="js/loading.js"></script>
+
+<script src="js/main.js" defer></script>
   </body>
 </html>

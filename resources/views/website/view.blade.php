@@ -49,10 +49,11 @@
       </div>
     </div>
   </div>
-  <!-- end view product --></div>
-  <script src="js/main.js"></script>
-</body>
-</html>
+  <!-- end view product -->
+
+
+
+
 
 
 

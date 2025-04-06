@@ -1,11 +1,12 @@
 <x-layout>
+
 <!-- Start Who we are -->
 
    <!-- Section 1 -->
 
    <div class="about-details">
     <div class="container">
-      <div class="section1">
+      <div class="section1" >
     <div class="text">
       <h2>Buy Everything
         <strong>Easily</strong>
@@ -20,7 +21,7 @@
 </div>
   <!-- Section 2: Centered Text -->
 
-  <div class="center-text">
+  <div class="center-text" data-aos="fade-up"  data-aos-duration="2000">
 
     <div class="container">
     <h2>Our Vision</h2>
@@ -31,7 +32,7 @@
   </div>
 
 
-  <div class="why">
+  <div class="why" data-aos="fade-up"  data-aos-duration="2000">
     <div class="container">
     <div class="image">
       <img src="{{ asset('web/images/About2.png') }}" alt="Our Vision">
@@ -47,7 +48,7 @@
 </div>
 
   <!-- Team Section -->
-  <div class="team-section">
+  <div class="team-section" data-aos="fade-up"  data-aos-duration="2000">
     <div class="container">
       <div class="text">
         <h2>To <strong>communicate</strong> with the team</h2>
@@ -78,7 +79,7 @@
 
 
   <!-- Logo Section -->
-  <div class="logo-section">
+  <div class="logo-section" data-aos="fade-up"  data-aos-duration="2000">
     <div class="container">
       <div class="image">
       <img src="{{ asset('web/images/logo2.png') }}" alt="Logo">
@@ -91,14 +92,8 @@
 </div>
 
 
-
-      <!-- End Who we are -->
-
-  <script src="js/main.js"></script>
-
-
   </body>
 
 </html>
-</x-layout>
 
+</x-layout>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 
 
+
 class CategoryController extends Controller
 {
     /**
@@ -15,6 +16,12 @@ class CategoryController extends Controller
     public function index()
     {
        $categories = Category::latest('id')->paginate(10);
+
+    //    $categories =DB::table('categories')
+    //                 ->select('categories.id','categories.name','categories.description','category_images.path')
+    //                 ->innerJoin('category_images','categories.id','category_images.cat_id')
+    //                 ->get();
+
        return view('dashboard.categories.index',compact('categories'));
     }
 
@@ -31,13 +38,21 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+    //   dd($request->all());
         $request->validate([
-            'name'=>'required'
+            'name'=>'required',
+            'image'=>'required'
+
         ]);
 
-        $data = $request->except('_token');
+        $data = $request->except('_token', 'image');
 
           $category = Category::create($data);
+          $img_name = rand().time().$request->file('image')->getClientOriginalName();
+          $request->file('image')->move(public_path('images'), $img_name);
+          $category->image()->create([
+              'path' => $img_name
+          ]);
           //Add image
           return redirect()
         ->route('admin.categories.index')
@@ -77,7 +92,7 @@ class CategoryController extends Controller
           $category ->update($data);
           //Add image
           return redirect()
-        ->route('admin.categories.index')
+        ->route('dashboard.categories.index')
         ->with('msg','Category updated successfully')
         ->with('type','info');
     }

@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{  $title ?? '' }} - {{ config('app.name') }}</title>
+
+  {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+
+    <link href="style.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <!--Render All Element Normally-->
-    <link rel="stylesheet" href="{{ asset('assets/CSS/normalize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}" />
     <!-- Webfont library -->
-     <link rel="stylesheet" href="{{ asset('assets/CSS/all.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}" />
     <!-- Google font link -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,13 +39,18 @@
       src="https://kit.fontawesome.com/c1a12a9bed.js"
       crossorigin="anonymous"
     ></script>
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC') " crossorigin="anonymous"> --}}
+
     <!-- Bootstrap link -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
 
+
   </head>
+
+
 
     <div class="dashboard">
       <div class="container">
@@ -74,7 +89,7 @@
               <li ><a href="{{ route('admin.products.create') }}" > <span class="material-icons-sharp"> add_shopping_cart </span>Add New Product</a></li>
             </ul>
 
-            <a href="orders.html" class="menu-item ">
+            <a href="{{ route('admin.orders') }}" class="menu-item ">
               <span class="material-icons-sharp"> shopping_cart </span>
               <h3>Orders</h3>
             </a>
@@ -125,9 +140,9 @@
               <div class="profile">
 
                 <div class="info">
-                  <p>Hey,<b>Haya</b></p>
+                  <p>Hey,<b>haya</b></p>
                 </div>
-              <a href="dashprofile.html">
+              <a href="{{ route('admin.profile') }}">
 
                 <div class="profile-photo">
                   <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />

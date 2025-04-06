@@ -19,7 +19,6 @@
      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Concert+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
      rel="stylesheet"
    />
-   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
    <script
      src="https://kit.fontawesome.com/c1a12a9bed.js"
      crossorigin="anonymous"
@@ -29,14 +28,14 @@
      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
      rel="stylesheet"
    />
-   <script src="{{ asset('web/js/loading.js') }}" defer></script>
 
   </head>
+
   <body>
     <!-- Start Header -->
-    <header >
+    <header>
       <div class="container">
-        <img class="image" src="{{ asset('web/images/logo2.png') }}" alt="logo"/> ></a>
+        <a href="{{ route('website.index') }}"><img class="image" src="{{ asset('web/images/logo2.png') }}" alt="logo" /></a>
         <div class="menu-toggle">
           <i class="fa-solid fa-bars-staggered" id="open-btn"></i>
         </div>
@@ -55,13 +54,10 @@
           </div>
           <ul class="menu" id="mobile-menu">
             <li>
-              <a href="#">Home</a>
-
-
-
+              <a href="#" class="active">Home</a>
             </li>
             <li>
-              <a href="#category"
+              <a href="products.html"
                 >Shop <span class="toggle" data-target="options">+</span></a
               >
               <ul class="submenu" id="options">
@@ -78,7 +74,7 @@
                   <ul class="submenu" id="options1">
                     <li>
                       <a href="#">
-                        <i class="fas fa-chevron-right icon"></i> Women </a
+                        <i class="fas fa-chevron-right icon"></i> Women's</a
                       >
                     </li>
                     <li>
@@ -138,13 +134,13 @@
                 </li>
                 <li>
                   <a href="#">
-                    <i class="fas fa-chevron-right icon"></i> Men</a
+                    <i class="fas fa-chevron-right icon"></i> Men's</a
                   >
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#product"
+              <a href="view.html"
                 >Products
                 <span class="toggle" data-target="blog-options">+</span></a
               >
@@ -237,10 +233,10 @@
               </ul>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <a href="contact.html">Contact</a>
             </li>
             <li>
-              <a  href="#">About</a>
+              <a href="#">About</a>
             </li>
             <li>
               <a href="#"
@@ -249,17 +245,17 @@
               >
               <ul class="submenu" id="account-options">
                 <li>
-                  <a href="#"
+                  <a href="cart.html"
                     ><i class="fas fa-chevron-right icon"></i> My Cart</a
                   >
                 </li>
                 <li>
-                  <a href="#"
+                  <a href="checkout.html"
                     ><i class="fas fa-chevron-right icon"></i> My Checkout</a
                   >
                 </li>
                 <li>
-                  <a href="#"
+                  <a href="wishlist.html"
                     ><i class="fas fa-chevron-right icon"></i> My Wishlist</a
                   >
                 </li>
@@ -327,7 +323,7 @@
               <ul class="submenu" id="options21">
                 <li>
                   <a href="#"
-                    ><i class="fas fa-chevron-right icon"></i> Women</a
+                    ><i class="fas fa-chevron-right icon"></i> Women's</a
                   >
                 </li>
                 <li>
@@ -380,48 +376,40 @@
               <a href="#">Handbag</a>
             </li>
             <li>
-              <a href="#">Men</a>
+              <a href="#">Men's</a>
             </li>
             <li>
               <a href="#">Accessories</a>
             </li>
           </ul>
           <div class="social-links">
-            <a href="www.twitter.com"><i class="fab fa-twitter"></i></a>
-            <a href="www.facebook.com"><i class="fab fa-facebook"></i></a>
-            <a href="www.google.com"> <i class="fab fa-google"></i></a>
+            <a href="https://x.com/Shatha72401840?t=0D6VaDRh-zZ1hF4LdM5J3w&s=35"target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/share/161bfAfvt4/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://myaccount.google.com/?hl=en&utm_source=OGB&utm_medium=act&gar=WzJd" target="_blank"> <i class="fab fa-google"></i></a>
           </div>
         </div>
 
         <ul class="nav">
-          <li><a href="#">Home</a></li>
-          <li><a href="view">Products</a></li>
+          <li><a href="{{ route('website.index') }}"  class="active">Home</a></li>
+          <li><a href="{{ route('website.view ') }}">Products</a></li>
           <li class="dropdown">
-            <a href="#category">Shop <i class="fas fa-chevron-down"></i></a>
+            <a href="{{ route('website.products ') }}">Shop <i class="fas fa-chevron-down"></i></a>
             <div class="mega-menu">
               <ul class="column">
-                <h3>Categories View</h3>
-                <li><a href="#">Shop Left Sidebar</a></li>
-                <li><a href="#">Shop Right Sidebar</a></li>
-                <li><a href="#">Shop Full Width</a></li>
-                <li><a href="#">Shop 100 Full Width</a></li>
-                <li><a href="#">Shop Both Sidebars</a></li>
-              </ul>
-              <ul class="column">
                 <h3>Shop Page</h3>
-                <li><a href="#">Test RTL</a></li>
-                <li><a href="#">My Cart</a></li>
-                <li><a href="#">My Checkout</a></li>
-                <li><a href="#">My Wishlist</a></li>
-                <li><a href="#">My Account</a></li>
+                <li><a href="{{ route('website.details ') }}">My details</a></li>
+                <li><a href="{{ route('website.cart ') }}">My Cart</a></li>
+                <li><a href="{{ route('website.checkout ') }}">My Checkout</a></li>
+                <li><a href="{{ route('website.wishlist ') }}">My Wishlist</a></li>
+                <li><a href="https://github.com/Shatha492002" target="_blank" >My Account in github</a></li>
               </ul>
               <ul class="column">
                 <h3>Product Types</h3>
-                <li><a href="#">Simple Product</a></li>
-                <li><a href="#">Variable Product</a></li>
-                <li><a href="#">Virtual Product</a></li>
-                <li><a href="#">Grouped Product</a></li>
-                <li><a href="#">Downloadable Product</a></li>
+                <li><a href="details.html?id=Clot-W-003">Most used product</a></li>
+                <li><a href="details.html?id=Glass-M-007">More productive product</a></li>
+                <li><a href="details.html?id=Clot-M-037">More available product</a></li>
+                <li><a href="details.html?id=Clot-W-067">New product</a></li>
+                <li><a href="details.html?id=Acc-M-064">Most loved product</a></li>
               </ul>
               <div class="best-sellers">
                 <h3>Best Sellers</h3>
@@ -460,17 +448,37 @@
               </div>
             </div>
           </li>
-          <li><a href="about" >About</a></li>
-          <li><a href="#footer">Contact</a></li>
+          <li><a href="{{ route('website.about ') }}">About</a></li>
+          <li><a href="{{ route('website.contact') }}">Contact</a></li>
         </ul>
         <div class="icons">
-        <i class="bi bi-person" id="profile-icon"></i>
-          <i id="icon" class="bi bi-heart"></i>
-          <i id="icon" class="bi bi-cart3">
-            <div class="product">
-              <p>No products in the cart</p>
-            </div>
+          <a href="{{ route('website.login ') }}"><i class="bi bi-person" id="profile-icon"></i></a>
+          <i id="wishlist-icon" class="bi bi-heart" onclick="addToWishlist(event)">
+            <span class="badge">0</span>
+            <div class="wishlist-dropdown">
+              <div class="wishlist-items-container" id="wishlist-items-container">
+                  <p id="empty-wishlist-message">No product in the Wishlist</p>
+              </div>
+              <div class="wishlist-subtotal">Subtotal: <span id="wishlist-subtotal">$0.00</span></div>
+              <div class="wishlist-buttons">
+                  <a href="{{ route('website.wishlist ') }}"><button class="view-wishlist">View Wishlist</button></a>
+                  <a href="{{ route('website.cart ') }}"><button class="view-cart">Go To Cart</button></a>
+              </div>
+          </div>
           </i>
+          <i id="cart-icon" class="bi bi-cart3" onclick="toggleCart()">
+            <span class="badge">0</span>
+            <div class="cart-dropdown">
+              <div class="cart-items-container" id="cart-items-container">
+                    <p id="empty-cart-message">No product in the cart</p>
+                </div>
+                <div class="cart-subtotal">Subtotal: <span id="cart-subtotal">$0.00</span></div>
+                <div class="cart-buttons">
+                    <a href="{{ route('website.cart ') }}"><button class="view-cart">View Cart</button></a>
+                    <a href="{{ route('website.checkout ') }}"><button class="checkout">Checkout</button></a>
+                </div>
+            </div>
+        </i>
           <i class="bi bi-search" id="searchBtn"></i>
           <div class="search-container">
             <div class="boxSearch" id="searchBox">
@@ -489,23 +497,24 @@
           </div>
         </div>
         <div class="contact">
-          <a href="www.twitter.com"><i class="fab fa-twitter"></i></a>
-          <a href="www.facebook.com"><i class="fab fa-facebook"></i></a>
-          <a href="www.google.com"> <i class="fab fa-google"></i></a>
+          <a href="https://x.com/Shatha72401840?t=0D6VaDRh-zZ1hF4LdM5J3w&s=35" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.facebook.com/share/161bfAfvt4/" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://myaccount.google.com/?hl=en&utm_source=OGB&utm_medium=act&gar=WzJd" target="_blank"> <i class="fab fa-google"></i></a>
         </div>
       </div>
     </header>
     <!-- End Header -->
- <!-- Start products -->
+
+     <!-- Start products -->
 
 
- <div class="all-products" >
+     <div class="all-products" data-aos="fade-up" data-aos-duration="2000">
     <div class="scroll"></div>
 
       <div class="side" >
         <h3>Product Categories</h3>
         <ul class="menu" id="mobile-menu">
-          <li><a href="{{ route('website.products ') }}" data-filter="all" onclick="filterProductsByGenderCategoryAndSubcategory('all', 'all', 'all')">  All</a></li>
+          <li><a href="#" data-filter="all" onclick="filterProductsByGenderCategoryAndSubcategory('all', 'all', 'all')">  All</a></li>
 
           <li>
             <a href="#"  onclick="filterProductsByGenderCategoryAndSubcategory('women')"> Women's <span class="toggle" data-target="women-options">+</span></a>
@@ -540,7 +549,7 @@
               <li>
                 <a href="#"  onclick="filterProductsByGenderCategoryAndSubcategory( 'men', 'Clothing')"><i class="fas fa-chevron-right icon"></i> Clothing <span class="toggle" data-target="mens-clothing-options">+</span></a>
                 <ul class="submenu" id="mens-clothing-options">
-                  <li><a href="#"  onclick="filterProductsByGenderCategoryAndSubcategory( 'men', 'Clothing' ,'shirts')"><i class="fas fa-chevron-right icon"></i> Shirts</a></li>
+                  <li><a href="#" onclick="filterProductsByGenderCategoryAndSubcategory( 'men', 'Clothing' ,'shirts')"><i class="fas fa-chevron-right icon"></i> Shirts</a></li>
                   <li><a href="#"  onclick="filterProductsByGenderCategoryAndSubcategory( 'men', 'Clothing' ,'pants')"><i class="fas fa-chevron-right icon"></i> Pants</a></li>
                   <li><a href="#"  onclick="filterProductsByGenderCategoryAndSubcategory( 'men', 'Clothing' ,'suit')"><i class="fas fa-chevron-right icon"></i> Full Suit</a></li>
                   <li><a href="#"  onclick="filterProductsByGenderCategoryAndSubcategory( 'men', 'Clothing' ,'jeans')"><i class="fas fa-chevron-right icon"></i> Jeans</a></li>
@@ -556,10 +565,10 @@
       </div>
      </div>
 
-       <div class="details-products"
+       <div class="details-products" data-aos="fade-up" data-aos-duration="2000">
         <div class="container grid" id="product-container">
           <div class="image">
-            <img src="{{ asset('web/images/Accessories1.png') }}" alt="Accessories1" />
+            <!-- <img src="images/Accessories1.png" alt="Accessories1" /> -->
             <div class="content">
               <a href="#">Accessories</a>
               <h2>Blue bracelet</h2>
@@ -587,7 +596,7 @@
             </div>
           </div>
           <div class="image">
-            <img src="{{ asset('web/images/clothing15.png') }}" alt="clothing15" />
+            <!-- <img src="images/clothing15.png" alt="clothing15" /> -->
             <div class="content">
               <a href="#">Clothing</a>
               <h2>Women's formal pants</h2>
@@ -659,7 +668,7 @@
             <div class="discount">-20%</div>
           </div>
           <div class="image">
-            <img src="{{ asset('web/images/clothing9.png') }}" alt="clothing9" />
+            <!-- <img src="images/clothing9.png" alt="clothing9" /> -->
             <div class="content">
               <a href="#">Clothing</a>
               <h2>Men's jeans</h2>
@@ -681,8 +690,37 @@
       </div>
     </div>
       <!-- End Categories -->
+      <div class="popup-overlay1" id="popup1">
+        <div class="popup1">
+          <div class="icon-container">
+            <div class="circle"></div>
+            <div class="icon">✔</div>
+          </div>
+          <h2>Item added to your cart</h2>
+          <div class="cart-items-list">
+            <p>
+              <span id="cart-count">0</span> ITEM IN THE CART (<span class="price"
+                >$0.00</span
+              >)
+            </p>
+            <p>
+              Buy for <span id="totalPrice" class="price">$00.00</span> more and
+              get free shipping
+            </p>
+            <div class="buttons">
+              <button class="continue" onclick="closePopup()">
+                CONTINUE SHOPPING
+              </button>
+              <button class="cart">GO TO THE CART</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<script  src=" {{ asset('web/js/products.js') }}"></script>
+
+      <script src="{{ asset('web/js/loading.js') }}" ></script>
+      <script  src="{{ asset('web/js/products.js') }}" defer></script>
+      <script  src="{{ asset('web/js/details.js') }}" defer></script>
 
 
 

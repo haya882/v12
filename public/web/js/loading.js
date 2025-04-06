@@ -14,9 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // إضافة الـ loading إلى بداية الصفحة
     document.body.prepend(loadingDiv);
-
-    // عند تحميل الصفحة بالكامل، يتم إخفاء الـ loading
+ 
     window.onload = function () {
-        loadingDiv.style.display = "none";
+        setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+        }, 1000); 
     };
+    
 });

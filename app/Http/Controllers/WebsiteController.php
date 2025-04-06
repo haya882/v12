@@ -44,5 +44,10 @@ function wishlist(): View
 {
 return view('website.wishlist');
 }
+function contact(): View
+{
+return view('website.contact');
+}
+
 }
 

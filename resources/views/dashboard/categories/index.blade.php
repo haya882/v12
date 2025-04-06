@@ -35,32 +35,30 @@
                 <tbody>
                     <tr>
                         @forelse($categories as $category)
+                        <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td> <img src="" alt="" class="table-img" /></td>
+                            <td>
+                                @if ($category->image)
+                                <img src="{{asset('assets/'.$category->image->path?? '') }}" alt="" class="table-img" /></td>
+                                @endif
                             <td><span class="table-title">{{ $category->name }}</span></td>
+
                             <td></td>
-
                             <td class="actions">
-                                <a class="update" href="{{ route('admin.categories.edit', $category->id) }}"> <button><i
-                                            class="fas fa-edit"></i>Edit</button></a>
-
-                                <a href="" class="delete">
-                                    <button onclick="return confirm('Are You Sure?')"><i
-                                            class="fas fa-trash"></i>Delete</button></a>
-                                <form action="{{ route('admin.categories.destroy', $category->id) }}" class="delete " method="POST">
+                                <a class="update" href="{{ route('admin.categories.edit', $category->id) }}">
+                                    <button><i class="fas fa-edit"></i>Edit</button>
+                                </a>
+                                <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline; margin-left: 10px;">
                                     @csrf
-                                    @method('delete')
-
-
+                                    @method('DELETE')
+                                    <a href="" class="delete"><button  type="submit" onclick="return confirm('Are You Sure?')"><i class="fas fa-trash"></i>Delete</button></a>
                                 </form>
                             </td>
-                    </tr>
-
-
-                @empty
-                    <tr>
-                        <td colspan="5"> No Data Found</td>
-                    </tr>
+                        </tr>
+                        @empty
+                        <tr>
+<td colspan="5" class="text-center "> No Data Found</td>
+                        </tr>
                     @endforelse
                 </tbody>
 

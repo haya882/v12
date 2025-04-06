@@ -19,7 +19,7 @@
                             <label > Name</label>
                             <input type="text" name="name"
                                 class="form-control form-input @error('name')
-                            is-invalid @enderror" "placeholder="Name"
+                            is-invalid @enderror" placeholder="Name"
                                 value="{{ old('name') }}" />
                             @error('name')
                                 <small class="invalid-feedback">{{ $message }}</small>

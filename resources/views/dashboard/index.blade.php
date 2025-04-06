@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -71,11 +72,11 @@
                 <i class="fas fa-chevron-right icon"></i>
               </a>
               <ul class="submenu ">
-                <li><a href="allproduct.html" > <span class="material-icons-sharp">select_all </span>All Product</a></li>
-                <li ><a href="addproduct.html" > <span class="material-icons-sharp"> add_shopping_cart </span>Add New Product</a></li>
+                <li><a href="{{ route('admin.products.index') }}" > <span class="material-icons-sharp">select_all </span>All Product</a></li>
+                <li ><a href="{{ route('admin.products.create') }}" > <span class="material-icons-sharp"> add_shopping_cart </span>Add New Product</a></li>
               </ul>
 
-              <a href="orders.html" class="menu-item ">
+              <a href="{{ route('admin.orders') }}" class="menu-item ">
                 <span class="material-icons-sharp"> shopping_cart </span>
                 <h3>Orders</h3>
               </a>
@@ -105,7 +106,7 @@
 
         <main>
           <div class="spacial-content">
-            <h1>Dashboard</h1>
+            <h1> Dashboard</h1>
           </div>
           <div class="date">
             <input type="date" />
@@ -173,26 +174,68 @@
           <div class="recent-orders">
             <h2>Resent Orders</h2>
             <table>
-              <thead>
-                <tr>
-                  <th>Product Name</th>
-                  <th>Product Code</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <!-- <th>Product Name</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Elegant anklet</td>
-                  <td>Acc-W-065</td>
-                  <td>Accessories</td>
-                  <td class="warning">$25.00</td>
-                  <td class="primary">Details</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Product Code</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <!-- <th>Product Name</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Elegant anklet</td>
+                    <td>Acc-W-065</td>
+                    <td >Accessories</td>
+                    <td class="warning">$25.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
+                  <tr>
+                    <td>Dress with bow</td>
+                    <td>Clot-W-009</td>
+                    <td>Clothing</td>
+                    <td class="warning">$120.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
+                  <tr>
+                    <td>formal bag</td>
+                    <td>Hand-M-013</td>
+                    <td>HandBag</td>
+                    <td class="warning">$77.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
+                  <tr>
+                    <td>comfortable shoes</td>
+                    <td>Sho-M-016</td>
+                    <td>Shoes</td>
+                    <td class="warning">$80.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
+                  <tr>
+                    <td>Charcoal waterproof eyeliner</td>
+                    <td>Make-W-019</td>
+                    <td>MakeUp</td>
+                    <td class="warning">$45.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
+                  <tr>
+                    <td>Black soft dress</td>
+                    <td>Clot-W-025</td>
+                    <td>Clothing</td>
+                    <td class="warning">$180.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
+                  <tr>
+                    <td>Good quality sports tracksuit</td>
+                    <td>Clot-M-037</td>
+                    <td>Clothing</td>
+                    <td class="warning">$110.00</td>
+                    <td class="primary">Details</td>
+                  </tr>
 
-              </tbody>
-            </table>
+                </tbody>
+              </table>
             <a href="#">Show All</a>
           </div>
         </main>
@@ -218,7 +261,7 @@
               <div class="info">
                 <p>Hey,<b>Haya</b></p>
               </div>
-              <a href="dashprofile.html">
+              <a href="{{ route('admin.profile') }}">
                 <div class="profile-photo">
                   <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
                 </div>
