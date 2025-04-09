@@ -27,16 +27,16 @@ function profile_save(): RedirectResponse
 
 
 }
-function login(): View {
-    return view('dashboard.login');
+// function login(): View {
+//     return view('dashboard.login');
 
-  }
+//   }
 
-  function store(Request $request): View {
-   dd($request->all());
-   return view('dashboard.login');
+//   function store(Request $request): View {
+//    dd($request->all());
+//    return view('dashboard.login');
 
-}
+// }
 function orders(): View {
     return view('dashboard.orders');
 

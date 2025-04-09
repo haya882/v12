@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Anywhere</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <!--Render All Element Normally-->
     <link rel="stylesheet" href="{{ asset('assets/CSS/normalize.css') }}" />
@@ -74,7 +74,7 @@
                 <li ><a href="{{ route('admin.products.create') }}" > <span class="material-icons-sharp"> add_shopping_cart </span>Add New Product</a></li>
               </ul>
 
-              <a href="orders.html" class="menu-item ">
+              <a href="{{ route('admin.orders') }}" class="menu-item ">
                 <span class="material-icons-sharp"> shopping_cart </span>
                 <h3>Orders</h3>
               </a>

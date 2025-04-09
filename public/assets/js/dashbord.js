@@ -1,15 +1,15 @@
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('file-upload').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                document.getElementById('profile-image').src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-    });
+// window.addEventListener('DOMContentLoaded', () => {
+    // document.getElementById('file-upload').addEventListener('change', function(e) {
+        // const file = e.target.files[0];
+        // if (file) {
+            // const reader = new FileReader();
+            // reader.onload = function(event) {
+                // document.getElementById('profile-image').src = event.target.result;
+            // };
+            // reader.readAsDataURL(file);
+        // }
+    // });
+    // });
 window.addEventListener('DOMContentLoaded', () => {
     const sideMenu = document.querySelector("aside");
     const menuBtn = document.getElementById("menu-btn");

@@ -218,3 +218,4 @@
         <script src="{{ asset('assets/js/dashbord.js') }}"></script>
       </body>
     </html>
+

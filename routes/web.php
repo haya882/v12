@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
- use App\Http\Controllers\ProfileController;
- use App\Http\Controllers\WebSiteController;
+// use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebSiteController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\DetailsController;
+// use App\Http\Controllers\DetailsController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\LoginController;
+
 
 
 
@@ -21,10 +24,17 @@ Route::get('/login', [WebsiteController::class , 'login'])->name('website.login 
 
 Route::get('/details/{id}', [DetailsController::class, 'show'])->name('details');
 
-Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
 
+// Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+// Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
+
+
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [LoginController::class, 'login']);
+// Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 

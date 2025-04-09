@@ -65,7 +65,7 @@ class ProductController extends Controller
     }
 
     return redirect()
-        ->route('admin.Products.index')
+        ->route('dashboard.Products.index')
         ->with('msg','Product added successfully')
         ->with('type','success');
     }

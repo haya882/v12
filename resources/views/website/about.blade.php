@@ -70,7 +70,7 @@
         <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
          <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
       </div>
-      <h3>Haya Abo Dahi</h3>
+      <h3>Haya Abu Dahi</h3>
 
     </div>
 

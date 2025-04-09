@@ -274,11 +274,11 @@
             <div class="updates">
               <div class="update">
                 <div class="profile-photo">
-                  <img src="{{ asset('assets/images/team2.jpg') }}" alt="" />
+                  <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
                 </div>
                 <div class="message">
                   <p>
-                    <b>Shatha Doghmosh</b> received her order of Night lion tech
+                    <b>Haya Abu Dahi</b> received her order of Night lion tech
                     GPS drone.
                   </p>
                   <small class="text-muted">2 Minutes Ago</small>
@@ -287,11 +287,11 @@
 
               <div class="update">
                 <div class="profile-photo">
-                  <img src="{{ asset('assets/images/team2.jpg') }}" alt="" />
+                  <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1"/>
                 </div>
                 <div class="message">
                   <p>
-                    <b>Shatha Doghmosh</b> received her order of Night lion tech
+                    <b>Haya Abu Dahi</b> received her order of Night lion tech
                     GPS drone.
                   </p>
                   <small class="text-muted">2 Minutes Ago</small>
@@ -300,11 +300,11 @@
 
               <div class="update">
                 <div class="profile-photo">
-                  <img src="{{ asset('assets/images/team2.jpg') }}" alt="" />
+                  <img img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
                 </div>
                 <div class="message">
                   <p>
-                    <b>Shatha Doghmosh</b> received her order of Night lion tech
+                    <b>Haya Abu Dahi</b> received her order of Night lion tech
                     GPS drone.
                   </p>
                   <small class="text-muted">2 Minutes Ago</small>

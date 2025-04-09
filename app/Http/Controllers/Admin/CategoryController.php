@@ -55,7 +55,7 @@ class CategoryController extends Controller
           ]);
           //Add image
           return redirect()
-        ->route('admin.categories.index')
+        ->route('dashboard.categories.index')
         ->with('msg','Category added successfully')
         ->with('type','success');
     }

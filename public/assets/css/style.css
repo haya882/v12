@@ -1008,7 +1008,7 @@ a {
     padding: 9px;
     cursor: pointer;
     z-index: 2;
-    display: none;
+    display: flex;
 }
 
 .custom-file-upload:hover {
