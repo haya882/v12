@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
@@ -391,16 +390,16 @@
 
         <ul class="nav">
           <li><a href="{{ route('website.index') }}"  class="active">Home</a></li>
-          <li><a href="{{ route('website.view ') }}">Products</a></li>
+          <li><a href="{{ route('website.view') }}">Products</a></li>
           <li class="dropdown">
-            <a href="{{ route('website.products ') }}">Shop <i class="fas fa-chevron-down"></i></a>
+            <a href="{{ route('website.products') }}">Shop <i class="fas fa-chevron-down"></i></a>
             <div class="mega-menu">
               <ul class="column">
                 <h3>Shop Page</h3>
-                <li><a href="{{ route('website.details ') }}">My details</a></li>
-                <li><a href="{{ route('website.cart ') }}">My Cart</a></li>
-                <li><a href="{{ route('website.checkout ') }}">My Checkout</a></li>
-                <li><a href="{{ route('website.wishlist ') }}">My Wishlist</a></li>
+                <li><a href="{{ route('website.details') }}">My details</a></li>
+                <li><a href="{{ route('website.cart') }}">My Cart</a></li>
+                <li><a href="{{ route('website.checkout') }}">My Checkout</a></li>
+                <li><a href="{{ route('website.wishlist') }}">My Wishlist</a></li>
                 <li><a href="https://github.com/Shatha492002" target="_blank" >My Account in github</a></li>
               </ul>
               <ul class="column">
@@ -448,11 +447,27 @@
               </div>
             </div>
           </li>
-          <li><a href="{{ route('website.about ') }}">About</a></li>
+          <li><a href="{{ route('website.about') }}">About</a></li>
           <li><a href="{{ route('website.contact') }}">Contact</a></li>
         </ul>
         <div class="icons">
-          <a href="{{ route('website.login ') }}"><i class="bi bi-person" id="profile-icon"></i></a>
+          @auth
+            <div class="user-dropdown">
+              <a href="#" class="profile-link">
+                <i class="bi bi-person" id="profile-icon"></i>
+                <span class="username">{{ Auth::user()->name }}</span>
+              </a>
+              <div class="dropdown-content">
+                <a href="{{ route('website.wishlist') }}"><i class="bi bi-heart"></i> My Wishlist</a>
+                <form action="{{ route('customer.logout') }}" method="POST" class="logout-form">
+                  @csrf
+                  <button type="submit"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
+              </div>
+            </div>
+          @else
+            <a href="{{ route('customer.login') }}"><i class="bi bi-person" id="profile-icon"></i></a>
+          @endauth
           <i id="wishlist-icon" class="bi bi-heart" onclick="addToWishlist(event)">
             <span class="badge">0</span>
             <div class="wishlist-dropdown">
@@ -461,8 +476,8 @@
               </div>
               <div class="wishlist-subtotal">Subtotal: <span id="wishlist-subtotal">$0.00</span></div>
               <div class="wishlist-buttons">
-                  <a href="{{ route('website.wishlist ') }}"><button class="view-wishlist">View Wishlist</button></a>
-                  <a href="{{ route('website.cart ') }}"><button class="view-cart">Go To Cart</button></a>
+                  <a href="{{ route('website.wishlist') }}"><button class="view-wishlist">View Wishlist</button></a>
+                  <a href="{{ route('website.cart') }}"><button class="view-cart">Go To Cart</button></a>
               </div>
           </div>
           </i>
@@ -474,8 +489,8 @@
                 </div>
                 <div class="cart-subtotal">Subtotal: <span id="cart-subtotal">$0.00</span></div>
                 <div class="cart-buttons">
-                    <a href="{{ route('website.cart ') }}"><button class="view-cart">View Cart</button></a>
-                    <a href="{{ route('website.checkout ') }}"><button class="checkout">Checkout</button></a>
+                    <a href="{{ route('website.cart') }}"><button class="view-cart">View Cart</button></a>
+                    <a href="{{ route('website.checkout') }}"><button class="checkout">Checkout</button></a>
                 </div>
             </div>
         </i>

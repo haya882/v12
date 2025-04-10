@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ env('APP_NAME')}} - Admin Login</title>
+    <title>{{ env('APP_NAME')}} - Customer Signup</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <!--Render All Element Normally-->
     <link rel="stylesheet" href="{{ asset('assets/CSS/normalize.css') }}" />
@@ -58,10 +58,10 @@
           <div class="forms-container">
               <div class="signin-signup">
 
-                  <!-- Sign In Form -->
-                  <form action="{{ route('admin.authenticate') }}" method="POST" class="sign-in-form">
+                  <!-- Sign Up Form -->
+                  <form action="{{ route('customer.register') }}" method="POST" class="sign-up-form">
                       @csrf
-                      <h2 class="title">Admin Sign in</h2>
+                      <h2 class="title">Create Account</h2>
                       
                       @if ($errors->any())
                       <div class="alert">
@@ -72,28 +72,35 @@
                           </ul>
                       </div>
                       @endif
+                      
+                      <div class="input-field login__box">
+                          <input type="text" name="name" id="name" value="{{ old('name') }}" required placeholder=" " class="login__input">
+                          <label for="name" class="login__label">Full Name</label>
+                          <i class="fa-solid fa-user login__icon"></i>
+                      </div>
+
                       <div class="input-field login__box">
                           <input type="email" name="email" id="email" value="{{ old('email') }}" required placeholder=" " class="login__input">
                           <label for="email" class="login__label">Email</label>
-                          <i class="fa-solid fa-envelope ri-mail-fill login__icon"></i>
+                          <i class="fa-solid fa-envelope login__icon"></i>
                       </div>
 
                       <div class="login__box">
-                        <input type="password" name="password" id="password" required placeholder=" " class="login__input">
-                        <label for="password" class="login__label">Password</label>
-                        <i class="eye-icon fas fa-eye-slash login__icon login__password" id="loginPassword"></i>
-                     </div>
-                     
-                     <div class="remember">
-                        <label class="custom-control-label" for="remember">
-                        <input type="checkbox" name="remember" class="custom-control-input" id="remember">
-                            Remember Me </label>
-                      <a href="#" class="login__forgot">Forgot your password?</a>
-                    </div>
-                      <button type="submit" class="login__button">Login</button>
+                          <input type="password" name="password" id="signupPassword" required placeholder=" " class="login__input">
+                          <label for="signupPassword" class="login__label">Password</label>
+                          <i class="eye-icon fas fa-eye-slash login__icon login__password" id="signupEye"></i>
+                      </div>
+
+                      <div class="login__box">
+                          <input type="password" name="password_confirmation" id="password_confirmation" required placeholder=" " class="login__input">
+                          <label for="password_confirmation" class="login__label">Confirm Password</label>
+                          <i class="eye-icon fas fa-eye-slash login__icon login__password" id="signupEyeConfirm"></i>
+                      </div>
+                      
+                      <button type="submit" class="login__button">Sign Up</button>
 
                       <div class="login__social">
-                        <p class="login__social-title">Or login with</p>
+                        <p class="login__social-title">Or sign up with</p>
 
                         <div class="login__social-links">
                            <a href="#" class="login__social-link">
@@ -117,25 +124,15 @@
 
           <!-- Panels Container -->
           <div class="panels-container">
-              <!-- Left Panel -->
-              {{-- <div class="panel left-panel">
-                  <div class="content">
-                      <h3>New here? Create Your Account</h3>
-                      <p>Join us and manage your website with our admin dashboard. It only takes a minute to sign up!</p>
-                      <button class="btn transparent" id="sign-up-btn">Sign up</button>
-                  </div>
-                  <img src="{{ asset('assets/images/log.svg') }}" class="image" alt="Login Illustration" />
-              </div> --}}
-
-              {{-- <!-- Right Panel -->
+              <!-- Right Panel -->
               <div class="panel right-panel">
                   <div class="content">
-                      <h3>One of us? Welcome Back!</h3>
-                      <p>Please log in to your admin account to manage your website and access exclusive features.</p>
-                      <button class="btn transparent" id="sign-in-btn">Sign in</button>
+                      <h3>Already have an account?</h3>
+                      <p>Sign in to your account and start shopping with us!</p>
+                      <a href="{{ route('customer.login') }}" class="btn transparent">Sign in</a>
                   </div>
                   <img src="{{ asset('assets/images/register.svg') }}" class="image" alt="Register Illustration" />
-              </div> --}}
+              </div>
           </div>
       </div>
   </div>
@@ -144,19 +141,6 @@
     <script src="{{ asset('assets/js/dashbord.js') }}"></script>
     <script>
         // Toggle password visibility
-        document.getElementById('loginPassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            }
-        });
-        
         document.getElementById('signupEye').addEventListener('click', function() {
             const passwordInput = document.getElementById('signupPassword');
             if (passwordInput.type === 'password') {
@@ -184,4 +168,4 @@
         });
     </script>
   </body>
-</html>
+</html> 

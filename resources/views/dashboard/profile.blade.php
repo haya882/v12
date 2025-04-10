@@ -34,6 +34,43 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+    <style>
+      .profile-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--color-white);
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+      
+      .dropdown-content a {
+        color: var(--color-dark);
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+      }
+      
+      .dropdown-content a:hover {
+        background-color: var(--color-background);
+      }
+      
+      .profile-dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      .dropdown-content i {
+        margin-right: 10px;
+      }
+    </style>
 
   </head>
   <body>
@@ -93,10 +130,13 @@
                 <i class="fas fa-chevron-right icon"></i>
 
               </a>
-              <a href="" class="menu-item layout" >
+              <a href="{{ route('admin.logout') }}" class="menu-item layout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <span class="material-icons-sharp"> logout </span>
                 <h3>Logout</h3>
               </a>
+              <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
             </div>
 
           </aside>
@@ -122,18 +162,23 @@
                 <span class="material-icons-sharp active"> light_mode </span>
                 <span class="material-icons-sharp"> dark_mode </span>
               </div>
-              <div class="profile">
-                <a href="dashprofile.html">
-
-                <div class="info">
-                  <p>Hey,<b>Haya</b></p>
+              <div class="profile-dropdown">
+                <div class="profile">
+                  <div class="info">
+                    <p>Hey,<b>{{ Auth::user()->name }}</b></p>
+                  </div>
+                  <div class="profile-photo">
+                    <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
+                  </div>
                 </div>
-              <a href="dashprofile.html">
-
-                <div class="profile-photo">
-                  <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
+                <div class="dropdown-content">
+                  <a href="{{ route('admin.profile') }}">
+                    <i class="material-icons-sharp">person</i> Profile
+                  </a>
+                  <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="material-icons-sharp">logout</i> Logout
+                  </a>
                 </div>
-              </a>
               </div>
             </div>
         </div>
@@ -213,9 +258,7 @@
       </div>
     </div>
 
-        <!-- ------------End of Profile-------------------->
-
-        <script src="{{ asset('assets/js/dashbord.js') }}"></script>
-      </body>
-    </html>
+    <script src="{{ asset('assets/js/dashbord.js') }}"></script>
+  </body>
+</html>
 

@@ -29,15 +29,38 @@
               </table>
 
 
-          <div class="add">
-            <a href="index.html"><button class="shopping-cart">
-              <i class="fa-solid fa-shuffle"></i>
-              Back To Home
-            </button>
-          </a>
-            <button>
-              <a href="products.html"><i class="fas fa-shopping-cart"></i> Continue Shopping
-            </button></a>
+      <div class="add">
+        <a href="{{ route('website.index') }}"><button class="shopping-cart">
+          <i class="fa-solid fa-shuffle"></i>
+          Back To Home
+        </button>
+      </a>
+        <button>
+          <a href="{{ route('website.products') }}"><i class="fas fa-shopping-cart"></i> Continue Shopping
+        </button></a>
+      </div>
+    </div>
+
+    <div class="spacial-content">
+      <h1><span></span><span></span><span></span><span></span></h1>
+    </div>
+    <div class="cart-group grid">
+      <div>
+        <div class="cart-shipping">
+          <h3 class="section-title">Calculate Shipping</h3>
+          <form action="" class="form grid">
+            <div class="city">
+            <input
+
+              type="text"
+              placeholder="State / Country"
+              class="form-input"
+              name=""
+              id=""
+
+            />
+            <i class="fas fa-map-marker-alt form-icon"></i>
+
           </div>
         </div>
 
