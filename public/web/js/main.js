@@ -1,17 +1,4 @@
-const popup = document.querySelector(".popup");
-const closePopup = document.querySelector(".close-popup");
-if(popup){
-  closePopup.addEventListener("click" , () => {
-    popup.classList.add("hide-popup");
-  });
-
-  window.addEventListener('load', () => {
-    setTimeout(() =>{
-    popup.classList.remove("hide-popup");
-
-    } ,1000)
-  })
-}
+AOS.init();
 //  .>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
 
 document.getElementById("profile-icon").addEventListener("click", function () {
@@ -54,6 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //popup
+const popup = document.querySelector(".popup");
+const closePopup = document.querySelector(".close-popup");
+if(popup){
+  closePopup.addEventListener("click" , () => {
+    popup.classList.add("hide-popup");
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() =>{
+    popup.classList.remove("hide-popup");
+
+    } ,1000)
+  })
+}
 
 
 

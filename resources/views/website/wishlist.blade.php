@@ -1,5 +1,9 @@
 <x-layout>
 <!-- --------==================Start Wishlist====================---------- -->
+<!-- End Header -->
+<button id="top-btn"><i class="fa-solid fa-arrow-up"></i></button>
+<div class="scroll"></div>
+<!-- --------==================Start Wishlist====================---------- -->
 <section class="cart-section">
     <div class="spacial-content">
         <h1>
@@ -27,7 +31,7 @@
 </div>
 </section>
 
-
+<script src="{{ asset('web/js/popup.js') }}" defer></script>
 
 
 

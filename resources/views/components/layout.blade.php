@@ -504,101 +504,112 @@
       </div>
     </header>
     <!-- End Header -->
+    <button id="top-btn"><i class="fa-solid fa-arrow-up"></i></button>
+    <div class="scroll"></div>
             {{ $slot }}
     <!-- Start Footer -->
-    <div class="footer" id="footer">
-      <div class="container">
-        <div class="column">
-          <h3>Contact Info</h3>
-          <div class="content">
-            <i class="fa fa-map-marker-alt"></i>
-            <div class="details">
-              <h4>Address:</h4>
-              <p>palestine - gaza - alzaytoon</p>
+    <div class="footer" id="footer"data-aos="fade-up" data-aos-duration="2000">
+        <div class="container">
+          <div class="column">
+            <h3>Contact Info</h3>
+            <div class="content">
+              <i class="fa fa-map-marker-alt"></i>
+              <div class="details">
+                <h4>Address:</h4>
+                <p>palestine - gaza - alzaytoon</p>
+              </div>
+            </div>
+            <div class="content">
+              <i class="fa fa-phone"></i>
+              <div class="details">
+                <h4>Phone:</h4>
+                <p>+970595204795</p>
+              </div>
+            </div>
+            <div class="content">
+              <i class="fa fa-envelope-open"></i>
+              <div class="details">
+                <h4>Email:</h4>
+                <p>
+                  <a href="mailto:shathadogh872@gmail.com"
+                    >shathadogh872@gmail.com</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <i class="fa fa-link"></i>
+              <div class="details">
+                <h4>Website:</h4>
+                <p><a href="http://127.0.0.1:5501/index.html" target="_blank">http://127.0.0.1:5501/index.html</a></p>
+              </div>
             </div>
           </div>
-          <div class="content">
-            <i class="fa fa-phone"></i>
-            <div class="details">
-              <h4>Phone:</h4>
-              <p>+970595204795</p>
-            </div>
+          <div class="column">
+            <h3 id="info">Information</h3>
+            <ul class="information">
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="https://github.com/Shatha492002" target="_blank"> My Account</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="wishlist.html" target="_blank"> My Wishlist</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="products.html" target="_blank"> Shopping</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right" target="_blank"></i><a href="about.html"> About Us</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i
+                ><a href="cart.html" target="_blank"> My Cart</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="checkout.html" target="_blank"> My Checkout</a>
+              </li>
+            </ul>
           </div>
-          <div class="content">
-            <i class="fa fa-envelope-open"></i>
-            <div class="details">
-              <h4>Email:</h4>
-              <p>
-                <a href="mailto:shathadogh872@gmail.com "
-                  >shathadogh872@gmail.com</a
-                >
-              </p>
-            </div>
-          </div>
-          <div class="content">
-            <i class="fa fa-link"></i>
-            <div class="details">
-              <h4>Website:</h4>
-              <p><a href="http://www.domain.com">http://www.domain.com</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <h3 id="info">Information</h3>
-          <ul class="information">
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> My Account</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> My Wishlist</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> Shopping</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> About Us</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i
-              ><a href="#"> Terms & Condition</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> Order Status</a>
-            </li>
-          </ul>
-        </div>
-        <div class="column">
-          <h3 id="info">Follow Us</h3>
-          <ul class="follow">
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> Facebook</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> Google+</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> YouTube</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#"> Twitter</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#">Instagram</a>
-            </li>
-            <li>
-              <i class="fa fa-chevron-right"></i>
-              <i class="fa fa-chevron-right"></i><a href="#">Pinterest</a>
+          <div class="column">
+            <h3 id="info">Follow Us</h3>
+            <ul class="follow">
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="https://www.facebook.com/share/161bfAfvt4/" target="_blank"> Facebook</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox" target="_blank"> Google+</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i><a href="https://www.youtube.com/@shatham.d.7816" target="_blank"> YouTube</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="https://x.com/Shatha72401840?t=0D6VaDRh-zZ1hF4LdM5J3w&s=35"target="_blank" > Twitter</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="https://www.instagram.com/sh_m_d49?igsh=MTVhZTN4eHE5YTk2aw==" target="_blank">Instagram</a>
+              </li>
+              <li>
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <a href="https://www.pinterest.com/shathadogh872/" target="_blank">Pinterest</a>
             </li>
           </ul>
         </div>
@@ -611,7 +622,7 @@
           <form action="#" class="email">
             <input type="email" placeholder="Email address" required />
             <button type="submit">
-              <img src="{{ asset('web/images/telegram.png') }}" alt="telegram" />
+              <img src="images/telegram.png" alt="telegram" />
             </button>
           </form>
         </div>
@@ -623,7 +634,7 @@
       <div class="container">
         <div class="details">
           <h5>
-            <strong>&copy;</strong> Copyright 2025 <a href="#">AnyWhere</a> -
+            <strong>&copy;</strong> Copyright 2025 <a href="index.html">AnyWhere</a> -
             All Rights Reserved - Powered by WooVina Theme.
           </h5>
         </div>
@@ -635,12 +646,10 @@
         </div>
       </div>
     </div>
-
-
     <!-- ...................................................
     .........................popup......................
     ................................................... -->
-   
+
 
 
 

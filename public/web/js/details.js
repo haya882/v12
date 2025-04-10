@@ -1,4 +1,31 @@
- 
+
+const el1 = document.querySelector(".scroll");
+const height1 = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+window.addEventListener("scroll", () => {
+    const scrollTop = document.documentElement.scrollTop;
+    el1.style.width = `${(scrollTop / height1) * 100}%`;
+});
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+let btn21 = document.getElementById('top-btn');
+
+window.onscroll = function() {
+  if (window.scrollY >= 600) {
+    btn21.style.display = 'block';
+  } else {
+    btn21.style.display = 'none';
+  }
+}
+
+btn21.onclick = function() {
+  window.scrollTo({
+    left: 0,
+    top: 0,
+    behavior: "smooth"
+  });
+}
+//  .>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
 
 let products = {
     1: [
@@ -1879,7 +1906,7 @@ function saveWishlistToLocalStorage() {
 function addProductToWishlist(event) {
   let button = event.currentTarget;
   let productId = button.getAttribute("data-product-id");
-  console.log("Product ID:", productId);  // إضافة هذا السطر للتحقق من قيمة الـ productId
+  console.log("Product ID:", productId);  // التحقق من الـ productId
 
   let product = findProductById(productId);
 
@@ -1888,12 +1915,12 @@ function addProductToWishlist(event) {
     return;
   }
 
-  // التحقق إذا كان المنتج موجودًا بالفعل في الـ wishlist
+  // التحقق مما إذا كان المنتج موجودًا بالفعل
   let existingProduct = wishlist.items.find(item => item.ProductCode === productId);
-  if (existingProduct) {
-    existingProduct.quantity += 1;  // زيادة الكمية إذا كان المنتج موجودًا
-  } else {
-    wishlist.items.push({ ...product, quantity: 1 });  // إضافة المنتج إذا لم يكن موجودًا
+
+  if (!existingProduct) {
+    wishlist.items.push({ ...product, quantity: 1 });  
+    updateWishlistBadge();  // تحديث العدد فقط عند إضافة منتج جديد
   }
 
   // حفظ الـ wishlist في localStorage
@@ -1902,10 +1929,10 @@ function addProductToWishlist(event) {
   // تشغيل الأنيميشن
   animateProductToWishlist(event);
 
-  // تحديث الـ badge وعرض الـ wishlist
-  updateWishlistBadge();
+  // تحديث عرض الـ wishlist
   updateWishlistDisplay();
 }
+
 
   
   function animateProductToWishlist(event) {
@@ -1954,17 +1981,22 @@ function addProductToWishlist(event) {
     }, 1000);
   }
   function removeFromWishlist(productCode) {
-    // البحث عن المنتج في الـ Wishlist
+    // 1. إزالة المنتج من القائمة
     wishlist.items = wishlist.items.filter(item => item.ProductCode !== productCode);
-
-    // تخزين الـ Wishlist المحدثة في الـ LocalStorage
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-    // تحديث العداد في الأيقونة
+    
+    // 2. حفظ التغييرات
+    saveWishlistToLocalStorage();
+    
+    // 3. تحديث الواجهة (مع التحقق من وجود العناصر)
     updateWishlistBadge();
-    updateWishlistDisplay();  // تحديث واجهة الـ Wishlist
-}
-
+    
+    // التحقق مما إذا كنا في صفحة الويش ليست
+    if (window.location.pathname.includes("wishlist.html")) {
+      updateWishlistTable(wishlist.items);
+    } else {
+      updateWishlistDisplay();
+    }
+  }
 // ===============================================================  
 
 // تفعيل الأحداث الخاصة بالعدادات عند تحميل الصفحة
@@ -2212,6 +2244,7 @@ function showCartItems() {
       updateCartBadge();
       animateToCart(event, productId);
       moveProductToCart(productId, event);
+      updateCartTable(cart)
   }
   
   
@@ -2344,39 +2377,65 @@ function updateCartSubtotal() {
       subtotalElement.textContent = `$${cartSubtotal}`;
   }
 }
+
  
-   
+document.addEventListener("DOMContentLoaded", function () {
+  // تحقق من إذا كانت الصفحة هي cart.html
+  if (!window.location.pathname.includes("cart.html")) {
+      return; 
+  }
+
+  // جلب البيانات من localStorage
+  let savedProducts = localStorage.getItem("products");
+  
  
- 
+  if (!savedProducts) {
+      return;
+  }
+
+  // تحويل البيانات من JSON إلى كائن
+  let products = JSON.parse(savedProducts) || { items: [], totalPrice: 0 };
+  
+  console.log("✅ المنتجات بعد التحميل:", products);
+
+  // تحديث الجدول باستخدام الدالة المحدثة
+  updateCartTable(products);
+  displayCartItems();
+  updateCartBadge();
+  updateCartSubtotal();  
+});
+
 function updateCartTable(cart) {
   let tableBody = document.getElementById("cart-table-body");
+
+  if (!tableBody) return;
+
   tableBody.innerHTML = "";
- 
 
   if (!cart.items || cart.items.length === 0) {
       tableBody.innerHTML = `<tr><td colspan="6" class="empty-message">No product in the cart...</td></tr>`;
 
-      document.getElementById("cart-items-subtotal").textContent = "$0.00";
-      document.getElementById("cart-total").textContent = "$30.00"; // الشحن ثابت
+      let cartSubtotalElem = document.getElementById("cart-items-subtotal");
+      let cartTotalElem = document.getElementById("cart-total");
+
+      if (cartSubtotalElem) cartSubtotalElem.textContent = "$0.00";
+      if (cartTotalElem) cartTotalElem.textContent = "$30.00"; // الشحن ثابت
       return;
   }
 
-  let cartSubtotal = 0; // تعريف المجموع الفرعي للمنتجات
+  let cartSubtotal = 0;
 
   cart.items.forEach(item => {
-      // إزالة علامة الدولار والتحقق من القيمة
       let priceText = item.price.replace("$", "").trim();
       let priceValue = parseFloat(priceText);
 
-      // تحقق إذا كانت القيمة صالحة (عددية)
       if (isNaN(priceValue)) {
-          console.error(`خطأ في تحويل السعر للمنتج: ${item.title}, القيمة: ${item.price}`);
+          console.error(`🚨 خطأ في تحويل السعر للمنتج: ${item.title}, القيمة: ${item.price}`);
           priceValue = 0;
       }
 
-      // حساب المجموع الفرعي لكل منتج
       let subtotal = priceValue * item.quantity;
-      cartSubtotal += subtotal; // جمع المجموع الفرعي بشكل صحيح
+      cartSubtotal += subtotal;
 
       let row = document.createElement("tr");
       row.innerHTML = `
@@ -2400,19 +2459,15 @@ function updateCartTable(cart) {
       tableBody.appendChild(row);
   });
 
-  // تكلفة الشحن الثابتة
   let shippingCost = 30;
-
-  // حساب المجموع النهائي
   let total = cartSubtotal + shippingCost;
 
-  // تحديث القيم في صفحة المجموع الكلي
-  document.getElementById("cart-items-subtotal").textContent = `$${cartSubtotal.toFixed(2)}`;
-  document.getElementById("shipping-cost").textContent = `$${shippingCost.toFixed(2)}`;
-  document.getElementById("cart-total").textContent = `$${total.toFixed(2)}`;
+  let cartSubtotalElem = document.getElementById("cart-items-subtotal");
+  let cartTotalElem = document.getElementById("cart-total");
+
+  if (cartSubtotalElem) cartSubtotalElem.textContent = `$${cartSubtotal.toFixed(2)}`;
+  if (cartTotalElem) cartTotalElem.textContent = `$${total.toFixed(2)}`;
 }
-
-
 
 //  ==================================================y
 
@@ -2463,7 +2518,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function addToWishlist(event) {
- 
   let button = event.currentTarget;
   let productId = button.getAttribute("data-product-id");
   let product = findProductById(productId);
@@ -2473,25 +2527,20 @@ function addToWishlist(event) {
     return;
   }
 
-  // التحقق إذا كان المنتج موجودًا بالفعل في الـ wishlist
+  // التحقق مما إذا كان المنتج موجودًا بالفعل في القائمة
   let existingProduct = wishlist.items.find(item => item.ProductCode === productId);
-  if (existingProduct) {
-    existingProduct.quantity += 1;
-  } else {
+
+  if (!existingProduct) {
     wishlist.items.push({ ...product, quantity: 1 });
+    updateWishlistBadge();  // التحديث فقط عند إضافة منتج جديد
   }
 
   saveWishlistToLocalStorage();
-
- 
   animateToWishlist(event);
-  updateWishlistBadge();
   updateWishlistDisplay();
-  updateWishlistTable(wishlist.items);  
-  moveProductToCart(productCode, event)
-
-  
+  updateWishlistTable(wishlist.items);
 }
+
 
 function animateToWishlist(event) {
  
@@ -2549,26 +2598,103 @@ function removeFromWishlist(productCode) {
 } 
  
  
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.location.pathname.includes("wishlist.html")) {
+      return; 
+  }
+
+  let savedProducts = localStorage.getItem("products");
+  if (!savedProducts) {
+      return;
+  }
+
+  let products = JSON.parse(savedProducts) || { items: [], totalPrice: 0 };
+  console.log("✅ المنتجات بعد التحميل:", products);
+
+  // استدعاء تحميل البيانات من LocalStorage
+  loadWishlistFromLocalStorage();
+
+  // تحديث العرض فقط إذا كانت الصفحة Wishlist
+  updateWishlistTable(wishlist.items);
+  updateWishlistBadge();
+});
+
+
 function loadWishlistFromLocalStorage() {
   let storedWishlist = localStorage.getItem("wishlist");
-  wishlist = storedWishlist ? JSON.parse(storedWishlist) : { items: [] };
+
+  // تحقق من أن البيانات موجودة في localStorage
+  if (!storedWishlist) {
+    return;
+  }
+
+  // جلب البيانات من localStorage وتحويلها إلى كائن
+  wishlist = JSON.parse(storedWishlist) || { items: [] };
+
+  // تحقق من أن items هي مصفوفة
   if (!Array.isArray(wishlist.items)) {
     wishlist.items = [];
-    console.error("❌ items ليست مصفوفة!");
+    console.error("❌ items ليست مصفوفة في البيانات المحفوظة في localStorage!");
+  }
+
+}
+
+function updateWishlistTable(wishlistItems) {
+  let tableBody = document.getElementById("wishlist-body");
+  if (!tableBody) return;
+
+  let wishlistSubtotalElement = document.getElementById("wishlist-subtotal");
+  if (wishlistItems.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="6" class="empty-message">No product in the wishlist...</td></tr>`;
+      if (wishlistSubtotalElement) wishlistSubtotalElement.innerText = "$0.00";
+      return;
+  }
+
+  tableBody.innerHTML = "";
+  wishlistItems.forEach(item => {
+      let priceValue = parseFloat(item.price.replace("$", ""));
+      const row = document.createElement("tr");
+      row.innerHTML = `
+          <td><img src="${item.img}" alt="" class="table-img" /></td>
+          <td>
+              <h3 class="table-title">${item.title}</h3>
+              <p class="table-description">${item.shortDescription}</p>
+          </td>
+          <td><span class="table-price">$${priceValue.toFixed(2)}</span></td>
+          <td><span class="stock">In Stock</span></td>
+          <td>
+              <div class="add">
+                  <button
+                      class="shopping-cart"
+                      data-id="${item.ProductCode}"
+                      onclick="addToCart('${item.ProductCode}', event)"
+                  >
+                      <i class="fas fa-shopping-cart"></i>
+                      <span class="add-to-cart"> Add to Cart</span>
+                  </button>
+              </div>
+          </td>
+          <td><i class="fa-solid fa-trash table-trash" onclick="removeFromWishlist('${item.ProductCode}')"></i></td>
+      `;
+      tableBody.appendChild(row);
+  });
+
+  if (wishlistSubtotalElement) {
+      let totalPrice = wishlistItems.reduce((total, item) => total + parseFloat(item.price.replace("$", "")) * item.quantity, 0);
+      wishlistSubtotalElement.innerText = `$${totalPrice.toFixed(2)}`;
   }
 }
 
+
 function saveWishlistToLocalStorage() {
+  // حفظ الويش ليست في localStorage
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
 }
-
-
 function updateWishlistDisplay() {
   let wishlistContainer = document.getElementById("wishlist-items-container");
   let wishlistSubtotalElement = document.getElementById("wishlist-subtotal");
 
   if (!Array.isArray(wishlist.items)) {
-    console.error("❌ wishlist.items ليست مصفوفة!");
     wishlist.items = [];
   }
 
@@ -2599,56 +2725,7 @@ function updateWishlistDisplay() {
   wishlistSubtotalElement.innerText = `$${totalPrice.toFixed(2)}`;
 }
 
-
- 
-function updateWishlistTable(wishlistItems) {
-  let tableBody = document.getElementById("wishlist-body");
-  let wishlistSubtotalElement = document.getElementById("wishlist-subtotal"); // مجموع الأسعار
-
-  if (wishlistItems.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="6" class="empty-message">No product in the wishlist...</td></tr>`;
-      if (wishlistSubtotalElement) wishlistSubtotalElement.innerText = "$0.00";
-      return;
-  }
-
-  tableBody.innerHTML = "";
-
-  wishlistItems.forEach(item => {
-      let priceValue = parseFloat(item.price.replace("$", ""));
-      
-      const row = document.createElement("tr");
-      row.innerHTML = `
-          <td><img src="${item.img}" alt="" class="table-img" /></td>
-          <td>
-              <h3 class="table-title">${item.title}</h3>
-              <p class="table-description">${item.shortDescription}</p>
-          </td>
-          <td><span class="table-price">$${priceValue.toFixed(2)}</span></td>
-          <td><span class="stock">In Stock</span></td>
-          <td>
-              <div class="add">
-                  <button
-                      class="shopping-cart"
-                      data-id="${item.ProductCode}"
-                      onclick="addToCart('${item.ProductCode}', event)"
-                  >
-                      <i class="fas fa-shopping-cart"></i>
-                      <span class="add-to-cart"> Add to Cart</span>
-                  </button>
-              </div>
-          </td>
-          <td><i class="fa-solid fa-trash table-trash" onclick="removeFromWishlist('${item.ProductCode}')"></i></td>
-      `;
-      tableBody.appendChild(row);
-  });
-
-  // إذا كان العنصر موجودًا، قم بتحديث إجمالي الأسعار
-  if (wishlistSubtotalElement) {
-    let totalPrice = wishlistItems.reduce((total, item) => total + parseFloat(item.price.replace("$", "")) * item.quantity, 0);
-    wishlistSubtotalElement.innerText = `$${totalPrice.toFixed(2)}`;
-  }
-}
-
+//  ===========================================
 
 function moveProductToCart(productCode, event) {
   let button = event.currentTarget;
@@ -2721,9 +2798,44 @@ function updateWishlistBadge() {
 }
 
 // =========================================================================
+// total without cart page
+function updateCartTotals() {
+    let cartSubtotalElement = document.getElementById("cart-items-subtotal");
+    let shippingElement = document.getElementById("shipping-cost");
+    let totalElement = document.getElementById("cart-total");
+
+    if (!cartSubtotalElement || !shippingElement || !totalElement) {
+         
+        return;
+    }
+
+    // استرجاع المنتجات من localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || { items: [] };
+
+    // حساب المجموع الفرعي (جمع أسعار المنتجات * كميتها)
+    let subtotal = cart.items.reduce((total, item) => {
+        return total + (parseFloat(item.price.replace("$", "")) * item.quantity);
+    }, 0);
+
+    // تحديد قيمة الشحن (يمكن تغييرها حسب الحاجة)
+    let shippingCost = subtotal > 0 ? 30 : 0;
+
+    // حساب المجموع الكلي
+    let total = subtotal + shippingCost;
+
+    // تحديث القيم في الصفحة
+    cartSubtotalElement.innerText = `$${subtotal.toFixed(2)}`;
+    shippingElement.innerText = `$${shippingCost.toFixed(2)}`;
+    totalElement.innerText = `$${total.toFixed(2)}`;
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", updateCartTotals);
+
+
+// =========================================================================
 document.addEventListener("DOMContentLoaded", function () {
   let cartData = localStorage.getItem("cart");
-  console.log("Raw cart data from localStorage:", cartData); // ✅ تأكيد البيانات المحفوظة
 
   let cart = [];
 
@@ -2741,6 +2853,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Parsed cart:", cart); // ✅ يجب أن يعرض مصفوفة المنتجات فقط
 
   let table = document.querySelector(".order-table");
+  if (!table) return;
   let cartContainer = document.getElementById("cart-items-container");
   let noProductMsg = document.getElementById("no-product-msg");
   let subtotal = 0;
