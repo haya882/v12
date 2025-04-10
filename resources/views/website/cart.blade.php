@@ -33,7 +33,7 @@
         </button>
       </a>
         <button>
-          <a href="{{ route('website.products ') }}"><i class="fas fa-shopping-cart"></i> Continue Shopping
+          <a href="{{ route('website.products') }}"><i class="fas fa-shopping-cart"></i> Continue Shopping
         </button></a>
       </div>
     </div>

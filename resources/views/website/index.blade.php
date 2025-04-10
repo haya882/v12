@@ -16,7 +16,7 @@
           keep up with the latest fashion trends. Here, you will find everything
           you are looking for and more!
         </p>
-        <a  href="{{ route('website.products ') }}"><button>Shop Now</button></a>
+        <a  href="{{ route('website.products') }}"><button>Shop Now</button></a>
       </div>
     </div>
 
@@ -275,7 +275,7 @@
       <button id="next-btn" onclick="nextPage()">Next</button>
     </div> -->
     <div class="see">
-    <a href="{{ route('website.products ') }}"><button >See more </button></a>
+    <a href="{{ route('website.products') }}"><button >See more </button></a>
   </div>
     <!-- End Categories -->
     <!-- Start designer -->

@@ -4113,3 +4113,96 @@ font-size: 18px;
     opacity: 1;
   }
 }
+
+/* User Dropdown Styles */
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-dropdown .profile-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.user-dropdown .username {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.user-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: 200px;
+  background-color: var(--second-color);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 8px 0;
+  margin-top: 10px;
+}
+
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.user-dropdown .dropdown-content::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid var(--second-color);
+}
+
+.user-dropdown .dropdown-content a,
+.user-dropdown .dropdown-content button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: var(--main-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.user-dropdown .dropdown-content a:hover,
+.user-dropdown .dropdown-content button:hover {
+  background-color: var(--little-par);
+  color: var(--second-color);
+}
+
+.user-dropdown .dropdown-content i {
+  font-size: 16px;
+}
+
+.user-dropdown .logout-form {
+  margin: 0;
+  padding: 0;
+}
+
+.user-dropdown .logout-form button {
+  font-family: inherit;
+}
+
+@media (max-width: 767px) {
+  .user-dropdown .username {
+    display: none;
+  }
+  
+  .user-dropdown .dropdown-content {
+    right: -50px;
+  }
+}
