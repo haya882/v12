@@ -163,7 +163,7 @@
                                                 <select  name="category_id"
                                                        class="form-input @error('category_id') is-invalid @enderror" >
                                                        @foreach ($categories as $category)
-                                                       <option value="{{ $category->id }}"></option>
+                                                       <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                        @endforeach
                                                     </select>
                                                     @error('category_id')

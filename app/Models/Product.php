@@ -13,7 +13,7 @@ class Product extends Model
     protected $guarded = [];
 
     function role() {
-        return $this->belongsTo(Category::class)->withDefault() ;
+        return $this->belongsTo(Category::class ,'category_id')->withDefault() ;
     }
 
         function image() {

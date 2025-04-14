@@ -50,17 +50,17 @@ class ProductController extends Controller
         ]);
 
         // $data = $request->except('_token' , 'image', 'gallery');
+       
         $product = product::create([
-            'name'=>'',
-            'description'=> '',
+            'name'=>$request->name,
+            'description'=> $request->description,
             'price'=>$request->price,
             'quantity'=>$request->quantity,
             'category_id'=>$request->category_id,
 
 
         ]);
-
-        $product = product::create($data);
+        // $product = product::create($data);
 
         //Add image to relation
         $img_name = rand().time().$request->file('image')->getClientOriginalName();
@@ -77,6 +77,7 @@ class ProductController extends Controller
                 'type'=>'gallery'
             ]);
         }
+        
 
         return redirect()
             ->route('admin.products.index')
@@ -111,20 +112,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 2MB كحد أقصى
-        ]);
+       
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'description' => 'required|string|min:10',
+        // ]);
+        
 
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
             $product->image = $imagePath;
         }
-
-        $product->name = $validatedData['name'];
-        $product->description = $validatedData['description'];
+        $product->name = $request->name ?? $product->name;
+        $product->description =  $request->description ?? $product->description;
         $product->save();
 
         return redirect()->route('admin.products.index')->with('success', 'products updated successfully!');

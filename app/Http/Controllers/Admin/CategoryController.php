@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,14 +16,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       $categories = Category::latest('id')->paginate(10);
+        $categories = Category::latest('id')->paginate(10);
 
-    //    $categories =DB::table('categories')
-    //                 ->select('categories.id','categories.name','categories.description','category_images.path')
-    //                 ->innerJoin('category_images','categories.id','category_images.cat_id')
-    //                 ->get();
+        //    $categories =DB::table('categories')
+        //                 ->select('categories.id','categories.name','categories.description','category_images.path')
+        //                 ->innerJoin('category_images','categories.id','category_images.cat_id')
+        //                 ->get();
 
-       return view('dashboard.categories.index',compact('categories'));
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
@@ -30,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-       return view('dashboard.categories.create');
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -38,27 +39,35 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-    //   dd($request->all());
+          
         $request->validate([
-            'name'=>'required',
-            'image'=>'required',
-            'description'=>'required'
-
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'description' => 'required|string',
         ]);
 
-        $data = $request->except('_token', 'image');
+        // استخراج البيانات بدون صورة
+        $data = $request->only('name', 'description');
 
-          $category = Category::create($data);
-          $img_name = rand().time().$request->file('image')->getClientOriginalName();
-          $request->file('image')->move(public_path('images'), $img_name);
-          $category->image()->create([
-              'path' => $img_name
-          ]);
-          //Add image
-          return redirect()
-        ->route('dashboard.categories.index')
-        ->with('msg','Category added successfully')
-        ->with('type','success');
+        // إنشاء الكاتيجوري
+        $category = Category::create($data);
+
+        // حفظ الصورة
+        $imageFile = $request->file('image');
+        $imgName = uniqid() . '_' . $imageFile->getClientOriginalName();
+        $imageFile->move(public_path('images'), $imgName);
+        
+        // ربط الصورة بالكاتيجوري (على فرض أن العلاقة موجودة image())
+        $category->image()->create([
+            'path' => $imgName
+        ]);
+        
+        // dd($request->all());
+        // إعادة التوجيه مع رسالة نجاح
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('msg', 'Category added successfully')
+            ->with('type', 'success');
     }
 
 
@@ -76,7 +85,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //$category = Category::findOrFail($id);
-        return view('dashboard.categories.edit' , compact('category'));
+        return view('dashboard.categories.edit', compact('category'));
     }
 
     /**
@@ -113,8 +122,8 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()
-        ->route('dashboard.categories.index')
-        ->with('msg','Category deleted successfully')
-        ->with('type','danger');
+            ->route('admin.categories.index')
+            ->with('msg', 'Category deleted successfully')
+            ->with('type', 'danger');
     }
 }

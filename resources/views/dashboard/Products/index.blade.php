@@ -44,7 +44,7 @@
                             <td><span class="table-title">{{ $product->name }}</span></td>
                             <td> ${{ $product->price }}</td>
                             <td> {{ $product->quantity  }}</td>
-                            <td> {{  $product->category }}</td>
+                            <td> {{  $product->role?->name }}</td>
                             <td class="actions">
                                 <a class="update" href="{{ route('admin.products.edit', $product->id) }}">
                                     <button><i class="fas fa-edit"></i>Edit</button>
