@@ -31,6 +31,7 @@
                     <th>Product Count</th>
                     <th>Actions</th>
                 </tr>
+                
 
                 <tbody>
                     @forelse($categories as $category)
