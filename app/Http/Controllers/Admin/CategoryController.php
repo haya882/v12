@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest('id')->paginate(10);
+        $categories = Category::latest('id')->with('image')->paginate(10);
+        // dd($categories[0]->image()->first());
 
         //    $categories =DB::table('categories')
         //                 ->select('categories.id','categories.name','categories.description','category_images.path')
@@ -51,15 +52,19 @@ class CategoryController extends Controller
 
         // إنشاء الكاتيجوري
         $category = Category::create($data);
-
+        $img_name = rand().time().$request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('images'), $img_name);
+        $category->image()->create([
+            'path' => $img_name,
+        ]);
         // حفظ الصورة
-        $imageFile = $request->file('image');
-        $imgName = uniqid() . '_' . $imageFile->getClientOriginalName();
-        $imageFile->move(public_path('images'), $imgName);
+        // $imageFile = $request->file('image');
+        // $imgName = uniqid() . '_' . $imageFile->getClientOriginalName();
+        // $imageFile->move(public_path('images'), $imgName);
         
         // ربط الصورة بالكاتيجوري (على فرض أن العلاقة موجودة image())
         $category->image()->create([
-            'path' => $imgName
+            'path' => $img_name
         ]);
         
         // dd($request->all());

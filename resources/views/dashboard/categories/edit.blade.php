@@ -6,7 +6,10 @@
     </a>
 
     <section class="addProduct">
-        <div class="spacial-content"></div>
+        <div class="spacial-content">
+            >
+
+        </div>
         <div class="container">
             <div class="product-group">
                 <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data" class="form grid">
@@ -21,7 +24,7 @@
                                 class="form-control form-input @error('name') is-invalid @enderror"
                                 placeholder="Name" value="{{ old('name', $category->name) }}" />
                             @error('name')
-                                <small class="invalid-feedback">{{ $message }}</small>
+                            <small class="invalid-feedback">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
@@ -32,10 +35,15 @@
                             <label for="productImage">Image:</label>
                             <input type="file" id="productImage" name="image" class="form-input">
                             @error('image')
-                                <small class="invalid-feedback">{{ $message }}</small>
+                            <small class="invalid-feedback">{{ $message }}</small>
                             @enderror
+                            <img src="{{ asset('images/'.$category->image()?->first()?->path) }}" alt="" style="
+    width: 100px;
+    height: 100px;
+">
                         </div>
                     </div>
+
 
                     <!-- Description Field -->
                     <div class="form-row">
@@ -45,7 +53,7 @@
                                 placeholder="Description" cols="30" rows="5">{{ old('description', $category->description) }}</textarea>
 
                             @error('description')
-                                <small class="invalid-feedback">{{ $message }}</small>
+                            <small class="invalid-feedback">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
