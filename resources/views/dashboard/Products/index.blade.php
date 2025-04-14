@@ -39,11 +39,11 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <img width="100" class="table-img" src="" />
+                                <img width="100" class="table-img" src="{{ $product->img_path }}" />
                             </td>
                             <td><span class="table-title">{{ $product->name }}</span></td>
-                            <td> {{ $product->price }}</td>
-                            <td>{{ $product->quantity  }}</td>
+                            <td> ${{ $product->price }}</td>
+                            <td> {{ $product->quantity  }}</td>
                             <td> {{  $product->category }}</td>
                             <td class="actions">
                                 <a class="update" href="{{ route('admin.products.edit', $product->id) }}">

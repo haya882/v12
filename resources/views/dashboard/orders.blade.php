@@ -77,6 +77,8 @@
               <a href="{{ route('admin.orders') }}" class="menu-item ">
                 <span class="material-icons-sharp"> shopping_cart </span>
                 <h3>Orders</h3>
+                {{-- {{ dd(Route::currentRouteName()) }} --}}
+
               </a>
 
               <a href="" class="menu-item ">

@@ -44,13 +44,17 @@ Route::name('customer.')->group(function () {
     Route::get('/signup', [CustomerController::class, 'signup'])->name('signup');
     Route::post('/register', [CustomerController::class, 'register'])->name('register');
     Route::post('/logout', [CustomerController::class, 'logout'])->name('logout');
-    
+
     // Protected Customer Routes
     Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
     });
 });
-
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+    Route::put('/profile/image', [ProfileController::class, 'updateImage'])->name('admin.profile.update.image');
+});
 
 
 

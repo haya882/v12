@@ -32,7 +32,7 @@ class CustomerController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            
+
             // Check if user is a customer (not an admin)
             if ($user->type === 'admin') {
                 Auth::logout();
@@ -40,9 +40,9 @@ class CustomerController extends Controller
                     'email' => ['These credentials are for admin use only.'],
                 ]);
             }
-            
+
             $request->session()->regenerate();
-            return redirect()->intended(route('customer.dashboard'));
+            return redirect()->intended(route('website.index'));
         }
 
         throw ValidationException::withMessages([
@@ -77,8 +77,8 @@ class CustomerController extends Controller
         ]);
 
         Auth::login($user);
-        
-        return redirect()->route('customer.dashboard');
+
+        return redirect()->route('website.index');
     }
 
     /**
@@ -99,4 +99,4 @@ class CustomerController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('customer.login');
     }
-} 
+}

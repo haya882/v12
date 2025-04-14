@@ -34,43 +34,6 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <style>
-      .profile-dropdown {
-        position: relative;
-        display: inline-block;
-      }
-      
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: var(--color-white);
-        min-width: 160px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        z-index: 1;
-        border-radius: 0.5rem;
-        overflow: hidden;
-      }
-      
-      .dropdown-content a {
-        color: var(--color-dark);
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        transition: all 0.3s ease;
-      }
-      
-      .dropdown-content a:hover {
-        background-color: var(--color-background);
-      }
-      
-      .profile-dropdown:hover .dropdown-content {
-        display: block;
-      }
-      
-      .dropdown-content i {
-        margin-right: 10px;
-      }
-    </style>
 
   </head>
   <body>
@@ -130,13 +93,10 @@
                 <i class="fas fa-chevron-right icon"></i>
 
               </a>
-              <a href="{{ route('admin.logout') }}" class="menu-item layout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <a href="" class="menu-item layout" >
                 <span class="material-icons-sharp"> logout </span>
                 <h3>Logout</h3>
               </a>
-              <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
             </div>
 
           </aside>
@@ -162,23 +122,18 @@
                 <span class="material-icons-sharp active"> light_mode </span>
                 <span class="material-icons-sharp"> dark_mode </span>
               </div>
-              <div class="profile-dropdown">
-                <div class="profile">
-                  <div class="info">
-                    <p>Hey,<b>{{ Auth::user()->name }}</b></p>
-                  </div>
-                  <div class="profile-photo">
-                    <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
-                  </div>
+              <div class="profile">
+                <a href="dashprofile.html">
+
+                <div class="info">
+                  <p>Hey,<b>Haya</b></p>
                 </div>
-                <div class="dropdown-content">
-                  <a href="{{ route('admin.profile') }}">
-                    <i class="material-icons-sharp">person</i> Profile
-                  </a>
-                  <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="material-icons-sharp">logout</i> Logout
-                  </a>
+              <a href="dashprofile.html">
+
+                <div class="profile-photo">
+                  <img src="{{ asset('assets/images/team1.jpg') }}" alt="team1" />
                 </div>
+              </a>
               </div>
             </div>
         </div>
@@ -186,58 +141,97 @@
 
 
             <!----------------End of Top  -------------->
-        <section class="admin-profile">
-            <div class="spacial-content">
-                <h1>
-                 Profile Page
-                </h1>
-            </div>
-            <div class="container grid">
-                <div class="profile-group">
-                    <div class="profile-img">
-                        <label for="file-upload" class="custom-file-upload">
-                            <i class="fas fa-camera"></i>
-                        </label>
-                        <input id="file-upload" type="file" accept="image/*" style="display: none;" />
-                        <img id="profile-image" src="{{ asset('assets/images/team1.jpg') }}" alt="profile image ">
+            <section class="admin-profile">
+                <div class="spacial-content">
+                    <h1>Admin Profile</h1>
+                </div>
+                <div class="container grid">
+                    <div class="profile-group">
+                        <div class="profile-img">
+                            <form action="{{ route('admin.profile.update.image') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <label for="profile_image" class="custom-file-upload">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input id="profile_image" type="file" name="image" onchange="this.form.submit()" accept="image/*" hidden />
+                                <img id="profile-image" src="{{ asset('storage/' . Auth::user()->image) }}" alt="profile image">
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="profile-group">
+                        <form action="{{ route('admin.profile.update') }}" method="POST" class="form grid">
+                            @csrf
+                            @method('PUT')
+
+                            <!-- Name -->
+                            <div class="form-item">
+                                <label>Name</label>
+                                <input type="text" name="name" placeholder="Enter your name"
+                                    value="{{ old('name', Auth::user()->name) }}"
+                                    class="form-input @error('name') is-invalid @enderror">
+                                @error('name')
+                                    <div class="alert alert-danger mt-2 p-2">
+                                        <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-item">
+                                <label>Email</label>
+                                <input type="email" name="email" placeholder="Enter your email"
+                                    value="{{ old('email', Auth::user()->email) }}"
+                                    class="form-input @error('email') is-invalid @enderror">
+                                @error('email')
+                                    <div class="alert alert-danger mt-2 p-2">
+                                        <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <h2 class="section-title">Update Your Password</h2>
+
+                            <!-- Current Password -->
+                            <div class="form-item">
+                                <label>Current Password</label>
+                                <input type="password" name="current_password" placeholder="Current Password"
+                                    class="form-input @error('current_password') is-invalid @enderror">
+                                @error('current_password')
+                                    <div class="alert alert-danger mt-2 p-2">
+                                        <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- New Password -->
+                            <div class="form-item">
+                                <label>New Password</label>
+                                <input type="password" name="password" placeholder="New Password"
+                                    class="form-input @error('password') is-invalid @enderror">
+                                @error('password')
+                                    <div class="alert alert-danger mt-2 p-2">
+                                        <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="form-item">
+                                <label>Confirm Password</label>
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password"
+                                    class="form-input">
+                            </div>
+
+                            <div class="form-item add">
+                                <button class="shopping-cart" type="submit">Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="profile-group ">
-                    <form action="" class="form grid">
-                        <div class="form-item">
-                        <label for="">Name:</label>
-                        <input type="text" name="" id="" placeholder="Enter Your Name" class="form-input">
-                    </div>
-                        <div class="form-item">
-                        <label for="">Email:</label>
-                        <input type="email" name="" id="" placeholder="Enter Your Email" class="form-input">
-                    </div>
-                        <h2 class="section-title">Update your password</h2>
-                        <div class="form-item">
-                            <label for="">Current Password</label>
-                            <input type="text" name="" id="" placeholder="Enter Your Password" class="form-input">
-                        </div>
-                        <div class="form-item">
-                            <label for="">New Password:</label>
-                            <input type="text" name="" id=""  class="form-input">
-                        </div>
-                        <div class="form-item">
-                            <label for="">Confirm Password:</label>
-                            <input type="text" name="" id=""  class="form-input">
-                        </div>
-
-                     </form>
-                    <div class="add place">
-                        <button class="shopping-cart">
-                           Update
-                        </button>
-                    </div>
-                </div>
-
-
-     </section>
-
-
+            </section>
 
 
       <div class="copyright copy-dash copy-dash-prof">
@@ -258,7 +252,10 @@
       </div>
     </div>
 
-    <script src="{{ asset('assets/js/dashbord.js') }}"></script>
-  </body>
-</html>
+        <!-- ------------End of Profile-------------------->
 
+        <script src="{{ asset('assets/js/dashbord.js') }}"></script>
+
+
+      </body>
+    </html>

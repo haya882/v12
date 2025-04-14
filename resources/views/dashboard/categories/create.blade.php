@@ -81,7 +81,8 @@
         </div>
     </section>
 
-    @section('js')
+
+    {{-- @section('js')
     <script>
         function showImg(e) {
 
@@ -91,5 +92,5 @@
             }
         }
     </script>
-    @endsection
+    @endsection --}}
 </x-dashboard>

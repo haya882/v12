@@ -40,7 +40,7 @@
         position: relative;
         display: inline-block;
       }
-      
+
       .dropdown-content {
         display: none;
         position: absolute;
@@ -51,7 +51,7 @@
         border-radius: 0.5rem;
         overflow: hidden;
       }
-      
+
       .dropdown-content a {
         color: var(--color-dark);
         padding: 12px 16px;
@@ -59,15 +59,15 @@
         display: block;
         transition: all 0.3s ease;
       }
-      
+
       .dropdown-content a:hover {
         background-color: var(--color-background);
       }
-      
+
       .profile-dropdown:hover .dropdown-content {
         display: block;
       }
-      
+
       .dropdown-content i {
         margin-right: 10px;
       }

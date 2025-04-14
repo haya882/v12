@@ -105,4 +105,5 @@ class AdminController extends Controller
     {
         return view('dashboard.orders');
     }
+    
 }

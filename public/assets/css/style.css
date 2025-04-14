@@ -2074,3 +2074,11 @@ a {
 
   /* End copyright */
 
+  .gender{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  .gender label{
+    font-size: 16px !important;
+  }

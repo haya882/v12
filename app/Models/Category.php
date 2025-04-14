@@ -18,5 +18,13 @@ class Category extends Model
         return $this->morphOne(Image::class , 'imageable' ) ;
 
     }
+    function getImgPathAttribute() {
+        $url = 'https://via.placeholder.com/100×80';
+        if($this->image) {
+            $url = asset('images/'.
+            $this->image->path);
+        }
+        return $url;
+    }
 
 }

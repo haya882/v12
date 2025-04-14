@@ -41,7 +41,8 @@ class CategoryController extends Controller
     //   dd($request->all());
         $request->validate([
             'name'=>'required',
-            'image'=>'required'
+            'image'=>'required',
+            'description'=>'required'
 
         ]);
 
@@ -83,19 +84,25 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $request->validate([
-            'name'=>'required'
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|min:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 2MB كحد أقصى
         ]);
 
-        $data = $request->except('_token');
 
-          $category ->update($data);
-          //Add image
-          return redirect()
-        ->route('dashboard.categories.index')
-        ->with('msg','Category updated successfully')
-        ->with('type','info');
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+            $category->image = $imagePath;
+        }
+
+        $category->name = $validatedData['name'];
+        $category->description = $validatedData['description'];
+        $category->save();
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully!');
     }
+
 
 
     /**

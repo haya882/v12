@@ -177,6 +177,110 @@ const orders = [{
 });
 
 
+// function clearError(field, baseId = '') {
+//     const id = baseId || field.id.split('Input')[0];
+//     const errorIcon = document.getElementById(id + 'ErrorIcon');
+//     const errorMsg = document.getElementById(id + 'ErrorMsg');
+//     const errorText = document.getElementById(id + 'ErrorText');
 
+//     field.style.borderColor = '#ced4da';
+//     if (field.style.paddingRight) field.style.paddingRight = '10px';
 
+//     if (errorIcon) errorIcon.style.display = 'none';
+//     if (errorMsg) errorMsg.style.display = 'none';
+//     if (errorText) errorText.textContent = '';
+// }
+
+// // ==================== المعاينة للصورة ======================
+
+// function handleImagePreview(inputId, previewId) {
+//     const input = document.getElementById(inputId);
+//     const preview = document.getElementById(previewId);
+
+//     input.addEventListener('change', function () {
+//         clearError(this);
+//         const file = this.files[0];
+//         if (file) {
+//             const reader = new FileReader();
+//             reader.onload = function (e) {
+//                 preview.src = e.target.result;
+//                 preview.style.display = 'block';
+//             };
+//             reader.readAsDataURL(file);
+//         } else {
+//             preview.src = '';
+//             preview.style.display = 'none';
+//         }
+//     });
+// }
+
+// // ==================== تفعيل كل فورم ======================
+
+// function setupFormValidation({ formId, buttonId, fields, customMessages = {}, previewFields = {} }) {
+//     const form = document.getElementById(formId);
+//     const submitBtn = document.getElementById(buttonId);
+
+//     // تفعيل الاستماع على كل حقل
+//     fields.forEach(id => {
+//         const field = document.getElementById(id);
+//         const eventType = field.type === 'file' ? 'change' : (field.tagName === 'SELECT' ? 'change' : 'input');
+//         field.addEventListener(eventType, () => clearError(field));
+//     });
+
+//     // تفعيل معاينة الصور
+//     for (const [inputId, previewId] of Object.entries(previewFields)) {
+//         handleImagePreview(inputId, previewId);
+//     }
+
+//     // التحقق عند الإرسال
+//     submitBtn.addEventListener('click', function (e) {
+//         e.preventDefault();
+//         let isValid = true;
+//         fields.forEach(id => {
+//             const field = document.getElementById(id);
+//             if (!field) {
+//                 console.warn(`Field with id "${id}" not found`);
+//                 return;
+//             }
+
+//             const baseId = id.replace('Input', '');
+//             const errorIcon = document.getElementById(baseId + 'ErrorIcon');
+//             const errorMsg = document.getElementById(baseId + 'ErrorMsg');
+//             const errorText = document.getElementById(baseId + 'ErrorText');
+
+//             let isEmpty = false;
+//             if (field.type === 'file') {
+//                 isEmpty = field.files.length === 0;
+//             } else if (field.tagName === 'SELECT') {
+//                 isEmpty = field.value === '';
+//             } else {
+//                 isEmpty = field.value.trim() === '' || parseFloat(field.value) <= 0;
+//             }
+
+//             if (isEmpty) {
+//                 field.style.borderColor = '#ff0000';
+//                 if (errorIcon) errorIcon.style.display = 'block';
+//                 if (errorMsg) errorMsg.style.display = 'block';
+
+//                 const defaultMsg = `${baseId.charAt(0).toUpperCase() + baseId.slice(1)} is required;`
+//                 if (errorText) errorText.textContent = customMessages[baseId] || defaultMsg;
+
+//                 isValid = false;
+//             } else {
+//                 field.style.borderColor = '#ced4da';
+//                 if (errorIcon) errorIcon.style.display = 'none';
+//                 if (errorMsg) errorMsg.style.display = 'none';
+//             }
+//         });
+
+//         if (isValid) form.submit();
+//     });
+// }
+
+// // ====================================================================
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     setupFormValidation
+
+// });
 

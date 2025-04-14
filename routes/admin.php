@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 // // Admin routes
 // Route::prefix('admin')->name('admin.')->group(function() {
 //     Route::get('/', [AdminController::class, 'index'])->name('index');
-   
+
 //     Route::get('/profile',[AdminController::class,'profile'])->name('profile');
 //     Route::put('/profile',[AdminController::class,'profile_save']);
 //     Route::get('/login',[AdminController::class,'login'])->name('login');
@@ -33,14 +33,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/signup', [AdminController::class, 'signup'])->name('signup');
     Route::post('/register', [AdminController::class, 'register'])->name('register');
     Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
-    
+
     // Protected Admin Routes
     Route::middleware([ 'admin'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
         Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
         Route::post('/profile/save', [AdminController::class, 'profile_save'])->name('profile.save');
         Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+        // Route::get('/payment', [AdminController::class, 'payment'])->name('payment');
+
         Route::resource('categories', CategoryController::class);
         Route::resource('products', ProductController::class);
+
+
+
     });
+
+
+
 });
+
+
