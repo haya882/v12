@@ -62,7 +62,7 @@
                   <form action="{{ route('admin.authenticate') }}" method="POST" class="sign-in-form">
                       @csrf
                       <h2 class="title">Admin Sign in</h2>
-                      
+
                       @if ($errors->any())
                       <div class="alert">
                           <ul>
@@ -77,13 +77,12 @@
                           <label for="email" class="login__label">Email</label>
                           <i class="fa-solid fa-envelope ri-mail-fill login__icon"></i>
                       </div>
-
                       <div class="login__box">
                         <input type="password" name="password" id="password" required placeholder=" " class="login__input">
                         <label for="password" class="login__label">Password</label>
-                        <i class="eye-icon fas fa-eye-slash login__icon login__password" id="loginPassword"></i>
-                     </div>
-                     
+                        <i class="fas fa-eye-slash login__icon login__password" id="loginPassword"></i>
+                      </div>
+
                      <div class="remember">
                         <label class="custom-control-label" for="remember">
                         <input type="checkbox" name="remember" class="custom-control-input" id="remember">
@@ -111,77 +110,43 @@
                      </div>
                   </form>
 
-                 
+
               </div>
           </div>
 
           <!-- Panels Container -->
           <div class="panels-container">
-              <!-- Left Panel -->
-              {{-- <div class="panel left-panel">
-                  <div class="content">
-                      <h3>New here? Create Your Account</h3>
-                      <p>Join us and manage your website with our admin dashboard. It only takes a minute to sign up!</p>
-                      <button class="btn transparent" id="sign-up-btn">Sign up</button>
-                  </div>
-                  <img src="{{ asset('assets/images/log.svg') }}" class="image" alt="Login Illustration" />
-              </div> --}}
+                {{-- Left Panel --}}
+               <div class="panel left-panel">
 
-              {{-- <!-- Right Panel -->
-              <div class="panel right-panel">
-                  <div class="content">
-                      <h3>One of us? Welcome Back!</h3>
-                      <p>Please log in to your admin account to manage your website and access exclusive features.</p>
-                      <button class="btn transparent" id="sign-in-btn">Sign in</button>
-                  </div>
-                  <img src="{{ asset('assets/images/register.svg') }}" class="image" alt="Register Illustration" />
-              </div> --}}
+                  <img src="{{ asset('assets/images/undraw_welcome-cats_tw36 (2).svg') }}" class="image" alt="Login Illustration" />
+
+              </div>
           </div>
       </div>
-  </div>
+    </div>
 
 
-    <script src="{{ asset('assets/js/dashbord.js') }}"></script>
+
+
+    {{-- <script src="{{ asset('assets/js/dashbord.js') }}"></script> --}}
     <script>
-        // Toggle password visibility
-        document.getElementById('loginPassword').addEventListener('click', function() {
+      document.addEventListener("DOMContentLoaded", function() {
+        const togglePassword = document.getElementById('loginPassword');
+        if (togglePassword) {
+          togglePassword.addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            }
-        });
-        
-        document.getElementById('signupEye').addEventListener('click', function() {
-            const passwordInput = document.getElementById('signupPassword');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            }
-        });
-        
-        document.getElementById('signupEyeConfirm').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password_confirmation');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.classList.remove('fa-eye-slash');
-                this.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                this.classList.remove('fa-eye');
-                this.classList.add('fa-eye-slash');
-            }
-        });
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+          });
+        }
+
+
+      });
+
+
     </script>
   </body>
 </html>

@@ -1521,6 +1521,9 @@ a {
     z-index: 1;
   }
 
+  
+
+
   .admin-login  form.sign-in-form {
     z-index: 2;
   }
@@ -1603,7 +1606,7 @@ a {
     top: -10%;
     right: 48%;
     transform: translateY(-50%);
-    background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+    background-image: radial-gradient(circle, #ffffff, #e8e2f9, #d5c4f1, #c5a5e6, #b985d8, #ac83db, #9c81de, #8b7fe1, #7497ed, #68acf1, #70beef, #87ceeb);
     transition: 1.8s ease-in-out;
     border-radius: 50%;
     z-index: 6;
@@ -1613,6 +1616,9 @@ a {
     width: 100%;
     transition: transform 1.1s ease-in-out;
     transition-delay: 0.4s;
+    position: relative;
+    bottom: 15%;
+    right: 7%;
   }
 
   .admin-login .panel {
@@ -1751,14 +1757,14 @@ a {
 
   .admin-login .remember:hover ,
   .remember a:hover {
-    color:#4481eb;
+    color:#AC56C1;
   }
 
   .admin-login .login__button {
     width: 68%;
     display: inline-flex;
     justify-content: center;
-    background-color: #4481eb ;
+    background-color: #AC56C1;
     color: var(--second-color);
     font-weight: 600;
     padding-block: 1.5rem;
@@ -1769,8 +1775,8 @@ a {
   }
 
   .admin-login .login__button:hover {
-    background-color: hsl(208, 88%, 50%);
-    box-shadow: 0 8px 24px hsla(208, 92%, 32%, .3);
+    background-color:#3f3d56;
+    box-shadow: 0 8px 24px #3f3d567a;
   }
   /* Input focus move up label */
   .admin-login .login__input:focus ~ .login__label {
@@ -1794,13 +1800,18 @@ a {
 
   /* Input focus color */
   .admin-login .login__input:focus {
-    border-color: #4481eb;
+    border-color:#AC56C1;
   }
 
   .admin-login .login__input:focus ~ .login__label,
   .admin-login .login__input:focus ~ .login__icon {
-    color: #4481eb;
+    color:#AC56C1;
   }
+  .eye-icon {
+    cursor: pointer;
+    z-index: 10;
+    position: relative;
+}
 
   /* Show hide login & create account */
   .admin-login .active .login__access {
