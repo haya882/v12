@@ -31,7 +31,7 @@
                     <th>Product Count</th>
                     <th>Actions</th>
                 </tr>
-                
+
 
                 <tbody>
                     @forelse($categories as $category)
@@ -45,7 +45,7 @@
                             @endif
                         </td>
                         <td><span class="table-title">{{ $category->name }}</span></td>
-                        <td></td>
+                        <td> {{ $category->products->count() }}</td>
                         <td class="actions">
                             <a class="update" href="{{ route('admin.categories.edit', $category->id) }}">
                                 <i class="fas fa-edit"></i> Edit

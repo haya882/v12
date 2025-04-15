@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.querySelector(".content-products .images");
 
     if (!img || !lens || !container) {
-        console.error("❌ بعض العناصر غير موجودة في الصفحة، تأكد من HTML.");
+
         return;
     }
 
@@ -2140,9 +2140,14 @@ document.addEventListener("DOMContentLoaded", function () {
     filterProductsByCategory(selectedCategory);
   }
 });
-
+// ========================================
+//فلترة الكاتيجوريز
 function filterProductsByCategory(category) {
   const productContainer = document.getElementById("product-container");
+  const paginationNumbers = document.getElementById("pagination-numbers");
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+
   productContainer.innerHTML = ""; // مسح المنتجات القديمة
 
   const allProducts = Object.values(pages).flat(); // جمع كل المنتجات
@@ -2150,8 +2155,16 @@ function filterProductsByCategory(category) {
     (product) => product.category === category
   );
 
+  // إخفاء الباجينيشن وأزرار التنقل عند الفلترة
+  paginationNumbers.style.display = "none";
+  prevBtn.style.display = "none";
+  nextBtn.style.display = "none";
+
   displayProducts(filteredProducts);
 }
+
+// ========================================
+
 
 function displayProducts(products) {
   const productContainer = document.getElementById("product-container");
@@ -2185,6 +2198,7 @@ function displayProducts(products) {
     `;
     productContainer.innerHTML += productElement;
   });
+
 }
 // تحميل الصفحة الأولى عند فتح الموقع
 
@@ -2255,7 +2269,6 @@ function filterProductsByGenderCategoryAndSubcategory(gender = "all", category =
   });
 
 
-// **إخفاء الباجينيشن إذا كان عدد المنتجات أقل من 50 أو إذا كان الفلتر "all" ولا يحتاج تصفح**
 if (filteredProducts.length < 50 ||
   (gender.toLowerCase() === "all" && category.toLowerCase() === "all" && subCategory.toLowerCase() === "all")) {
  paginationNumbers.style.display = "none";

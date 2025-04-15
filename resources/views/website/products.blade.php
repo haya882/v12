@@ -508,8 +508,9 @@
      <!-- Start products -->
 
 
-     <div class="all-products" data-aos="fade-up" data-aos-duration="2000">
-    <div class="scroll"></div>
+     <div class="all-products">
+      <button id="top-btn"><i class="fa-solid fa-arrow-up"></i></button>
+      <div class="scroll"></div>
 
       <div class="side" >
         <h3>Product Categories</h3>

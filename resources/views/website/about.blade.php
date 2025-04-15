@@ -21,7 +21,7 @@
 </div>
   <!-- Section 2: Centered Text -->
 
-  <div class="center-text" data-aos="fade-up"  data-aos-duration="2000">
+  <div class="center-text" >
 
     <div class="container">
     <h2>Our Vision</h2>

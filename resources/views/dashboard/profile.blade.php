@@ -148,17 +148,12 @@
                 <div class="container grid">
                     <div class="profile-group">
                         <div class="profile-img">
-                            <form action="{{ route('admin.profile.update.image') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-
-                                <label for="profile_image" class="custom-file-upload">
-                                    <i class="fas fa-camera"></i>
-                                </label>
-                                <input id="profile_image" type="file" name="image" onchange="this.form.submit()" accept="image/*" hidden />
-                                <img id="profile-image" src="{{ asset('storage/' . Auth::user()->image) }}" alt="profile image">
-                            </form>
-                        </div>
+                          <label for="file-upload" class="custom-file-upload">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input id="file-upload" type="file" accept="image/*" style="display: none;" />
+                        <img id="profile-image" src="images/team1.jpg" alt="profile image ">
+                    </div>
                     </div>
 
                     <div class="profile-group">

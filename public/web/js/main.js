@@ -1,4 +1,4 @@
-AOS.init();
+// AOS.init();
 //  .>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
 
 document.getElementById("profile-icon").addEventListener("click", function () {
@@ -41,20 +41,30 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //popup
-const popup = document.querySelector(".popup");
-const closePopup = document.querySelector(".close-popup");
-if(popup){
-  closePopup.addEventListener("click" , () => {
-    popup.classList.add("hide-popup");
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  const popup = document.querySelector(".popup");
+  const closePopup = document.querySelector(".close-popup");
 
-  window.addEventListener('load', () => {
-    setTimeout(() =>{
-    popup.classList.remove("hide-popup");
+  // تحقق إذا كانت هذه أول زيارة للمستخدم
+  if (!localStorage.getItem("popupShown")) {
+    setTimeout(() => {
+      if (popup) {
+        popup.classList.remove("hide-popup"); // إزالة الكلاس الذي يخفي البوب أب
+        localStorage.setItem("popupShown", "true"); // تخزين القيمة بعد ظهور البوب أب فعلًا
+      }
+    }, 1000);
+  }
 
-    } ,1000)
-  })
-}
+  // إذا تم النقر على زر الإغلاق، أخفي البوب أب
+  if (popup && closePopup) {
+    closePopup.addEventListener("click", () => {
+      popup.classList.add("hide-popup");  // إخفاء البوب أب بعد الإغلاق
+    });
+
+  }
+
+});
+
 
 
 
@@ -93,7 +103,7 @@ function filterProductsByCategory(category) {
         </div>
         ${
           product.discount
-            ? `<div class="discount">-${product.discount}</div>`
+            ? <div class="discount">-${product.discount}</div>
             : ""
         }
       </div>
@@ -118,7 +128,6 @@ menuToggle.addEventListener('click', () => {
   icon.classList.toggle('fa-xmark');
 });
 //search
-
 // البحث عن العناصر
 let searchBtn = document.getElementById('searchBtn');
 let searchBox = document.getElementById('searchBox');
@@ -256,11 +265,6 @@ btn2.onclick = function() {
 
 
 //  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
-
-
 let pages = {
   1: [
     { img: "images/Accessories1.jpg", alt: "Accessories1", category: "Accessories", title: "Elegant bracelet", price: "$30.00" },
@@ -279,166 +283,55 @@ let pages = {
 
 //  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-// let cartCount = 0;  // عدد العناصر في السلة
-// let wishlistCount = 0;  // عدد العناصر في الـ Wishlist
+document.querySelectorAll('input[name="delivery"]').forEach((radio) => {
+  radio.addEventListener('change', function () {
+    document.getElementById('address-section').style.display =
+      this.value === 'home' ? 'block' : 'none';
+  });
+});
 
-// let cart = {
-//     items: [], // مصفوفة لتخزين العناصر المضافة إلى السلة
-//     totalPrice: 0 // لحساب السعر الإجمالي
-// };
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const lat = position.coords.latitude.toFixed(5);
+      const lng = position.coords.longitude.toFixed(5);
+      document.getElementById('address').value = `Lat: ${lat}, Lng: ${lng}`;
+    }, function () {
+      alert("Unable to retrieve your location.");
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
 
-// function addToCart(productId, event) {
-//   let product = findProductById(productId);
+function showPopup(message, success = true) {
+  const popup = document.getElementById('popup');
+  const messageEl = document.getElementById('popup-message');
 
-//   if (!product) {
-//       console.error("❌ المنتج غير موجود في القائمة.");
-//       return;
-//   }
+  popup.style.backgroundColor = success ? '#28a745' : '#dc3545';
+  messageEl.textContent = message;
 
-//   let existingProduct = cart.items.find(item => item.ProductCode === productId);
-//   let priceValue = parseFloat(product.price.replace("$", "")); // تحويل السعر إلى قيمة عددية
+  popup.classList.add('show');
 
-//   if (existingProduct) {
-//       existingProduct.quantity++;
-//       cart.totalPrice += priceValue;
-//   } else {
-//       product.quantity = 1;
-//       cart.items.push(product);
-//       cartCount = cart.items.length;  // تحديث عدد العناصر في السلة
-//       cart.totalPrice += priceValue;
-//   }
+  setTimeout(() => {
+    popup.classList.remove('show');
+  }, 3000);
+}
 
-//   updateCartBadge();
-//   showPopup();
-//   showCartItems();
-
-//   // تمرير `event` لدالة `animateToCart`
-//   animateToCart(event);
-// }
-
-// function addToWishlist(event) {
-//     wishlistCount++;
-//     updateWishlistBadge();
-//     animateToWishlist(event);
-// }
-
-
-// function updateWishlistBadge() {
-//     let wishlistIcon = document.getElementById("wishlist-icon");
-//     let wishlistBadge = wishlistIcon.querySelector(".badge");
-
-//     if (!wishlistBadge) {
-//         wishlistBadge = document.createElement("span");
-//         wishlistBadge.classList.add("badge");
-//         wishlistIcon.appendChild(wishlistBadge);
-//     }
-
-//     wishlistBadge.textContent = wishlistCount > 0 ? wishlistCount : 0;
-// }
-
-// function animateToCart(event) {
-//   let cartIcon = document.getElementById("cart-icon");
-//   if (!cartIcon) {
-//       console.error("❌ لم يتم العثور على أيقونة السلة.");
-//       return;
-//   }
-
-//   let productImage = event.target.closest(".event").querySelector("img");
-//   if (!productImage) {
-//       console.error("❌ لم يتم العثور على صورة المنتج.");
-//       return;
-//   }
-
-//   // إنشاء صورة جديدة للطيران
-//   let flyingImg = productImage.cloneNode(true);
-//   flyingImg.style.position = "absolute"; // تغيير إلى absolute
-//   flyingImg.style.zIndex = "1000";
-//   flyingImg.style.width = "50px";
-//   flyingImg.style.height = "50px";
-//   flyingImg.style.transition = "all 1s ease-in-out";
-//   flyingImg.style.opacity = "1"; // تأكد من أن الصورة مرئية
-
-//   // حساب إحداثيات العنصر بالنسبة للصفحة
-//   let rect = productImage.getBoundingClientRect();
-//   let offsetX = window.scrollX;
-//   let offsetY = window.scrollY;
-//   flyingImg.style.left = `${rect.left + offsetX}px`;
-//   flyingImg.style.top = `${rect.top + offsetY}px`;
-
-//   document.body.appendChild(flyingImg);
-
-//   let cartRect = cartIcon.getBoundingClientRect();
-//   let cartOffsetX = window.scrollX;
-//   let cartOffsetY = window.scrollY;
-
-//   // التحريك إلى أيقونة السلة
-//   setTimeout(() => {
-//       flyingImg.style.left = `${cartRect.left + cartOffsetX}px`;
-//       flyingImg.style.top = `${cartRect.top + cartOffsetY}px`;
-//       flyingImg.style.opacity = "0"; // جعل الصورة تختفي عند الوصول إلى السلة
-//   }, 100);
-
-//   // بعد الانتهاء من الأنيميشن، إزالة الصورة
-//   setTimeout(() => {
-//       flyingImg.remove();
-//       updateCartBadge();  // تحديث الرقم في الأيقونة بعد إتمام الأنيميشن
-//   }, 1000);
-// }
-
-// // ✅ تعديل دالة `animateToWishlist` لتحسين الأنيميشن:
-// function animateToWishlist(event) {
-//     let wishlistIcon = document.getElementById("wishlist-icon");
-//     if (!wishlistIcon) {
-//         console.error("❌ لم يتم العثور على أيقونة الـ Wishlist.");
-//         return;
-//     }
-
-//     let heartIcon = event.target.closest(".event").querySelector(".fas.fa-heart");
-//     if (!heartIcon) {
-//         console.error("❌ لم يتم العثور على أيقونة القلب.");
-//         return;
-//     }
-
-//     let flyingHeart = heartIcon.cloneNode(true);
-//     flyingHeart.style.position = "absolute"; // تغيير إلى absolute
-//     flyingHeart.style.zIndex = "1000";
-//     flyingHeart.style.width = "30px";
-//     flyingHeart.style.height = "30px";
-//     flyingHeart.style.transition = "all 1s ease-in-out";
-//     flyingHeart.style.opacity = "1"; // تأكد من أن الصورة مرئية
-
-//     // حساب إحداثيات العنصر بالنسبة للصفحة
-//     let rect = heartIcon.getBoundingClientRect();
-//     let offsetX = window.scrollX;
-//     let offsetY = window.scrollY;
-//     flyingHeart.style.left = `${rect.left + offsetX}px`;
-//     flyingHeart.style.top = `${rect.top + offsetY}px`;
-
-//     document.body.appendChild(flyingHeart);
-
-//     let wishlistRect = wishlistIcon.getBoundingClientRect();
-//     let wishlistOffsetX = window.scrollX;
-//     let wishlistOffsetY = window.scrollY;
-
-//     // التحريك إلى أيقونة الـ Wishlist
-//     setTimeout(() => {
-//         flyingHeart.style.left = `${wishlistRect.left + wishlistOffsetX}px`;
-//         flyingHeart.style.top = `${wishlistRect.top + wishlistOffsetY}px`;
-//         flyingHeart.style.opacity = "0"; // جعل الصورة تختفي عند الوصول إلى الـ Wishlist
-//     }, 100);
-
-//     // بعد الانتهاء من الأنيميشن، إزالة الصورة
-//     setTimeout(() => {
-//         flyingHeart.remove();
-//         updateWishlistBadge();  // تحديث الرقم في الأيقونة بعد إتمام الأنيميشن
-//     }, 1000);
-// }
+  function submitOrder() {
+    const deliveryType = document.querySelector('input[name="delivery"]:checked').value;
+    if (deliveryType === 'home') {
+      const address = document.getElementById('address').value.trim();
+      if (!address) {
+        showPopup('Please enter your delivery address.', false);
+        return;
+      }
+      showPopup(`Order confirmed! Delivery to: ${address}`);
+    } else {
+      showPopup("Order confirmed! Please pick it up from the store.");
+    }
+  }
 
 
 
-
-
-
-
-
-
+  // localStorage.clear();

@@ -8,6 +8,8 @@ window.addEventListener("scroll", () => {
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+document.addEventListener("DOMContentLoaded", function () {
+
 let btn21 = document.getElementById('top-btn');
 
 window.onscroll = function() {
@@ -25,6 +27,8 @@ btn21.onclick = function() {
     behavior: "smooth"
   });
 }
+  });
+
 //  .>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
 
 let products = {
@@ -61,7 +65,7 @@ let products = {
         color: "#9e694d",
         colors: ["red", "blue", "black"] ,
         colorName:"Rustic Clay",
-  
+
       },
       {
         img: "images/clothing16.png",
@@ -79,7 +83,7 @@ let products = {
         color: "#aa9d8a",
         colors: ["red", "blue", "black"] ,
         colorName:"Pale Stone",
-  
+
       },
       {
         img: "images/handbag3.png",
@@ -96,7 +100,7 @@ let products = {
         color: "#d0cac2",
         colors: ["red", "blue", "black"] ,
         colorName:"Misty Beige",
-  
+
       },
       {
         img: "images/clothing12.png",
@@ -111,7 +115,7 @@ let products = {
         longDescription:
           " Upgrade your wardrobe with these classic men's pants, available in four elegant solid colors: navy blue, light blue, black, and beige. Designed for comfort and versatility, they offer a perfect fit for both casual and formal occasions. A must-have staple for a refined and timeless style.",
         ProductCode: "Clot-M-005",
-        color: ["#cfc0a3", "#282e46", "#b2b8b8","#505c4e","#222128"],   
+        color: ["#cfc0a3", "#282e46", "#b2b8b8","#505c4e","#222128"],
         colorNames: ["Pale Gold", "Dark Navy", "Silver Mist", "Olive Green","Dark Plum"], // أسماء الألوان
       },
       {
@@ -160,8 +164,8 @@ let products = {
         longDescription:
           "Upgrade your wardrobe with this unique four-tone men's shirt, designed for both style and functionality. Featuring two convenient side pockets, this shirt blends classic elegance with a modern touch. Perfect for casual and semi-formal occasions, offering comfort and versatility in every wear.",
         ProductCode: "Clot-M-008",
-        color: ["#1c1b1f", "#979ea4", "#8f8061","#555559"],   
-        
+        color: ["#1c1b1f", "#979ea4", "#8f8061","#555559"],
+
         colorNames: ["Deep Charcoal", "Slate Gray", "Golden Taupe", "Olive Gray"], // أسماء الألوان
       },
       {
@@ -194,10 +198,10 @@ let products = {
         longDescription:
           "Discover the ultimate beauty essential with our newly packaged waterproof foundation. Designed for all-day wear, it provides seamless coverage, a smooth finish, and resistance to water and humidity. Perfect for a flawless, long-lasting look in any condition.",
         ProductCode: "Make-W-010",
-        color: ["#F1E1C6", " #D1B29C", " #F1C27D","#D18F6A"," #C97B4F"  ,"#6D4C41"],   
+        color: ["#F1E1C6", " #D1B29C", " #F1C27D","#D18F6A"," #C97B4F"  ,"#6D4C41"],
         colorNames: ["Ivory", "Beige", "Golden Beige", "Tan" ,"Golden Tan" ,"Deep Brown"], // أسماء الألوان
       },
-  
+
       {
         img: "images/Accessories2.png",
         alt: "Accessories4",
@@ -246,7 +250,7 @@ let products = {
         colors: ["red", "blue", "black"] ,
         colorName:"shadowed Forest",
       },
-  
+
       {
         img: "images/Accessories25.png",
         alt: "Accessories25",
@@ -719,8 +723,8 @@ let products = {
         longDescription:
           "These women's formal pants combine comfort with sophistication, making them perfect for both professional and formal occasions. Available in two versatile colors, they provide a flattering fit while maintaining a polished look. Crafted with soft, breathable fabric, they ensure all-day comfort without compromising on style.",
         ProductCode: "Clot-W-041",
-        color: ["#c0c6c8", " #f1ceb1" ],   
-        colorNames: ["Light Slate", "Soft Beige" ],  
+        color: ["#c0c6c8", " #f1ceb1" ],
+        colorNames: ["Light Slate", "Soft Beige" ],
       },
       {
         img: "images/Accessories8.png",
@@ -820,7 +824,7 @@ let products = {
         ProductCode: "Clot-M-047",
         color: "#181311",
         colors: ["red", "blue", "black"] ,
-        colorName:"Espresso Black", 
+        colorName:"Espresso Black",
       },
       {
         img: "images/Accessories20.png",
@@ -1141,9 +1145,9 @@ let products = {
         longDescription:
           "This stylish two-tone skirt offers a modern and distinctive design, with a clean and sleek appearance. Featuring buttons down the center, it adds an element of sophistication and versatility. The unique cut and design make it a perfect choice for those looking for something different and fashionable, ideal for both casual and semi-formal occasions. ",
         ProductCode: "Clot-W-066",
-        color: ["#c2663c", " #feca56"],   
+        color: ["#c2663c", " #feca56"],
         colorNames: ["Copper Orange", "Golden Yellow"], // أسماء الألوان
-        
+
       },
       {
         img: "images/clothing21.png",
@@ -1328,7 +1332,7 @@ let products = {
         color: "#923713",
         colors: ["red", "blue", "black"] ,
         colorName:"Brick Red",
-        
+
       },
       {
         img: "images/clothing37.png",
@@ -1656,7 +1660,7 @@ let products = {
       },
     ],
   };
-  
+
   document.addEventListener("DOMContentLoaded", function () {
     let savedCart = localStorage.getItem("shoppingCart");
     let savedCart1 = localStorage.getItem("cart");
@@ -1668,7 +1672,7 @@ if (savedCart1) {
         shoppingCart = JSON.parse(savedCart);
         displayCartItems(); // تحديث العرض بعد تحميل البيانات المحفوظة
         updateCartIconCount(); // تحديث العدد في أيقونة الكارت
-        
+
     }
 });
 
@@ -1762,7 +1766,7 @@ function addProductToCart(event) {
 
 
 
-function displayCartItems() {  
+function displayCartItems() {
   let cartContainer = document.getElementById("cart-items-container");
 
   if (!cartContainer) {
@@ -1780,8 +1784,8 @@ function displayCartItems() {
       cartContainer.innerHTML = "<p id='empty-cart-message'>No product in the cart</p>";
   } else {
       shoppingCart.items.forEach(item => {
-          let priceValue = parseFloat(item.price.replace("$", ""));  
-          let cartItemElement = document.createElement("div");  
+          let priceValue = parseFloat(item.price.replace("$", ""));
+          let cartItemElement = document.createElement("div");
           cartItemElement.classList.add("cart-item");
           cartItemElement.innerHTML = `
               <img src="${item.img}" alt="${item.title}">
@@ -1830,11 +1834,11 @@ function calculateTotalPrice() {
     }, 0);
 }
 
- 
- 
+
+
 
 function animateProductToCart(event) {
- 
+
   let cartIcon = document.getElementById("cart-icon");
   if (!cartIcon) {
       console.error("❌ لم يتم العثور على أيقونة السلة.");
@@ -1849,7 +1853,7 @@ function animateProductToCart(event) {
       return;
   }
 
- 
+
 
   // إنشاء صورة جديدة للطيران
   let flyingImg = productImage.cloneNode(true);
@@ -1860,7 +1864,7 @@ function animateProductToCart(event) {
   flyingImg.style.transition = "all 1s ease-in-out";
   flyingImg.style.opacity = "1";
   flyingImg.style.pointerEvents = "none"; // للتأكد من أن الصورة لا تتفاعل مع الأحداث أثناء التحرك
-   
+
 
   // حساب إحداثيات صورة المنتج
   let rect = productImage.getBoundingClientRect();
@@ -1875,7 +1879,7 @@ function animateProductToCart(event) {
   let cartRect = cartIcon.getBoundingClientRect();
   let cartOffsetX = window.scrollX;
   let cartOffsetY = window.scrollY;
- 
+
 
   // التحريك إلى أيقونة السلة
   setTimeout(() => {
@@ -1892,7 +1896,7 @@ function animateProductToCart(event) {
 }
 // ==============================================================================
 
- 
+
 function findProductById(productId) {
   console.log("Searching for product with ID:", productId);
   return products.find(product => product.ProductCode === productId);
@@ -1919,7 +1923,7 @@ function addProductToWishlist(event) {
   let existingProduct = wishlist.items.find(item => item.ProductCode === productId);
 
   if (!existingProduct) {
-    wishlist.items.push({ ...product, quantity: 1 });  
+    wishlist.items.push({ ...product, quantity: 1 });
     updateWishlistBadge();  // تحديث العدد فقط عند إضافة منتج جديد
   }
 
@@ -1934,20 +1938,20 @@ function addProductToWishlist(event) {
 }
 
 
-  
+
   function animateProductToWishlist(event) {
     let wishlistIcon = document.getElementById("wishlist-icon");
     if (!wishlistIcon) {
         console.error("❌ لم يتم العثور على أيقونة الـ Wishlist.");
         return;
     }
-  
+
     let heartIcon = event.target.closest(".event")?.querySelector(".fas.fa-heart");
     if (!heartIcon) {
         console.error("❌ لم يتم العثور على أيقونة القلب داخل العنصر المناسب.");
         return;
     }
-  
+
     let flyingHeart = heartIcon.cloneNode(true);
     flyingHeart.style.position = "absolute";
     flyingHeart.style.zIndex = "1000";
@@ -1955,26 +1959,26 @@ function addProductToWishlist(event) {
     flyingHeart.style.height = "30px";
     flyingHeart.style.transition = "all 1s ease-in-out";
     flyingHeart.style.opacity = "1";
-  
+
     // حساب الإحداثيات
     let rect = heartIcon.getBoundingClientRect();
     let offsetX = window.scrollX;
     let offsetY = window.scrollY;
     flyingHeart.style.left = `${rect.left + offsetX}px`;
     flyingHeart.style.top = `${rect.top + offsetY}px`;
-  
+
     document.body.appendChild(flyingHeart);
-  
+
     let wishlistRect = wishlistIcon.getBoundingClientRect();
     let wishlistOffsetX = window.scrollX;
     let wishlistOffsetY = window.scrollY;
-  
+
     setTimeout(() => {
         flyingHeart.style.left = `${wishlistRect.left + wishlistOffsetX}px`;
         flyingHeart.style.top = `${wishlistRect.top + wishlistOffsetY}px`;
         flyingHeart.style.opacity = "0";
     }, 100);
-  
+
     setTimeout(() => {
         flyingHeart.remove();
         updateWishlistIconCount();
@@ -1983,13 +1987,13 @@ function addProductToWishlist(event) {
   function removeFromWishlist(productCode) {
     // 1. إزالة المنتج من القائمة
     wishlist.items = wishlist.items.filter(item => item.ProductCode !== productCode);
-    
+
     // 2. حفظ التغييرات
     saveWishlistToLocalStorage();
-    
+
     // 3. تحديث الواجهة (مع التحقق من وجود العناصر)
     updateWishlistBadge();
-    
+
     // التحقق مما إذا كنا في صفحة الويش ليست
     if (window.location.pathname.includes("wishlist.html")) {
       updateWishlistTable(wishlist.items);
@@ -1997,7 +2001,7 @@ function addProductToWishlist(event) {
       updateWishlistDisplay();
     }
   }
-// ===============================================================  
+// ===============================================================
 
 // تفعيل الأحداث الخاصة بالعدادات عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function () {
@@ -2033,12 +2037,12 @@ document.addEventListener("DOMContentLoaded", function () {
     freeShippingThreshold: 0.00, // الحد الأدنى للشحن المجاني
 };
 
- 
+
   function findProductById(productId) {
     console.log("🔍 البحث عن المنتج:", productId);
-    
+
     let product = products.find(item => item.ProductCode === productId);
-    
+
     if (!product) {
         console.error("❌ المنتج غير موجود في القائمة.");
     }
@@ -2047,7 +2051,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 
- 
+
 function updateQuantity(productCode, delta) {
   let savedShoppingCart = localStorage.getItem("shoppingCart");
   let shoppingCart = savedShoppingCart ? JSON.parse(savedShoppingCart) : { items: [], totalPrice: 0 };
@@ -2074,7 +2078,7 @@ function updateQuantity(productCode, delta) {
 
       // تحديث عرض الكمية في الجدول
       updateCartTable(shoppingCart);
-      
+
       // تحديث الأيقونة في الكارت
       updateCartIconCount();
   }
@@ -2118,7 +2122,7 @@ function setupCounter(product) {
   });
 }
 
- 
+
 
 
 function updateCartSummary() {
@@ -2153,7 +2157,7 @@ function showCartItems() {
 
   cart.items.forEach((product, index) => {
       let pricePerItem = parseFloat(product.price.replace("$", "")); // سعر المنتج الواحد
-  cartItemsList.innerHTML = '';   
+  cartItemsList.innerHTML = '';
 
       let totalProductPrice = pricePerItem * product.quantity; // السعر الإجمالي لهذا المنتج
 
@@ -2162,9 +2166,9 @@ function showCartItems() {
 
       itemDiv.innerHTML = `
           <div class="cart-item">
-              <p><span class="cart-count">${product.quantity}</span> ITEM IN THE CART 
-              (<span class="price">$${pricePerItem.toFixed(2)} × 
-              <span class="counter-value">${product.quantity}</span> = 
+              <p><span class="cart-count">${product.quantity}</span> ITEM IN THE CART
+              (<span class="price">$${pricePerItem.toFixed(2)} ×
+              <span class="counter-value">${product.quantity}</span> =
               $${totalProductPrice.toFixed(2)}</span>)</p>
               <p>Buy for <span class="totalPrice price"> $${totalProductPrice.toFixed(2)}</span> more and get free shipping</p>
           </div>
@@ -2184,18 +2188,18 @@ function showCartItems() {
 // ==========================================================================
 
 
- 
+
     let cartCount = 0;  // المتغير الذي سيحفظ عدد العناصر في السلة
 
- 
+
 
     function addToCart(productId) {
       let savedCart = localStorage.getItem("cart");
       let savedShoppingCart = localStorage.getItem("shoppingCart");
-  
+
       let cart = savedCart ? JSON.parse(savedCart) : null;
       let shoppingCart = savedShoppingCart ? JSON.parse(savedShoppingCart) : null;
-  
+
       // التأكد من أن cart و shoppingCart موجودان ولديهما مصفوفة items
       if (!cart || !Array.isArray(cart.items)) {
           console.error("❌ cart.items غير موجودة أو ليست مصفوفة، سيتم تهيئتها.");
@@ -2205,38 +2209,38 @@ function showCartItems() {
           console.error("❌ shoppingCart.items غير موجودة أو ليست مصفوفة، سيتم تهيئتها.");
           shoppingCart = { items: [], totalPrice: 0 }; // تهيئة shoppingCart
       }
-  
+
       let product = findProductById(productId);
       if (!product) {
           console.error("❌ المنتج غير موجود.");
           return;
       }
-  
+
       let counterInput = document.querySelector(`#counterValue-${productId}`);
       let selectedQuantity = parseInt(counterInput?.value, 10) || 1;
-  
+
       let existingProductInCart = cart.items.find(item => item.ProductCode === productId);
       let existingProductInShoppingCart = shoppingCart.items.find(item => item.ProductCode === productId);
-  
+
       if (existingProductInCart) {
           existingProductInCart.quantity += selectedQuantity;
       } else {
           cart.items.push({ ...product, quantity: selectedQuantity });
       }
-  
+
       if (existingProductInShoppingCart) {
           existingProductInShoppingCart.quantity += selectedQuantity;
       } else {
           shoppingCart.items.push({ ...product, quantity: selectedQuantity });
       }
-  
+
       let priceValue = parseFloat(product.price.replace("$", ""));
       cart.totalPrice += priceValue * selectedQuantity;
       shoppingCart.totalPrice += priceValue * selectedQuantity;
-  
+
       localStorage.setItem("cart", JSON.stringify(cart));
       localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-  
+
       displayCartItems();
       showPopup();
       showCartItems();
@@ -2246,26 +2250,26 @@ function showCartItems() {
       moveProductToCart(productId, event);
       updateCartTable(cart)
   }
-  
-  
-    
+
+
+
     function updateCartBadge() {
       let cartIcon = document.getElementById("cart-icon");
       let cartBadge = cartIcon.querySelector(".badge");
-  
+
       if (!cartBadge) {
           cartBadge = document.createElement("span");
           cartBadge.classList.add("badge");
           cartIcon.appendChild(cartBadge);
       }
-  
+
       let savedCart = localStorage.getItem("cart");
       let cart = savedCart ? JSON.parse(savedCart) : { items: [], totalPrice: 0 };
-  
+
       let totalCartItemsCount = (cart.items || []).reduce((total, item) => total + item.quantity, 0);
       cartBadge.textContent = totalCartItemsCount > 0 ? totalCartItemsCount : 0;
   }
-  
+
   document.addEventListener("DOMContentLoaded", function () {
     let savedCart = localStorage.getItem("cart");
     let savedShoppingCart = localStorage.getItem("shoppingCart");
@@ -2279,7 +2283,7 @@ function showCartItems() {
     updateCartTable(shoppingCart);
     displayCartItems();
     updateCartBadge();
-    updateCartSubtotal();  
+    updateCartSubtotal();
 });
 
 
@@ -2299,41 +2303,41 @@ function removeFromCart(productCode) {
       cart.totalPrice -= parseFloat(removedItem.price.replace("$", "")) * removedItem.quantity;
   }
 
-  
+
   if (productIndexInShoppingCart > -1) {
       let removedItem = shoppingCart.items.splice(productIndexInShoppingCart, 1)[0];
       shoppingCart.totalPrice -= parseFloat(removedItem.price.replace("$", "")) * removedItem.quantity;
   }
 
- 
+
   cart.totalPrice = Math.max(cart.totalPrice, 0);
   shoppingCart.totalPrice = Math.max(shoppingCart.totalPrice, 0);
 
- 
+
   localStorage.setItem("cart", JSON.stringify(cart));
   localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
 
-  
-  displayCartItems();   
+
+  displayCartItems();
   updateCartSubtotal();
-  updateCartIconCount(); 
+  updateCartIconCount();
   updateCartBadge();
-  updateCartTable(shoppingCart);  
+  updateCartTable(shoppingCart);
   updateCartIconCount();
 }
 
-   
+
 function animateToCart(event, productId) {
-       
+
   let productImage = document.getElementById("product-image");
-  
+
   if (!productImage) {
       console.error("❌ لم يتم العثور على صورة المنتج.");
       return;
   }
 
   // نسخ الصورة
-  let clonedImage = productImage.cloneNode(true);  
+  let clonedImage = productImage.cloneNode(true);
 
   // إعداد النسخة للتحريك
   clonedImage.style.position = "fixed";
@@ -2378,31 +2382,31 @@ function updateCartSubtotal() {
   }
 }
 
- 
+
 document.addEventListener("DOMContentLoaded", function () {
   // تحقق من إذا كانت الصفحة هي cart.html
   if (!window.location.pathname.includes("cart.html")) {
-      return; 
+      return;
   }
 
   // جلب البيانات من localStorage
   let savedProducts = localStorage.getItem("products");
-  
- 
+
+
   if (!savedProducts) {
       return;
   }
 
   // تحويل البيانات من JSON إلى كائن
   let products = JSON.parse(savedProducts) || { items: [], totalPrice: 0 };
-  
+
   console.log("✅ المنتجات بعد التحميل:", products);
 
   // تحديث الجدول باستخدام الدالة المحدثة
   updateCartTable(products);
   displayCartItems();
   updateCartBadge();
-  updateCartSubtotal();  
+  updateCartSubtotal();
 });
 
 function updateCartTable(cart) {
@@ -2473,7 +2477,7 @@ function updateCartTable(cart) {
 
 let wishlist = { items: [] };
 
- 
+
 
 function saveWishlistToLocalStorage() {
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
@@ -2512,7 +2516,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // إضافة مستمع للأيقونة الخاصة بالـ Wishlist
   document.querySelectorAll('i.bi-heart').forEach(icon => {
-    icon.addEventListener('click', addToWishlist); 
+    icon.addEventListener('click', addToWishlist);
   });
 });
 
@@ -2543,10 +2547,10 @@ function addToWishlist(event) {
 
 
 function animateToWishlist(event) {
- 
-  let heartIcon = event.currentTarget.querySelector("i");   
-  console.log(heartIcon);  
-  
+
+  let heartIcon = event.currentTarget.querySelector("i");
+  console.log(heartIcon);
+
   if (!heartIcon) {
     console.error("❌ لم يتم العثور على أيقونة القلب.");
     return;
@@ -2558,7 +2562,7 @@ function animateToWishlist(event) {
     return;
   }
 
-  
+
   let flyingHeart = heartIcon.cloneNode(true);
   flyingHeart.style.position = "fixed";
   flyingHeart.style.zIndex = "1000";
@@ -2586,21 +2590,21 @@ function animateToWishlist(event) {
 }
 
 function removeFromWishlist(productCode) {
- 
+
   wishlist.items = wishlist.items.filter(item => item.ProductCode !== productCode);
 
-  
+
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
 
   updateWishlistTable(wishlist.items);
   updateWishlistBadge();
-  updateWishlistDisplay(); 
-} 
- 
- 
+  updateWishlistDisplay();
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
   if (!window.location.pathname.includes("wishlist.html")) {
-      return; 
+      return;
   }
 
   let savedProducts = localStorage.getItem("products");
@@ -2805,7 +2809,7 @@ function updateCartTotals() {
     let totalElement = document.getElementById("cart-total");
 
     if (!cartSubtotalElement || !shippingElement || !totalElement) {
-         
+
         return;
     }
 
@@ -2941,14 +2945,38 @@ function updateQuantity(productCode, delta) {
       // تحديث الجدول
       updateCartTable(cart);
 
-    
+
   }
 }
 
- 
 
+
+
+//popup
+document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.querySelector(".popup");
+    const closePopup = document.querySelector(".close-popup");
+
+    // تحقق إذا كانت هذه أول زيارة للمستخدم
+    if (!localStorage.getItem("popupShown")) {
+      setTimeout(() => {
+        if (popup) {
+          popup.classList.remove("hide-popup"); // إزالة الكلاس الذي يخفي البوب أب
+          localStorage.setItem("popupShown", "true"); // تخزين القيمة بعد ظهور البوب أب فعلًا
+        }
+      }, 1000);
+    }
+
+    // إذا تم النقر على زر الإغلاق، أخفي البوب أب
+    if (popup && closePopup) {
+      closePopup.addEventListener("click", () => {
+        popup.classList.add("hide-popup");  // إخفاء البوب أب بعد الإغلاق
+      });
+
+    }
 //  localStorage.clear(); // لحذف جميع البيانات المخزنة في الـ LocalStorage
 
+  });
 
 
 
@@ -2957,5 +2985,3 @@ function updateQuantity(productCode, delta) {
 
 
 
-
- 
