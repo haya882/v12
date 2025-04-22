@@ -142,7 +142,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="view.html">Products
+                        <a href="{{ route('website.products.index')  }}">Products
                             <span class="toggle" data-target="blog-options">+</span></a>
                         <ul class="submenu" id="blog-options">
                             <li>
@@ -337,7 +337,7 @@
 
             <ul class="nav">
                 <li><a href="{{ route('website.index') }}" class="active">Home</a></li>
-                <li><a href="{{ route('website.view') }}">Products</a></li>
+                <li><a href="{{ route('website.products.index') }}">Products</a></li>
                 <li class="dropdown">
                     <a href="{{ route('website.products.index') }}">Shop <i class="fas fa-chevron-down"></i></a>
                     <div class="mega-menu">

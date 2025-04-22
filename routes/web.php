@@ -25,7 +25,7 @@ Route::get('/wishlist', [WishlistController::class, 'index'])->name('website.wis
 Route::get('/checkout',[OrderController::class,'index'])->name('website.checkout');
 Route::post('/orders/stroe',[OrderController::class,'store'])->name('website.orders.store');
 Route::get('/products/index',[ProductController::class,'index'])->name('website.products.index');
-Route::post('/products/store-review/{id}',[ProductController::class,'storeReview'])->name('website.products.storeReviews');
+Route::post('/products/store-review/{id}',[ProductController::class,'storeRevieew'])->name('website.products.storeReviews');
 Route::get('/products/{id?}',[ProductController::class,'show'])->name('website.products.show');
 // Route::get('/cart', [WebsiteController::class , 'cart'])->name('website.cart');
 
