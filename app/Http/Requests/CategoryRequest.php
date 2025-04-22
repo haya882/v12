@@ -20,10 +20,19 @@ class CategoryRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
-        return [
-          'name'=>'required'
-        ];
+{
+    $rules = [
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+    ];
+    if ($this->isMethod('post')) {
+        $rules['image'] = 'required|image|max:2048';
+    } else {
+        $rules['image'] = 'nullable|image|max:2048';
     }
+
+    return $rules;
+}
+
 
 }

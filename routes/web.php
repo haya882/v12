@@ -4,26 +4,36 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebSiteController;
 use App\Http\Controllers\ProductController;
-// use App\Http\Controllers\DetailsController;
+use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
-
-
-
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WishlistController;
 
 Route::get('/', [WebsiteController::class , 'index'])->name('website.index');
 Route::get('/about', [WebsiteController::class , 'about'])->name('website.about');
-Route::get('/cart', [WebsiteController::class , 'cart'])->name('website.cart');
-Route::get('/checkout', [WebsiteController::class , 'checkout'])->name('website.checkout');
+Route::get('/cart', [CartController::class , 'index'])->name('website.cart.index');
+Route::post('/cart/add', [CartController::class , 'add'])->name('website.cart.add');
+Route::post('/cart/update', [CartController::class, 'update'])->name('website.cart.update');
+Route::post('/cart/remove', [CartController::class , 'remove'])->name('website.cart.remove');
+Route::post('/wishlist/add', [WishlistController::class, 'addToWishlist'])->name('website.wishlist.add');
+Route::post('/wishlist/remove', [WishlistController::class, 'removeFromWishlist'])->name('website.wishlist.remove');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('website.wishlist.index');
+Route::get('/checkout',[OrderController::class,'index'])->name('website.checkout');
+Route::post('/orders/stroe',[OrderController::class,'store'])->name('website.orders.store');
+Route::get('/products/index',[ProductController::class,'index'])->name('website.products.index');
+Route::post('/products/store-review/{id}',[ProductController::class,'storeReview'])->name('website.products.storeReviews');
+Route::get('/products/{id?}',[ProductController::class,'show'])->name('website.products.show');
+// Route::get('/cart', [WebsiteController::class , 'cart'])->name('website.cart');
+
 Route::get('/details', [WebsiteController::class , 'details'])->name('website.details');
-Route::get('/products', [WebsiteController::class , 'products'])->name('website.products');
 Route::get('/view', [WebsiteController::class , 'view'])->name('website.view');
-Route::get('/wishlist', [WebsiteController::class , 'wishlist'])->name('website.wishlist');
 Route::get('/contact', [WebsiteController::class , 'contact'])->name('website.contact');
 
-Route::get('/details/{id}', [DetailsController::class, 'show'])->name('details');
+// Route::get('/details/{id}', [DetailsController::class, 'show'])->name('details');
 
 // Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
 // Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
@@ -53,7 +63,6 @@ Route::name('customer.')->group(function () {
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
-    Route::put('/profile/image', [ProfileController::class, 'updateImage'])->name('admin.profile.update.image');
 });
 
 

@@ -1,4 +1,4 @@
-<x-layout>
+<x-site>
 
 <!-- Start Who we are -->
 
@@ -96,4 +96,4 @@
 
 </html>
 
-</x-layout>
+</x-site>

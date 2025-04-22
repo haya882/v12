@@ -16,7 +16,7 @@ class Cart extends Model
     }
 
     function product() {
-        return $this->belongsT0(product::class)->withDefault();
+        return $this->belongsTo(product::class)->withDefault();
 
     }
 

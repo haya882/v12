@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->double('price',10,3);
-            $table->integer('quantity');
-            $table->double('total',10,3);
+            $table->double('price', 10, 3);
+            $table->integer('quantity')->default(1);
             $table->timestamps();
+            $table->unique(['user_id', 'product_id']);
         });
     }
 

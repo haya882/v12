@@ -6,9 +6,15 @@ use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileRequest;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -16,7 +22,11 @@ class AdminController extends Controller
 {
     function index(): View
     {
-        return view('dashboard.index');
+        $data = [];
+        $data['categories_count'] = Category::count();
+        $data['products_count'] = Product::count();
+        $data['users_count'] = User::count();
+        return view('dashboard.index',$data);
     }
 
     function profile(): View
@@ -24,10 +34,33 @@ class AdminController extends Controller
         return view('dashboard.profile');
     }
 
-    function profile_save(Request $request): RedirectResponse
+    public function updateProfile(ProfileRequest $request)
     {
-        // Implementation for profile save
-        return redirect()->back()->with('success', 'Profile updated successfully');
+        $user = auth()->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->filled('current_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect.']);
+            }
+    
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+        }
+    
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+    
+            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+        }
+    
+        $user->save();
+        session()->flash('success', 'Profile updated successfully!');
+
+        return response()->json(['message' => 'Profile updated successfully!']);
     }
 
     function login(): View
@@ -44,9 +77,8 @@ class AdminController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
             // Check if user is an admin
-            if ($user->type !== 'admin') {
+            if ($user->type !== ('admin') && $user->type !== 'super_admin') {
                 Auth::logout();
                 throw ValidationException::withMessages([
                     'email' => ['These credentials do not have admin access.'],
@@ -103,7 +135,8 @@ class AdminController extends Controller
 
     function orders(): View
     {
-        return view('dashboard.orders');
+        $orders = Order::latest()->paginate();
+        return view('dashboard.orders',compact('orders'));
     }
     
 }

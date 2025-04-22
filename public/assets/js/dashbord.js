@@ -176,6 +176,13 @@ const orders = [{
     });
 });
 
+setTimeout(() => {
+    const toast = document.querySelector('.custom-toast');
+    if (toast) {
+        toast.style.display = 'none';
+    }
+}, 5000);
+
 
 // function clearError(field, baseId = '') {
 //     const id = baseId || field.id.split('Input')[0];

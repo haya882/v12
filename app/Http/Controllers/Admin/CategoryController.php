@@ -6,8 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
-
-
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -40,13 +40,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-          
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'description' => 'required|string',
-        ]);
-
         // استخراج البيانات بدون صورة
         $data = $request->only('name', 'description');
 
@@ -71,8 +64,8 @@ class CategoryController extends Controller
         // إعادة التوجيه مع رسالة نجاح
         return redirect()
             ->route('admin.categories.index')
-            ->with('msg', 'Category added successfully')
-            ->with('type', 'success');
+            ->with('success', 'Category created successfully!');
+
     }
 
 
@@ -96,25 +89,31 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 2MB كحد أقصى
-        ]);
-
-
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('categories', 'public');
-            $category->image = $imagePath;
-        }
-
-        $category->name = $validatedData['name'];
-        $category->description = $validatedData['description'];
+        $category->name = $request->name;
+        $category->description = $request->description;
         $category->save();
-
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully!');
+        if ($request->hasFile('image')) {
+            $oldImage = $category->image()?->first();
+            if ($oldImage && File::exists(public_path('images/' . $oldImage->path))) {
+                File::delete(public_path('images/' . $oldImage->path));
+            }
+            $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $img_name);
+            if ($oldImage) {
+                $oldImage->update([
+                    'path' => $img_name,
+                ]);
+            } else {
+                $category->image()->create([
+                    'path' => $img_name,
+                ]);
+            }
+        }
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('info', 'Category updated successfully!');
     }
 
 
@@ -128,7 +127,7 @@ class CategoryController extends Controller
 
         return redirect()
             ->route('admin.categories.index')
-            ->with('msg', 'Category deleted successfully')
-            ->with('type', 'danger');
+            ->with('success', 'Category deleted successfully!');
+
     }
 }

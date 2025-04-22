@@ -1,20 +1,18 @@
-<x-dashboard>
+<x-dashboard title="All Products">
 
 
-    <h1 style= "top: 10%; left: 17%; position: absolute;">All Products </h1>
-     @if (session()->has('msg'))
-         <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            {{ session('msg') }}
+    {{-- <h1 style= "top: 10%; left: 17%; position: absolute;">All Products </h1> --}}
+    @include('components.alert')
 
-            <a class="back-button" href="{{ route('admin.products.create') }} ">
-                {{-- <button > --}}
-                <i class="fas fa-plus"></i>
-                <span>Add New</span>
-                {{-- </button> --}}
-            </a>
-         </div>
-    @endif
+
+    <a class="back-button" href="{{ route('admin.products.create') }} ">
+        {{-- <button > --}}
+        <i class="fas fa-plus"></i>
+        <span>Add New</span>
+
+        {{-- </button> --}}
+    </a>
+
 
 
 
@@ -36,30 +34,38 @@
                 <tbody>
                     <tr>
                         @forelse($products as $product)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>
-                                <img width="100" class="table-img" src="{{ $product->img_path }}" />
-                            </td>
-                            <td><span class="table-title">{{ $product->name }}</span></td>
-                            <td> ${{ $product->price }}</td>
-                            <td> {{ $product->quantity  }}</td>
-                            <td> {{  $product->role?->name }}</td>
-                            <td class="actions">
-                                <a class="update" href="{{ route('admin.products.edit', $product->id) }}">
-                                    <button><i class="fas fa-edit"></i>Edit</button>
-                                </a>
-                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display: inline; margin-left: 10px;" >
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="" class="delete"><button type="submit" onclick="return confirm('Are You Sure?')"><i class="fas fa-trash"></i>Delete</button></a>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-<td colspan="7" class="text-center "> No Data Found</td>
-                        </tr>
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            <img width="100" height="100" class="table-img" src="{{ $product->img_path }}" />
+                        </td>
+                        <td><span class="table-title">{{ $product->name }}</span></td>
+                        <td> ${{ number_format($product->price,2) }}</td>
+                        <td> {{ $product->quantity }}</td>
+                        <td> {{ $product->role?->name }}</td>
+                        <td class="actions">
+                            <a class="update" href="{{ route('admin.products.gallery', $product->id) }}" style="margin-right: 5px;">
+                                <button type="button">
+                                    <i class="fa-solid fa-images"></i> Gallery
+                                </button>
+                            </a>
+                            <a class="update" href="{{ route('admin.products.edit', $product->id) }}">
+                                <button><i class="fas fa-edit"></i>Edit</button>
+                            </a>
+                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
+                                style="display: inline; margin-left: 5px;">
+                                @csrf
+                                @method('DELETE')
+                                <a href="" class="delete"><button type="submit"
+                                        onclick="return confirm('Are You Sure?')"><i
+                                            class="fas fa-trash"></i>Delete</button></a>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center "> No Data Found</td>
+                    </tr>
                     @endforelse
                 </tbody>
 
@@ -70,5 +76,5 @@
     </section>
 
 
-
+    {{ $products->links() }}
 </x-dashboard>

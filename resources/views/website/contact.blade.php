@@ -1,4 +1,4 @@
-<x-layout>
+<x-site>
 
 
 <!-- start ContactPage -->
@@ -89,5 +89,5 @@
 
 
 
-</x-layout>
+</x-site>
 

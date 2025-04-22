@@ -1,4 +1,4 @@
-<x-layout>
+<x-site>
 
 <!-- start view product -->
 <div class="view" id="product"  style="transform: translateY(7%);">
@@ -57,4 +57,4 @@
 
 
 
-</x-layout>
+</x-site>

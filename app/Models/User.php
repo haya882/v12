@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type'
+        'type',
+        'avatar'
     ];
 
     /**
@@ -46,6 +47,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public const ROLES = [
+        'super_admin' => 'Super Admin',
+        'admin' => 'Admin',
+        'employee' => 'Employee',
+        'customer' => 'Customer',
+    ];
+
+    public function getIsSuperAdminAttribute(): bool
+{
+    return $this->type === 'super_admin';
+}
     function role() {
         return $this->belongsTo(Role::class)->withDefault() ;
     }
@@ -68,6 +81,13 @@ class User extends Authenticatable
     function testimonials() {
         return $this->HasMany(Testimonials::class);
     }
+    public function cart()
+{
+    return $this->hasMany(Cart::class);
+}
+public function wishlist(){
+    return $this->hasMany(Wishlist::class);
+}
  }
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       $products= Product::all();
+       $products= Product::paginate();
        return view('dashboard.products.index',compact('products'));
     }
 
@@ -28,7 +29,8 @@ class ProductController extends Controller
     {
         $categories = Category::select('id','name')->get();
         $product = new product();
-        return view('dashboard.products.create', compact('categories','product'));
+        $genders = Product::GENDERS;
+        return view('dashboard.products.create', compact('categories','product','genders'));
 
     }
 
@@ -39,50 +41,38 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'image'=>'required',
-            'gallery'=>'required',
+            'image' => 'required|image|max:2048',
             'price' => 'required|numeric|min:1|max:99999',
             'gender' => 'required|in:women,men',
             'description' => 'required|string|max:1000',
-            'quantity'=>'required',
-            'category_id'=>'required',
-
+            'quantity' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
         ]);
-
-        // $data = $request->except('_token' , 'image', 'gallery');
-       
-        $product = product::create([
-            'name'=>$request->name,
-            'description'=> $request->description,
-            'price'=>$request->price,
-            'quantity'=>$request->quantity,
-            'category_id'=>$request->category_id,
-
-
+    
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category_id,
+            'gender' => $request->gender,
         ]);
-        // $product = product::create($data);
-
-        //Add image to relation
-        $img_name = rand().time().$request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('images'), $img_name);
-        $product->image()->create([
-            'path' => $img_name,
-        ]);
-
-        foreach($request->gallery as $img) {
-            $img_name = rand().time().$img->getClientOriginalName();
-            $img->move(public_path('images'), $img_name);
+    
+        // Add image to relation
+        if ($request->hasFile('image')) {
+            $img_name = rand() . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('images'), $img_name);
+            
             $product->image()->create([
                 'path' => $img_name,
-                'type'=>'gallery'
+                'type' => 'main',
             ]);
         }
-        
-
+    
         return redirect()
             ->route('admin.products.index')
-            ->with('msg', 'Product added successfully')
-            ->with('type', 'success');
+            ->with('success', 'Product added successfully!');
+           
     }
 
 
@@ -102,8 +92,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::select('id','name')->get();
+        $genders = Product::GENDERS;
 
-        return view('dashboard.products.edit' , compact('product', 'categories'));
+        return view('dashboard.products.edit' , compact('product', 'categories','genders'));
 
     }
 
@@ -112,23 +103,46 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-       
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'description' => 'required|string|min:10',
-        // ]);
-        
-
-
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'price' => 'required|numeric|min:1|max:99999',
+            'quantity' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|max:2048',
+        ]);
+    
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category_id,
+            'gender' => $request->gender,
+        ]);
+    
+        // Replace main image if uploaded
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $product->image = $imagePath;
+            // Delete old image
+            if ($product->image) {
+                $imagePath = public_path('images/' . $product->image->path);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+                $product->image()->delete();
+            }
+    
+            $imgName = rand() . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('images'), $imgName);
+            
+            $product->image()->create([
+                'path' => $imgName,
+                'type' => 'main',
+            ]);
         }
-        $product->name = $request->name ?? $product->name;
-        $product->description =  $request->description ?? $product->description;
-        $product->save();
-
-        return redirect()->route('admin.products.index')->with('success', 'products updated successfully!');
+    
+        return redirect()->route('admin.products.index')
+            ->with('success', 'Product updated successfully!');
     }
 
     /**
@@ -141,18 +155,48 @@ class ProductController extends Controller
             File::delete(public_path('images/' . $product->image->path));
         }
 
-        if ($product->gallery) {
-            foreach ($product->gallery as $img) {
-                File::delete(public_path('images/' . $img->path));
-            }
-        }
+     
         $product->image()->delete();
-        $product->gallery()->delete();
         $product->delete();
 
         return redirect()
             ->route('admin.products.index')
-            ->with('msg', 'Product deleted successfully')
-            ->with('type', 'danger');
+            ->with('success', 'Product deleted successfully!');
     }
+    public function gallery(Product $product)
+{
+    $product->load('gallery');
+    return view('dashboard.products.gallery', compact('product'));
+}
+
+// Upload new images
+public function uploadGallery(Request $request, Product $product)
+{
+    $request->validate([
+        'gallery.*' => 'image|max:2048'
+    ]);
+
+    if ($request->hasFile('gallery')) {
+        foreach ($request->file('gallery') as $img) {
+            $img_name = rand() . time() . $img->getClientOriginalName();
+            $img->move(public_path('images'), $img_name);
+
+            $product->gallery()->create([
+                'path' => $img_name,
+                'type' => 'gallery',
+            ]);
+        }
+    }
+
+    return back()->with('success', 'Images uploaded successfully!');
+}
+
+// Delete image
+public function deleteGalleryImage(Image $image)
+{
+    File::delete(public_path('images/' . $image->path));
+    $image->delete();
+
+    return back()->with('success', 'Image deleted successfully!')->with('type', 'danger');
+}
 }

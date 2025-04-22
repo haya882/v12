@@ -1,20 +1,19 @@
-<x-dashboard>
+<x-dashboard title="All Categories">
 
 
-    <h1 style="top: 10%; left: 17%; position: absolute;">All Categories </h1>
-    @if (session()->has('msg'))
-    <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
-        {{ session('msg') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        <span aria-hidden="true">&times;</span>
+    {{-- <h1 style="top: 10%; left: 17%; position: absolute;">All Categories</h1> --}}
 
-    </div>
-    @endif
+
+@include('components.alert')
+
+
     {{-- </button> --}}
+  
     <a class="back-button" href="{{ route('admin.categories.create') }} ">
         {{-- <button > --}}
         <i class="fas fa-plus"></i>
         <span>Add New</span>
+        
         {{-- </button> --}}
     </a>
 
@@ -39,7 +38,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             @if ($category->image()->first())
-                            <img src="{{ asset('images/' . $category->image()->first()?->path) }}" alt="{{ $category->name }}" style="width: 40px; height: 40px;">
+                            <img src="{{ asset('images/' . $category->image()->first()?->path) }}" alt="{{ $category->name }}" height="100" width="100">
                             @else
                             <span>No Image</span>
                             @endif
@@ -48,14 +47,17 @@
                         <td> {{ $category->products->count() }}</td>
                         <td class="actions">
                             <a class="update" href="{{ route('admin.categories.edit', $category->id) }}">
-                                <i class="fas fa-edit"></i> Edit
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
+                            
                             <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline; margin-left: 10px;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="delete" onclick="return confirm('Are You Sure?')">
-                                    <i class="fas fa-trash"></i> Delete
+                                <a href="" class="delete">
+                                <button type="submit"  onclick="return confirm('Are You Sure?')">
+                                    <i class="fa-solid fa-trash table-trash"></i> Delete
                                 </button>
+                                </a>
                             </form>
                         </td>
                     </tr>
@@ -73,6 +75,7 @@
 
     </section>
 
-    {{-- {{ $categories->links() }} --}}
+    {{ $categories->links() }}
+
 
 </x-dashboard>

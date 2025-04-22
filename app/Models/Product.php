@@ -11,7 +11,11 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    public const  GENDERS =
+    [
+            'men'   => 'Men',
+            'women' => 'Women',
+    ];
     function role() {
         return $this->belongsTo(Category::class ,'category_id')->withDefault() ;
     }
@@ -22,7 +26,7 @@ class Product extends Model
         }
 
         function gallery() {
-            return $this->morphMany(Image::class , 'imageable' )->where('type', 'gallery') ;
+            return $this->morphMany(Image::class , 'imageable' )->where('type', 'gallery')->latest();;
         }
 
         function reviews() {
@@ -36,7 +40,7 @@ class Product extends Model
             $url = 'https://via.placeholder.com/100×80';
             if($this->image) {
                 $url = asset('images/'.
-                $this->image->path);
+                $this->image->path );
             }
             return $url;
         }
