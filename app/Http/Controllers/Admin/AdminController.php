@@ -45,9 +45,8 @@ class AdminController extends Controller
         $user->email = $request->email;
         if ($request->filled('current_password')) {
             if (!Hash::check($request->current_password, $user->password)) {
-                session()->flash('warning', 'Current password is incorrect!');
-                return response()->json(['message' => 'Current password is incorrect!']);
-               
+                
+                return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect.']);
             }
     
             if ($request->filled('password')) {
