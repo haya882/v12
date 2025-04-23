@@ -227,13 +227,13 @@
                             <span class="toggle" data-target="account-options">+</span></a>
                         <ul class="submenu" id="account-options">
                             <li>
-                                <a href="cart.html"><i class="fas fa-chevron-right icon"></i> My Cart</a>
+                                <a href="{{ route('website.cart.index') }}"><i class="fas fa-chevron-right icon"></i> My Cart</a>
                             </li>
                             <li>
-                                <a href="checkout.html"><i class="fas fa-chevron-right icon"></i> My Checkout</a>
+                                <a href="{{ route('website.checkout') }}"><i class="fas fa-chevron-right icon"></i> My Checkout</a>
                             </li>
                             <li>
-                                <a href="wishlist.html"><i class="fas fa-chevron-right icon"></i> My Wishlist</a>
+                                <a href="{{ route('website.wishlist.index') }}"><i class="fas fa-chevron-right icon"></i> My Wishlist</a>
                             </li>
                         </ul>
                     </li>
@@ -455,50 +455,63 @@
         <div class="scroll"></div>
 
         <div class="side">
-            <h3>Product Categories</h3>
-            <ul class="menu" id="mobile-menu">
-                <li><a href="{{ route('website.products.index', ['gender' => 'all']) }}">All</a></li>
-
+            @if ($category)
+            <h3>Products For {{ $category->name }} Category</h3>
+        @else
+            <h3>All Products</h3>
+        @endif
+                 
+              <ul class="menu" id="mobile-menu">
                 <li>
-                    <a href="{{ route('website.products.index', ['gender' => 'women']) }}">Women's <span class="toggle"
-                            data-target="women-options"></span></a>
-
+                    <a
+                        href="{{ route('website.products.index', ['category' => $category?->id, 'gender' => 'all']) }}">All</a>
                 </li>
-                <li>
-                    <a href="{{ route('website.products.index', ['gender' => 'men']) }}">Men's <span class="toggle"
-                            data-target="men-options"></span></a>
 
+                <li>
+                    <a
+                        href="{{ route('website.products.index', ['category' => $category?->id, 'gender' => 'women']) }}">
+                        Women's <span class="toggle" data-target="women-options"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('website.products.index', ['category' => $category?->id, 'gender' => 'men']) }}">
+                        Men's <span class="toggle" data-target="men-options"></span>
+                    </a>
                 </li>
             </ul>
+
 
         </div>
     </div>
 
     <div class="details-products" data-aos="fade-up" data-aos-duration="2000">
-        <div class="container grid" id="product-container">
+        <div class="container grid" >
             @foreach ($products as $product)
-                <div class="image">
-                    <img src="{{ asset($product->img_path) }}" alt="{{ $product->name }}"
-                        style="  width: 100%;height:250px;" /> <!-- Assuming you have an image_path field -->
-                    <div class="content">
-                        <a href="#">{{ $product->category }}</a>
-                        <h2>{{ $product->name }}</h2>
-                        <span>{{ number_format($product->price, 2) }}$</span> <!-- Assuming you have a price field -->
-                    </div>
-                    <div class="event" data-product-id="{{ $product->id }}">
-                        <a onclick="addProductToCart(event)">
-                            <i class="fas fa-cart-plus" data-text="Add To Cart" aria-hidden="true"></i>
-                        </a>
-                        <a onclick="addProductToWishlist(event)" data-product-id="{{ $product->id }}">
-                            <i class="fas fa-heart" data-text="WatchList"></i>
-                        </a>
-                    </div>
-                    @if ($product->discount)
-                        <!-- Assuming you have a discount field -->
-                        <div class="discount">-{{ $product->discount }}%</div>
-                    @endif
+            <div class="image">
+                <a href="{{ route('website.products.show',$product->id) }}">
+                <img src="{{ asset($product->img_path) }}" alt="{{ $product->name }}"
+                    style="  width: 100%;height:250px;" /> <!-- Assuming you have an image_path field -->
+                </a>
+                <div class="content">
+                    <a href="{{ route('website.products.show',$product->id) }}">{{ $product->category }}</a>
+                    <h2>{{ $product->name }}</h2>
+                    <span>{{ number_format($product->price, 2) }}$</span> <!-- Assuming you have a price field -->
                 </div>
-            @endforeach
+                <div class="event" data-product-id="{{ $product->id }}">
+                    <a onclick="addProductToCart(event)">
+                        <i class="fas fa-cart-plus" data-text="Add To Cart" aria-hidden="true"></i>
+                    </a>
+                    <a onclick="addProductToWishlist(event)" data-product-id="{{ $product->id }}">
+                        <i class="fas fa-heart" data-text="WatchList"></i>
+                    </a>
+                </div>
+                @if ($product->discount)
+                    <!-- Assuming you have a discount field -->
+                    <div class="discount">-{{ $product->discount }}%</div>
+                @endif
+            </div>
+        @endforeach
         </div>
         <div class="pagination-container">
             <button id="prev-btn" @if ($products->onFirstPage()) disabled @endif

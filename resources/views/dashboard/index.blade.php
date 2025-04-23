@@ -52,30 +52,42 @@
                 </div>
                 <!--------------- End insights ------------------->
                 <div class="recent-orders">
-                    <h2>Resent Orders</h2>
+                    <h2>Recent Orders</h2>
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Product Name</th>
-                                <th>Product Code</th>
                                 <th>Category</th>
                                 <th>Price</th>
-                                <!-- <th>Product Name</th> -->
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Elegant anklet</td>
-                                <td>Acc-W-065</td>
-                                <td>Accessories</td>
-                                <td class="warning">$25.00</td>
-                                <td class="primary">Details</td>
-                            </tr>
-
+                            @php $i = 1; @endphp
+                            @forelse($recentOrders as $order)
+                                @foreach($order->items as $item)
+                                    <tr>
+                                        <th>{{ $i++ }}</th>
+                                        <td>{{ $item->product->name ?? '—' }}</td>
+                                        <td>{{ $item->product->role->name ?? 'N/A' }}</td>
+                                        <td class="warning">${{ number_format($item->product->price ?? 0, 2) }}</td>
+                                        <td class="primary">
+                                            <a href="{{ route('website.products.show', $item->product_id) }}">Details</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">No recent orders found.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
-                    <a href="#">Show All</a>
+                    <a href="{{ route('admin.orders') }}">Show All</a>
                 </div>
+                
+                
             </main>
             <!----------------End of Main  -------------->
 

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->text('note')->nullable();
             $table->enum('payment_method', ['bank', 'check','paypal']);
-            $table->string('status')->default('pending');
+            $table->enum('status')->default('pending');
             $table->decimal('total', 10, 2);
             $table->timestamps();
         });

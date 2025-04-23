@@ -56,7 +56,7 @@
         <div class="container grid">
             @forelse($categories as $category)
                 <div class="image">
-                    <a href="#">
+                    <a href="{{ route('website.products.index',['category'=> $category->id] ) }}">
                         <img src="{{ asset('images/' . $category->image()->first()?->path) }}"
                             alt="{{ $category->name }}" />
                         <button class="button">{{ $category->name }}</button>
@@ -114,7 +114,7 @@
                     <img src="{{ $product->img_path }}" width="100%" alt="{{ $product->name }}" />
                 </a>
                 <div class="content">
-                    <a href="{{ route('website.products.show',$product->id) }}">Shoes</a>
+                    <a href="{{ route('website.products.show',$product->id) }}">{{ $product->name }}</a>
                     <h2>{{ $product->name }}</h2>
                     <span>${{ number_format($product->price,2) }}</span>
                 </div>

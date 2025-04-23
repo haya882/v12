@@ -7,10 +7,10 @@
     $subtotal = $items->sum(function ($item) {
         return $item->price * $item->quantity;
     });
-    $wishlistItems =  auth()->check()? auth()->user()->wishlist()->with('product')->get() : collect();
+    $wishlistItems = auth()->check() ? auth()->user()->wishlist()->with('product')->get() : collect();
     $subtotalWishlist = $wishlistItems->sum(function ($item) {
-            return $item->product->price;
-        });
+        return $item->product->price;
+    });
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -394,47 +394,47 @@
                 <li><a href="{{ route('website.contact') }}">Contact</a></li>
             </ul>
             <div class="icons">
-              @auth
-                  <div class="user-dropdown">
-                      <a href="#" class="profile-link">
-                          <i class="bi bi-person" id="profile-icon"></i>
-                          <span class="username">{{ Auth::user()->name }}</span>
-                      </a>
-                      <div class="dropdown-content">
-                          <a href="{{ route('website.wishlist.index') }}"><i class="bi bi-heart"></i> My Wishlist</a>
-                          <form action="{{ route('customer.logout') }}" method="POST" class="logout-form">
-                              @csrf
-                              <button type="submit"><i class="bi bi-box-arrow-right"></i> Logout</button>
-                          </form>
-                      </div>
-                  </div>
-              @else
-                  <a href="{{ route('customer.login') }}"><i class="bi bi-person" id="profile-icon"></i></a>
-              @endauth
+                @auth
+                    <div class="user-dropdown">
+                        <a href="#" class="profile-link">
+                            <i class="bi bi-person" id="profile-icon"></i>
+                            <span class="username">{{ Auth::user()->name }}</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="{{ route('website.wishlist.index') }}"><i class="bi bi-heart"></i> My Wishlist</a>
+                            <form action="{{ route('customer.logout') }}" method="POST" class="logout-form">
+                                @csrf
+                                <button type="submit"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('customer.login') }}"><i class="bi bi-person" id="profile-icon"></i></a>
+                @endauth
 
 
-              @include('website.wishlist.wishlist-mnue')
+                @include('website.wishlist.wishlist-mnue')
 
-              @include('website.carts.cart-mnue')
+                @include('website.carts.cart-mnue')
 
 
-              <i class="bi bi-search" id="searchBtn"></i>
-              <div class="search-container">
-                  <div class="boxSearch" id="searchBox">
-                      <input type="text" placeholder="Type your search..." />
-                      <select>
-                          <option value="Category">Select Category</option>
-                          <option value="Bracelets">Bracelets</option>
-                          <option value="clothing">clothing</option>
-                          <option value="Coats & Jackets">Coats & Jackets</option>
-                          <option value=" HandBag">HandBag</option>
-                      </select>
-                      <button id="closeBtn" class="closeBtn">
-                          <i class="fas fa-times"></i>
-                      </button>
-                  </div>
-              </div>
-          </div>
+                <i class="bi bi-search" id="searchBtn"></i>
+                <div class="search-container">
+                    <div class="boxSearch" id="searchBox">
+                        <input type="text" placeholder="Type your search..." />
+                        <select>
+                            <option value="Category">Select Category</option>
+                            <option value="Bracelets">Bracelets</option>
+                            <option value="clothing">clothing</option>
+                            <option value="Coats & Jackets">Coats & Jackets</option>
+                            <option value=" HandBag">HandBag</option>
+                        </select>
+                        <button id="closeBtn" class="closeBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="contact">
                 <a href="https://x.com/Shatha72401840?t=0D6VaDRh-zZ1hF4LdM5J3w&s=35" target="_blank"><i
                         class="fab fa-twitter"></i></a>
@@ -457,67 +457,60 @@
         <div class="side">
             <h3>Product Categories</h3>
             <ul class="menu" id="mobile-menu">
-                <li><a href="{{ route('website.products.index', ['gender' => 'all']) }}">All</a></li>
-
                 <li>
-                    <a href="{{ route('website.products.index', ['gender' => 'women']) }}">Women's <span class="toggle"
-                            data-target="women-options"></span></a>
-
+                    <a
+                        href="{{ route('website.products.index', ['category' => $category?->id, 'gender' => 'all']) }}">All</a>
                 </li>
-                <li>
-                    <a href="{{ route('website.products.index', ['gender' => 'men']) }}">Men's <span class="toggle"
-                            data-target="men-options"></span></a>
 
+                <li>
+                    <a
+                        href="{{ route('website.products.index', ['category' => $category?->id, 'gender' => 'women']) }}">
+                        Women's <span class="toggle" data-target="women-options"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('website.products.index', ['category' => $category?->id, 'gender' => 'men']) }}">
+                        Men's <span class="toggle" data-target="men-options"></span>
+                    </a>
                 </li>
             </ul>
+
 
         </div>
     </div>
 
     <div class="details-products" data-aos="fade-up" data-aos-duration="2000">
         <div class="container grid" id="product-container">
-            @foreach ($products as $product)
-                <div class="image">
-                    <img src="{{ asset($product->img_path) }}" alt="{{ $product->name }}"
-                        style="  width: 100%;height:250px;" /> <!-- Assuming you have an image_path field -->
-                    <div class="content">
-                        <a href="#">{{ $product->category }}</a>
-                        <h2>{{ $product->name }}</h2>
-                        <span>{{ number_format($product->price, 2) }}$</span> <!-- Assuming you have a price field -->
-                    </div>
-                    <div class="event" data-product-id="{{ $product->id }}">
-                        <a onclick="addProductToCart(event)">
-                            <i class="fas fa-cart-plus" data-text="Add To Cart" aria-hidden="true"></i>
-                        </a>
-                        <a onclick="addProductToWishlist(event)" data-product-id="{{ $product->id }}">
-                            <i class="fas fa-heart" data-text="WatchList"></i>
-                        </a>
-                    </div>
-                    @if ($product->discount)
-                        <!-- Assuming you have a discount field -->
-                        <div class="discount">-{{ $product->discount }}%</div>
-                    @endif
-                </div>
-            @endforeach
+           dddddddddddddddddddddddddd
         </div>
+
+        <!-- Pagination -->
         <div class="pagination-container">
-            <button id="prev-btn" @if ($products->onFirstPage()) disabled @endif
-                onclick="window.location='{{ $products->previousPageUrl() }}'">Prev</button>
+            <button id="prev-btn"
+                @if ($products->onFirstPage()) disabled 
+              @else onclick="window.location='{{ $products->previousPageUrl() }}'" @endif>
+                Prev
+            </button>
 
             <div id="pagination-numbers">
                 @for ($i = 1; $i <= $products->lastPage(); $i++)
                     <button @if ($i == $products->currentPage()) class="active" @endif
-                        onclick="window.location='{{ $products->url($i) }}'">{{ $i }}</button>
+                        onclick="window.location='{{ $products->url($i) }}'">
+                        {{ $i }}
+                    </button>
                 @endfor
             </div>
 
             <button id="next-btn"
                 @if ($products->hasMorePages()) onclick="window.location='{{ $products->nextPageUrl() }}'" 
-            @else 
-                disabled @endif>Next</button>
+              @else 
+                  disabled @endif>
+                Next
+            </button>
         </div>
-
     </div>
+
     <!-- End Categories -->
     <div class="popup-overlay1" id="popup1">
         <div class="popup1">

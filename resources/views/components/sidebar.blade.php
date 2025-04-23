@@ -10,23 +10,20 @@
     </div>
 
     <div class="sidebar2">
-        {{-- Public Site --}}
-        <a href="{{ route('website.index') }}" class="menu-item {{ request()->routeIs('website.index') ? 'active' : '' }}">
-            <span class="material-icons-sharp"> grid_view </span>
-            <h3>Site</h3>
-        </a>
+  
+
         {{-- Dashboard --}}
         <a href="{{ route('admin.index') }}" class="menu-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
             <span class="material-icons-sharp"> grid_view </span>
             <h3>Dashboard</h3>
         </a>
         {{-- Users --}}
-        <a href="#" class="menu-item {{ request()->is('admin/users*') ? 'active' : '' }}">
+        <a  href="{{ route('admin.users.index') }}" class="menu-item {{ request()->is('admin/users*') ? 'active' : '' }}">
             <span class="material-icons-sharp"> groups </span>
             <h3>Users</h3>
-            <i class="fas fa-chevron-right icon"></i>
+            {{-- <i class="fas fa-chevron-right icon"></i> --}}
         </a>
-        <ul class="submenu {{ request()->is('admin/users*') ? 'open' : '' }}">
+        {{-- <ul class="submenu {{ request()->is('admin/users*') ? 'open' : '' }}">
             <li>
                 <a href="{{ route('admin.users.index') }}"
                     class="{{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
@@ -39,14 +36,14 @@
                     <span class="material-icons-sharp"> library_add </span> Add New User
                 </a>
             </li>
-        </ul>
+        </ul> --}}
         {{-- Categories --}}
-        <a href="#" class="menu-item {{ request()->is('admin/categories*') ? 'active' : '' }}">
+        <a href="{{ route('admin.categories.index') }}" class="menu-item {{ request()->is('admin/categories*') ? 'active' : '' }}">
             <span class="material-icons-sharp"> sell </span>
             <h3>Categories</h3>
-            <i class="fas fa-chevron-right icon"></i>
+            {{-- <i class="fas fa-chevron-right icon"></i> --}}
         </a>
-        <ul class="submenu {{ request()->is('admin/categories*') ? 'open' : '' }}">
+        {{-- <ul class="submenu {{ request()->is('admin/categories*') ? 'open' : '' }}">
             <li>
                 <a href="{{ route('admin.categories.index') }}"
                     class="{{ request()->routeIs('admin.categories.index') ? 'active' : '' }}">
@@ -59,15 +56,15 @@
                     <span class="material-icons-sharp"> library_add </span> Add New Category
                 </a>
             </li>
-        </ul>
+        </ul> --}}
 
         {{-- Products --}}
-        <a href="#" class="menu-item {{ request()->is('admin/products*') ? 'active' : '' }}">
+        <a  href="{{ route('admin.products.index') }}" class="menu-item {{ request()->is('admin/products*') ? 'active' : '' }}">
             <span class="material-icons-sharp"> favorite </span>
             <h3>Products</h3>
-            <i class="fas fa-chevron-right icon"></i>
+            {{-- <i class="fas fa-chevron-right icon"></i> --}}
         </a>
-        <ul class="submenu {{ request()->is('admin/products*') ? 'open' : '' }}">
+        {{-- <ul class="submenu {{ request()->is('admin/products*') ? 'open' : '' }}">
             <li>
                 <a href="{{ route('admin.products.index') }}"
                     class="{{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
@@ -80,7 +77,7 @@
                     <span class="material-icons-sharp"> add_shopping_cart </span> Add New Product
                 </a>
             </li>
-        </ul>
+        </ul> --}}
 
         {{-- Orders --}}
         <a href="{{ route('admin.orders') }}"
@@ -88,6 +85,14 @@
             <span class="material-icons-sharp"> shopping_cart </span>
             <h3>Orders</h3>
         </a>
+        <a href="" class="menu-item">
+            <span class="material-icons-sharp"> attach_money </span>
+            <h3>Payments</h3>
+          </a>
+          <a href="" class="menu-item">
+            <span class="material-icons-sharp"> groups </span>
+            <h3>Customers</h3>
+          </a>
         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
             @csrf
             <a href="#" class="menu-item" onclick="event.preventDefault(); this.closest('form').submit();">
@@ -95,7 +100,7 @@
                 <h3>Logout</h3>
             </a>
         </form>
-        
+
         {{-- Payments --}}
         {{-- <a href="" class="menu-item">
             <span class="material-icons-sharp"> attach_money </span>

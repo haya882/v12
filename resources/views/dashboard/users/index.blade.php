@@ -35,7 +35,7 @@
                             </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ ucfirst($user->type) }}</td>
+                            <td>{{ ucfirst($user->getRoleLabel()) }}</td>
                             @if(auth()->user()->is_super_admin)
                             <td class="actions">
                                 <a class="update" href="{{ route('admin.users.edit', $user->id) }}">

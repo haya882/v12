@@ -26,6 +26,10 @@ class AdminController extends Controller
         $data['categories_count'] = Category::count();
         $data['products_count'] = Product::count();
         $data['users_count'] = User::count();
+        $data['recentOrders'] = Order::with(['items.product.role'])
+        ->latest()
+        ->take(3)
+        ->get();
         return view('dashboard.index',$data);
     }
 

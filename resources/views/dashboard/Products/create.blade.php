@@ -59,7 +59,7 @@
                                 @foreach ($genders as $value => $label)
                                     <div class="gender">
                                         <input type="radio" id="gender_{{ $value }}" name="gender"
-                                            value="{{ $value }}">
+                                            value="{{ $value }}" @checked($value == old('gender')) >
                                         <label for="gender_{{ $value }}">{{ $label }}</label>
                                     </div>
                                 @endforeach
@@ -94,7 +94,7 @@
                             <div class="form-item">
                                 <div class="input-wrapper" style="position: relative; width: 360px;">
                                     <label>Price</label>
-                                    <input type="number" name="price"
+                                    <input type="number" name="price" value="{{ old('price') }}"
                                         class="form-input @error('price') is-invalid @enderror" />
                                     @error('price')
                                         <div class="alert alert-danger mt-2 p-2">
@@ -110,7 +110,7 @@
                             <div class="form-item">
                                 <div class="input-wrapper" style="position: relative; width: 360px;">
                                     <label>Quantity</label>
-                                    <input type="number" name="quantity"
+                                    <input type="number" name="quantity" value="{{ old('quantity') }}"
                                         class="form-input @error('quantity') is-invalid @enderror" />
                                     @error('quantity')
                                         <div class="alert alert-danger mt-2 p-2">
@@ -128,7 +128,7 @@
                                         class="form-input @error('category_id') is-invalid @enderror">
                                         <option value="">Select</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" @selected($category->id == old('category_id'))>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')

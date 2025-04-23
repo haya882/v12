@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -11,19 +12,34 @@ class ProductController extends Controller
 {
     public function index(Request $request): View
     {
+      
         $query = Product::query();
+        $data = [];
     
+        // Default category to null
+        $category = null;
+    
+        // Filter by gender
         if ($request->has('gender') && $request->gender !== 'all') {
             $query->where('gender', $request->gender);
         }
-
+    
+        // Filter by category and fetch it for the view
         if ($request->has('category') && $request->category !== 'all') {
-            $query->where('category', $request->category);
+            $category = Category::find($request->category);
+            $query->where('category_id', $request->category);
         }
-        $products = $query->paginate(1);
-        $product_categories = Product::GENDERS; 
-        return view('website.products', compact('products', 'product_categories'));
+    
+        // Always pass category (can be null)
+        $data['category'] = $category;
+        $data['products'] = $query->paginate(5);
+        $data['genders'] = Product::GENDERS;
+        $data['categories'] = Category::all();
+
+        return view('website.products.index', $data);
     }
+    
+    
     public function show($id)
 {
     $product = Product::with(['reviews', 'role'])->findOrFail($id);

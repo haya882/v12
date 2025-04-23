@@ -54,6 +54,10 @@ class User extends Authenticatable
         'employee' => 'Employee',
         'customer' => 'Customer',
     ];
+    public function getRoleLabel(): string
+{
+    return self::ROLES[$this->type] ?? 'Unknown';
+}
 
     public function getIsSuperAdminAttribute(): bool
 {

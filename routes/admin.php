@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\OrderController;
 
 // // Admin routes
 // Route::prefix('admin')->name('admin.')->group(function() {
@@ -41,6 +42,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
         Route::put('/profile/update', [AdminController::class, 'updateProfile'])->name('profile.update');
         Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+        Route::put('orders/{order}/{action}', [OrderController::class, 'handleAction'])->name('orders.action');
+
         // Route::get('/payment', [AdminController::class, 'payment'])->name('payment');
 
         Route::resource('categories', CategoryController::class);

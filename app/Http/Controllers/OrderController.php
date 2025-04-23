@@ -102,4 +102,17 @@ class OrderController extends Controller
             return back()->with('error', 'Something went wrong. Please try again.');
         }
     }
+
+    public function handleAction(Order $order, string $action)
+{
+    if (!in_array($action, ['confirm', 'cancel'])) {
+        abort(400, 'Invalid action');
+    }
+
+    $status = $action === 'confirm' ? 'confirmed' : 'canceled';
+    $order->update(['status' => $status]);
+
+    return redirect()->back()->with('success', "Order has been {$status}.");
+}
+
 }
