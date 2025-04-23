@@ -47,20 +47,20 @@ class AdminController extends Controller
             if (!Hash::check($request->current_password, $user->password)) {
                 return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect.']);
             }
-    
+
             if ($request->filled('password')) {
                 $user->password = Hash::make($request->password);
             }
         }
-    
+
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
             }
-    
+
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
         }
-    
+
         $user->save();
         session()->flash('success', 'Profile updated successfully!');
 
@@ -142,5 +142,5 @@ class AdminController extends Controller
         $orders = Order::latest()->paginate();
         return view('dashboard.orders',compact('orders'));
     }
-    
+
 }
