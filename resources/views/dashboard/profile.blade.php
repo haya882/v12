@@ -106,7 +106,8 @@
                     window.location.href = '{{ route('admin.profile') }}';                      
                   },
                   error: function(xhr, status, error) {
-                      console.error('Error:', error);
+                    window.location.href = '{{ route('admin.profile') }}';                      
+
                   }
               });
           }
