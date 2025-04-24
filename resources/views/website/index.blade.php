@@ -75,7 +75,7 @@
     <div class="latest" id="category" data-aos="fade-up" data-aos-duration="2000" style="padding-bottom:0">
         <div class="spacial-content">
             <h1 id="font" >Explore our collections</h1>
-          
+
         </div>
         <h2 class="category-title" style="margin-top: 0px">For Women's</h2>
         <div class="container grid" style="margin-top: 10px" id="product-container">
@@ -105,7 +105,7 @@
         </div>
     </div>
     <div class="latest"  data-aos="fade-up" data-aos-duration="2000">
-        
+
         <h2 class="category-title">For Men's</h2>
         <div class="container grid" style="margin-top: 10px" id="product-container">
             @foreach ($men_products as $product)
@@ -130,7 +130,7 @@
 
             </div>
             @endforeach
-            
+
         </div>
     </div>
     <!-- <div class="pagination-container">

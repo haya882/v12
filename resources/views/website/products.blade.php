@@ -488,7 +488,7 @@
         <!-- Pagination -->
         <div class="pagination-container">
             <button id="prev-btn"
-                @if ($products->onFirstPage()) disabled 
+                @if ($products->onFirstPage()) disabled
               @else onclick="window.location='{{ $products->previousPageUrl() }}'" @endif>
                 Prev
             </button>
@@ -503,14 +503,15 @@
             </div>
 
             <button id="next-btn"
-                @if ($products->hasMorePages()) onclick="window.location='{{ $products->nextPageUrl() }}'" 
-              @else 
+                @if ($products->hasMorePages()) onclick="window.location='{{ $products->nextPageUrl() }}'"
+              @else
                   disabled @endif>
                 Next
             </button>
         </div>
     </div>
 
+    
     <!-- End Categories -->
     <div class="popup-overlay1" id="popup1">
         <div class="popup1">
