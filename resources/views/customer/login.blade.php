@@ -23,10 +23,13 @@
      crossorigin="anonymous"
    ></script>
    <!-- Bootstrap link -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
    <link
      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
      rel="stylesheet"
    />
+
 
  <style>
     .alert {
@@ -45,6 +48,7 @@
         margin: 5px 0;
     }
 </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 
 <script>
 
@@ -115,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <button type="submit" class="login-btn animation" style="--i:4; --j:24;">Log In</button>
         <div class="login-register animation" style="--i:5; --j:25;">
-          <p>Don't Have An Account?<a href="#" class="register-link ">Sign Up</a></p>
+          <p>Don't Have An Account?<a href="javascript:;" class="register-link ">Sign Up</a></p>
         </div>
       </form>
     </div>
@@ -125,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
     <div class="form-box register">
-      <h2 class="animation "  style="--i:17;--j:0;">Sign Up</h2>
+      <h2 class="animation "   style="--i:17;--j:0; margin-top:-35px;">Sign Up</h2>
       <form action="{{ route('customer.register') }}" method="POST">
         @csrf
         @if ($errors->any())
@@ -166,8 +170,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         </div>
         <button type="submit" class="login-btn animation"  style="--i:23; --j:6;">Register</button>
-        <div class="login-register animation"  style="--i:24; --j:7;">
-          <p>Already Have An Account?<a href="#" class="login-link ">Log In</a></p>
+        <div class="login-register animation" style="--i:23; --j:6;">
+          <p>Already Have An Account?<a href="javascript:;" class="login-link ">Log In</a></p>
         </div>
       </form>
     </div>
@@ -184,5 +188,57 @@ document.addEventListener("DOMContentLoaded", function () {
   <script src="{{ asset('js/loading.js') }}"></script>
 
 <script src="{{ asset('js/main.js') }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+     toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "timeOut": "3000",
+    };
+    // Login Form Submit
+    $(".form-box.login form").on("submit", function (e) {
+      e.preventDefault();
+      let $form = $(this);
+      $.ajax({
+        type: $form.attr("method"),
+        url: $form.attr("action"),
+        data: $form.serialize(),
+        success: function (response) {
+          toastr.success("Login successful");
+          setTimeout(() => {
+            window.location.href = "{{ route('website.index') }}"; 
+          }, 2000);
+        },
+        error: function (xhr) {
+          toastr.error("Login failed. Please check your credentials.");
+        }
+      });
+    });
+  
+    // Register Form Submit
+    $(".form-box.register form").on("submit", function (e) {
+      e.preventDefault();
+      let $form = $(this);
+      $.ajax({
+        type: $form.attr("method"),
+        url: $form.attr("action"),
+        data: $form.serialize(),
+        success: function (response) {
+          toastr.success("Registration successful!");
+          setTimeout(() => {
+            window.location.href = "{{ route('website.index') }}"; // Change to your target URL
+          }, 2000);
+        },
+        error: function (xhr) {
+          toastr.error("Registration failed. Please check your info.");
+        }
+      });
+    });
+  });
+  </script>
+  
   </body>
 </html>

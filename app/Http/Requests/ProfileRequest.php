@@ -9,7 +9,6 @@ class ProfileRequest extends FormRequest
     {
         return true; // Allow all users to make this request
     }
-
     public function rules()
     {
         return [

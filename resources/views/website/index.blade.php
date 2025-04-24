@@ -72,7 +72,7 @@
     <!-- end view product -->
     <!-- Start Categories -->
 
-    <div class="latest" id="category" data-aos="fade-up" data-aos-duration="2000" style="padding-bottom:0">
+    <div class="latest"  data-aos="fade-up" data-aos-duration="2000" style="padding-bottom:0">
         <div class="spacial-content">
             <h1 id="font" >Explore our collections</h1>
 
@@ -83,10 +83,10 @@
 
             <div class="image">
                 <a href="{{ route('website.products.show',$product->id) }}">
-                    <img src="{{ $product->img_path }}" width="100%" alt="{{ $product->name }}"  />
+                    <img src="{{ $product->img_path }}" width="274px" height="274px" alt="{{ $product->name }}" />
                 </a>
                 <div class="content">
-                    <a href="products.html?category=Shoes">Shoes</a>
+                    <a href="{{ route('website.products.show',$product->id) }}">{{ $product->role->name }}</a>
                     <h2>{{ $product->name }}</h2>
                     <span>${{number_format($product->price,2) }}</span>
                 </div>
@@ -111,10 +111,10 @@
             @foreach ($men_products as $product)
             <div class="image">
                 <a href="{{ route('website.products.show',$product->id) }}">
-                    <img src="{{ $product->img_path }}" width="100%" alt="{{ $product->name }}" />
+                    <img src="{{ $product->img_path }}" width="274px" height="274px" alt="{{ $product->name }}" />
                 </a>
                 <div class="content">
-                    <a href="{{ route('website.products.show',$product->id) }}">{{ $product->name }}</a>
+                    <a href="{{ route('website.products.show',$product->id) }}">{{ $product->role->name }}</a>
                     <h2>{{ $product->name }}</h2>
                     <span>${{ number_format($product->price,2) }}</span>
                 </div>
